@@ -1,0 +1,19 @@
+{
+  "name": "experiment-server",
+  "version": "1.0.0",
+  "description": "Server used to host the experiments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ak-uow/dissertation-experiment-server.git"
+  },
+  "author": "Andrew Keats",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ak-uow/dissertation-experiment-server/issues"
+  },
+  "homepage": "https://github.com/ak-uow/dissertation-experiment-server#readme"
+}
