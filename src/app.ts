@@ -8,7 +8,10 @@ import sassMiddleware from 'node-sass-middleware';
 
 import indexRouter from './routes/index';
 import setRedirectRoute from './routes/setRedirect';
-//import * as redirectRoute from './routes/setRedirect';
+import {getRedirectVal} from "./routes/setRedirect";
+import redirectRouteBuilder from './routes/redirect';
+
+const redirectRoute = redirectRouteBuilder(getRedirectVal);
 
 const app: Express.Express = express();
 
@@ -30,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/setredirect', setRedirectRoute);
+app.use('/redirect', redirectRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
