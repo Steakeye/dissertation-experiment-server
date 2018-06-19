@@ -10,6 +10,7 @@ import indexRouter from './routes/index';
 import setRedirectRoute from './routes/setRedirect';
 import {getRedirectVal} from "./routes/setRedirect";
 import redirectRouteBuilder from './routes/redirect';
+import experimentRouter from './routes/exp';
 
 const redirectRoute = redirectRouteBuilder(getRedirectVal);
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/setredirect', setRedirectRoute);
 app.use('/redirect', redirectRoute);
+app.use('/exp', experimentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
