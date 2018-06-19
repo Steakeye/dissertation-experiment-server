@@ -7,7 +7,7 @@ const router: Express.Router = express.Router();
 router.get('/:exp', function(req, res, next) {
   const expVal: number | null = req.params.exp;
 
-  res.render(`exp/${expVal}`, { title: 'Test runner' });
+  res.render(`exp/${expVal}`, { title: 'Test' });
 });
 
 export default router;
