@@ -7,7 +7,8 @@
     "dev": "NODE_ENV=development && nodemon ./bin/www",
     "babel-build-scripts": "./node_modules/.bin/babel build-scripts --out-dir build-scripts-es5",
     "copy-views": "node build-scripts/copy-views.js",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "tsc-watch": "tsc --watch"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -31,6 +32,8 @@
     "rimraf": "^2.6.2"
   },
   "babel": {
-    "presets": ["env"]
+    "presets": [
+      "env"
+    ]
   }
 }
