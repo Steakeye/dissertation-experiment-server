@@ -1,0 +1,78 @@
+//Global vars
+$sunburst-color1: darkorange;
+$sunburst-color2: orange;
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  .outer {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .inner {
+    width: 300%;
+    height: 300%;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    animation: spin 30s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  .gradient-wrap {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+
+    &:last-child {
+      transform: rotate(180deg);
+    }
+  }
+
+  /*.gradient {
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(180deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(170deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(160deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(150deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(140deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(130deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(120deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(110deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(100deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(90deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(80deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(70deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(60deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(50deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(40deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(30deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(20deg, transparent 50%, darkorange 50%, darkorange 100%),
+    linear-gradient(10deg, transparent 50%, orange 50%, orange 100%),
+    linear-gradient(0deg, transparent 50%, darkorange 50%, darkorange 100%);
+  }*/
+  /*.gradient {
+    width: 100%;
+    height: 200%;
+    $i: 170;
+    @while $i > 0 {
+    linear-gradient($i deg, transparent 50%, $sunburst-color2 50%, $sunburst-color2 100%),
+      $i: $i - 10;
+    }
+  }*/
+}

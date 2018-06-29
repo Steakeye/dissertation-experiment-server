@@ -9,7 +9,7 @@ const targetPath = '../public/';
 const bulmaCss = `${cssPathFragment}bulma.css`;
 const bulmaCssSourcePath = `${nodeLibsPath}bulma/${bulmaCss}`;
 
-const sourceDir = path.join(__dirname, bulmaCssSourcePath);
+const bulmaSourceDir = path.join(__dirname, bulmaCssSourcePath);
 
 console.log("Removing existing css assets in public folder");
 
@@ -17,13 +17,25 @@ fsExtra.removeSync(path.join(__dirname, `${targetPath}${cssPathFragment}`));
 
 console.log("Attempting to copying css assets to build folder");
 
-/*fsExtra.pathExists(sourceDir).then((val) => {
+fsExtra.copySync(bulmaSourceDir, path.join(__dirname, `${targetPath}${bulmaCss}`));
+
+/*fsExtra.pathExists(bulmaSourceDir).then((val) => {
     console.log(val);
 }).catch((val) => {
     console.log(val);
 });*/
 
-fsExtra.copySync(sourceDir, path.join(__dirname, `${targetPath}${bulmaCss}`));
+const assetsLibsPath = "../assets/";
+const sassPathFragment = "scss/";
+const customSassFragment = `${sassPathFragment}custom.scss`;
+const customSassPath = `${assetsLibsPath}${sassPathFragment}`;
+const sassSourceDir = path.join(__dirname, customSassPath);
+
+console.log("Removing existing scss assets in public folder");
+
+fsExtra.removeSync(path.join(__dirname, `${targetPath}${sassPathFragment}`));
+
+fsExtra.copySync(sassSourceDir, path.join(__dirname, `${targetPath}${sassPathFragment}`));
 
 console.log("Removing existing js assets in public folder");
 
