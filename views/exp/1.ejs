@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <%- include('../includes/head'); %>
+  <%- include('./includes/head'); %>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">
+          <%= title %>
+        </h1>
+        <p class="subtitle">
+          Welcome to <strong><%= title %></strong>!
+        </p>
+      </div>
+    </section>
   </body>
 </html>

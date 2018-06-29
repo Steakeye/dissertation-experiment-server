@@ -6,10 +6,10 @@ const router = express.Router();
 
 let redirectVal: number | null = null;
 
-function handleUpdateVal(req : Express.Request, res : Express.Response, valUnWrapper: (req : Express.Request) => number | null) {
+function handleUpdateVal(req : Express.Request, res : Express.Response, valUnWrapper: (req : Express.Request) => number | null, allowNull: boolean = false) {
     const updateVal = valUnWrapper(req);
 
-    if (updateVal) {
+    if (updateVal || allowNull) {
         res.send(`Set redirect to ${updateVal}`);
         redirectVal = updateVal;
     } else {
@@ -38,6 +38,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/:exp', function(req, res, next) {
     handleUpdateVal(req, res, getValFromParams);
+});
+
+router.delete('/', function(req, res, next) {
+    handleUpdateVal(req, res, (req: Express.Request) => { return null; }, true);
 });
 
 export function getRedirectVal() {
