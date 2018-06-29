@@ -20,17 +20,22 @@
     "ejs": "~2.5.7",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
+    "lodash": "^4.17.10",
     "morgan": "~1.9.0",
-    "node-sass-middleware": "0.11.0"
+    "node-sass-middleware": "0.11.0",
+    "sizzle": "^2.3.3",
+    "window-load": "^1.0.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.1",
     "@types/createjs": "0.0.29",
     "@types/express": "^4.16.0",
     "@types/http-errors": "^1.6.1",
+    "@types/lodash": "^4.14.110",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.3.3",
     "@types/node-sass-middleware": "0.0.30",
+    "@types/sizzle": "^2.3.1",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "fs-extra": "^6.0.1",
