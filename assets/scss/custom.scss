@@ -9,7 +9,7 @@ $sunburst-color2: orange;
   $current-color: $color1;
 
   @while $i >= 0 {
-    $bg: $bg + "linear-gradient(" + $i + "deg, transparent 50 %, " + $current-color + " 50 %, " + $current-color + " 100 %),";
+    $bg: $bg + 'linear-gradient(#{$i} deg, transparent 50 %, #{$current-color} 50 %, #{$current-color} 100 %),';
     $i:$i - $deg;
 
     $current-color : if($current-color == $color1, $color2, $color1);
@@ -30,16 +30,16 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-  }
 
-  .inner {
-    width: 300%;
-    height: 300%;
-    position: absolute;
-    top: 50%;
-    left: 35%;
-    transform: translate(-50%, -50%);
-    animation: spin 30s linear infinite;
+    .inner {
+      width: 300%;
+      height: 300%;
+      position: absolute;
+      top: 50%;
+      left: 35%;
+      transform: translate(-50%, -50%);
+      animation: spin 30s linear infinite;
+    }
   }
 
   @keyframes spin {
