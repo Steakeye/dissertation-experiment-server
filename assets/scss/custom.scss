@@ -20,6 +20,29 @@ $sunburst-color2: orange;
   @return unquote(str_slice($bg, 0, $punultimate-idx));
 }
 
+
+@mixin copy-type {
+  font-family: 'Montserrat', sans-serif;
+}
+
+@mixin title-type {
+  font-family: 'Fugaz One', cursive;
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+html {
+  @include copy-type;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -31,44 +54,66 @@ html, body {
   padding: 0;
 }
 
-.starburst.outer {
+.sunburst.outer {
   height: 100%;
   overflow: hidden;
-  width: 100%;
   position: absolute;
+  width: 100%;
 
   .inner {
-    animation: spin 30s linear infinite;
+    animation: spin 45s linear infinite paused;
     height: 300%;
     left: 50%;
     position: absolute;
     top: 44%;
     transform: translate(-50%, -50%);
     width: 300%;
+
+    &.animated {
+      animation-play-state: running;
+    }
+
+    .gradient-wrap {
+      height: 50%;
+      overflow: hidden;
+      width: 100%;
+
+      &:last-child {
+        transform: rotate(180deg);
+      }
+    }
+
+    .gradient {
+      background: do-background($sunburst-color1, $sunburst-color2, 10);
+      height: 200%;
+      width: 100%;
+    }
   }
 }
 
-@keyframes spin {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
+.starburst {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 
-.gradient-wrap {
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
-
-  &:last-child {
-    transform: rotate(180deg);
+  ::before,
+  ::after {
+    background: inherit;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
   }
-}
 
-.gradient {
-  width: 100%;
-  height: 200%;
-  background: do-background($sunburst-color1, $sunburst-color2, 10);
+  ::before {
+    transform: rotate(30deg);
+  }
+
+  ::after {
+    transform: rotate(-30deg);
+  }
 }
