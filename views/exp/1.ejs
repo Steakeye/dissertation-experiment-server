@@ -2,8 +2,19 @@
 <html>
   <%- include('./includes/head'); %>
   <body>
-    <section class="section">
-      <div class="container">
+  <main>
+  <section class="section pad-0">
+    <div id="bg-sunburst" class="starburst outer">
+      <div class="inner">
+        <div class="gradient-wrap">
+          <div class="gradient"></div>
+        </div>
+        <div class="gradient-wrap">
+          <div class="gradient"></div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
         <h1 class="title">
           <%= title %>
         </h1>
@@ -12,6 +23,7 @@
         </p>
       </div>
     </section>
-    <%- include('./includes/footer-scripts'); %>
+  </main>
+  <%- include('./includes/footer-scripts'); %>
   </body>
 </html>
