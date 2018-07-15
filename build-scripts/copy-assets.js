@@ -3,6 +3,8 @@ const path = require("path");
 
 const jsPathFragment = 'js/';
 const cssPathFragment = 'css/';
+const imgPathFragment = 'img/';
+const otherPathFragment = 'other/';
 const nodeLibsPath = "../node_modules/";
 const targetPath = '../public/';
 
@@ -19,15 +21,8 @@ console.log("Attempting to copying css assets to build folder");
 
 fsExtra.copySync(bulmaSourceDir, path.join(__dirname, `${targetPath}${bulmaCss}`));
 
-/*fsExtra.pathExists(bulmaSourceDir).then((val) => {
-    console.log(val);
-}).catch((val) => {
-    console.log(val);
-});*/
-
 const assetsLibsPath = "../assets/";
 const sassPathFragment = "scss/";
-const customSassFragment = `${sassPathFragment}custom.scss`;
 const customSassPath = `${assetsLibsPath}${sassPathFragment}`;
 const sassSourceDir = path.join(__dirname, customSassPath);
 
@@ -47,6 +42,28 @@ const createJSSourcePath = path.join(__dirname, `${nodeLibsPath}createjs/builds/
 console.log("Attempting to copying js assets to build folder");
 
 fsExtra.copySync(createJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${createJSLibFile}`));
+
+console.log("Removing existing img assets in public folder");
+
+fsExtra.removeSync(path.join(__dirname, `${targetPath}${imgPathFragment}`));
+
+const imgPath = `${assetsLibsPath}${imgPathFragment}`;
+const imgSourceDir = path.join(__dirname, imgPath);
+
+console.log("Attempting to copying img assets to build folder");
+
+fsExtra.copySync(imgSourceDir, path.join(__dirname, `${targetPath}${imgPathFragment}`));
+
+console.log("Removing existing other assets in public folder");
+
+fsExtra.removeSync(path.join(__dirname, `${targetPath}${otherPathFragment}`));
+
+const otherPath = `${assetsLibsPath}${otherPathFragment}`;
+const otherSourceDir = path.join(__dirname, otherPath);
+
+console.log("Attempting to copying other assets to build folder");
+
+fsExtra.copySync(otherSourceDir, path.join(__dirname, `${targetPath}${otherPathFragment}`));
 
 console.log("Copying assets complete!");
 

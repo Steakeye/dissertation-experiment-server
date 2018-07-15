@@ -1,6 +1,7 @@
 //Global vars
 $sunburst-color1: darkorange;
 $sunburst-color2: orange;
+$text-color-primary: black;
 
 
 @function do-background($color1, $color2, $deg) {
@@ -27,6 +28,7 @@ $sunburst-color2: orange;
 
 @mixin title-type {
   font-family: 'Fugaz One', cursive;
+  color: $text-color-primary;
 }
 
 @keyframes spin {
@@ -52,6 +54,10 @@ html, body {
 
 .pad-0 {
   padding: 0;
+}
+
+h1, h2, h3 {
+  @include title-type;
 }
 
 .sunburst.outer {

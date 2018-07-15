@@ -15,13 +15,14 @@
       </div>
     </div>
     <div class="container">
-        <h1 class="title">
+        <!--h1 class="title">
           <%= title %>
         </h1>
         <p class="subtitle">
           Welcome to <strong><%= title %></strong>!
-        </p>
-      </div>
+        </p-->
+        <%- include('./includes/steps/thank-you', { order: 0 }); %>
+    </div>
     </section>
   </main>
   <%- include('./includes/footer-scripts'); %>
