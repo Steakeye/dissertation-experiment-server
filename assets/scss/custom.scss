@@ -31,6 +31,13 @@ $text-color-primary: black;
   color: $text-color-primary;
 }
 
+@mixin full-screen {
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+
 @keyframes spin {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -60,11 +67,12 @@ h1, h2, h3 {
   @include title-type;
 }
 
+.section .step {
+  @include full-screen;
+}
+
 .sunburst.outer {
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-  width: 100%;
+  @include full-screen;
 
   .inner {
     animation: spin 45s linear infinite paused;
