@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <%- include('./includes/head'); %>
+  <body>
+  <main>
+  <section class="section pad-0">
+    <div id="bg-sunburst" class="sunburst outer">
+      <div class="inner">
+        <div class="gradient-wrap">
+          <div class="gradient"></div>
+        </div>
+        <div class="gradient-wrap">
+          <div class="gradient"></div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <%- include('./includes/steps/thank-you', { order: 0 }); %>
+      <%- include('./includes/steps/play-ar', { order: 1 }); %>
+      <%- include('./includes/steps/ar-game', { order: 2 }); %>
+      <%- include('./includes/steps/well-done', { order: 3 }); %>
+      <%- include('./includes/steps/sign-up', { order: 4 }); %>
+      <%- include('./includes/steps/share-with-friends', { order: 5 }); %>
+      <%- include('./includes/steps/social-media', { order: 6 }); %>
+      <%- include('./includes/steps/amazing', { order: 7 }); %>
+    </div>
+    </section>
+  </main>
+  <%- include('./includes/footer-scripts'); %>
+  </body>
+</html>
