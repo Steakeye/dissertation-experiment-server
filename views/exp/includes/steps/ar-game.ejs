@@ -2,7 +2,7 @@
     let isCurrent = false;
 } %>
 
-<section id="ar-game" data-order="<%= order %>" class="<%= (typeof isCurrent === 'undefined' || !isCurrent) ? 'is-hidden': '' %>">
+<section id="ar-game" data-order="<%= order %>" class="step<%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
     <h1>Play The Tune!</h1>
     <!-- a-frame goes here -->
 </section>
