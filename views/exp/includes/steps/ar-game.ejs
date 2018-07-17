@@ -1,4 +1,8 @@
-<section id="ar-game" data-order="<%= order %>">
+<% if(isCurrent == undefined) {
+    let isCurrent = false;
+} %>
+
+<section id="ar-game" data-order="<%= order %>" class="<%= (typeof isCurrent !== undefined || !isCurrent) ? '': 'is-hidden' %>">
     <h1>Play The Tune!</h1>
     <!-- a-frame goes here -->
 </section>
