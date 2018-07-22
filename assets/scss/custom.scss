@@ -207,6 +207,18 @@ h1, h2, h3 {
   }
 }
 
+@keyframes animExitTitleToBottom {
+  100% {
+    bottom: -1.5em;
+  }
+}
+
+@keyframes animExitBottleToTop {
+  100% {
+    top: -95vw;
+  }
+}
+
 #thank-you {
   h1 {
     animation: running animFlipTitle ease-in-out .5s;
@@ -215,5 +227,15 @@ h1, h2, h3 {
   &.pre-anim {
     animation-play-state: paused;
     transform: rotateX(90deg);
+  }
+
+  &.hide {
+    h1 {
+      animation: forwards ease-in-out animExitTitleToBottom .25s;
+    }
+
+    .bottle {
+      animation: forwards ease-in-out animExitBottleToTop .5s;
+    }
   }
 }

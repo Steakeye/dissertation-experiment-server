@@ -11,7 +11,8 @@
     "copy-files-build": "npm run copy-views && npm run copy-assets",
     "tsc": "tsc",
     "tsc-watch": "tsc --watch",
-    "tsc-client": "tsc --project tsconfig-client.json"
+    "tsc-client": "tsc --project tsconfig-client.json",
+    "build-all": "npm run tsc && npm run copy-files-build && npm run tsc-client"
   },
   "dependencies": {
     "bulma": "^0.7.1",
