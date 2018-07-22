@@ -3,6 +3,8 @@ $sunburst-color1: darkorange;
 $sunburst-color2: orange;
 $text-color-primary: black;
 
+$title-margin-bottom: 1em;
+
 
 @function do-background($color1, $color2, $deg) {
   $i: 180 - $deg;
@@ -133,11 +135,10 @@ h1, h2, h3 {
   @include full-screen;
 
   h1 {
-    //font-size: 48px;
     font-size: 13.333vw;
     text-align: center;
     position: absolute;
-    bottom: 1em;
+    bottom: $title-margin-bottom;
     width: 100%;
     text-shadow: white 0 2pt 2pt;
   }
@@ -181,14 +182,9 @@ h1, h2, h3 {
     }
 
     &.shake-0 {
-      /*animation: animBottleShake0 alternate .25s;
-      animation-iteration-count: 4;*/
-      //transform-origin: 50% 50%;
       @include shakeProps(animBottleShake0)
     }
     &.shake-1 {
-      /*animation: animBottleShake0 alternate .25s;
-      animation-iteration-count: 4;*/
       @include shakeProps(animBottleShake1)
     }
 
@@ -197,4 +193,27 @@ h1, h2, h3 {
 
 #ad-steps {
   position: initial;
+}
+
+
+@keyframes animFlipTitle {
+  0% {
+    transform: rotateX(90deg);
+    bottom: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    bottom: $title-margin-bottom;
+  }
+}
+
+#thank-you {
+  h1 {
+    animation: running animFlipTitle ease-in-out .5s;
+  }
+
+  &.pre-anim {
+    animation-play-state: paused;
+    transform: rotateX(90deg);
+  }
 }
