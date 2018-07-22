@@ -67,23 +67,6 @@ h1, h2, h3 {
   @include title-type;
 }
 
-.section .step {
-  @include full-screen;
-
-  h1 {
-    //font-size: 48px;
-    font-size: 13.333vw;
-    text-align: center;
-    position: absolute;
-    bottom: 2em;
-    width: 100%;
-  }
-
-  .bottle {
-    height: 100vw;
-    max-width: none;
-  }
-}
 
 .sunburst.outer {
   @include full-screen;
@@ -143,6 +126,72 @@ h1, h2, h3 {
 
   ::after {
     transform: rotate(-30deg);
+  }
+}
+
+.section .step {
+  @include full-screen;
+
+  h1 {
+    //font-size: 48px;
+    font-size: 13.333vw;
+    text-align: center;
+    position: absolute;
+    bottom: 1em;
+    width: 100%;
+    text-shadow: white 0 2pt 2pt;
+  }
+
+
+  @keyframes animBottleShake0 {
+    0% {
+      transform: rotate(-15deg);
+    }
+    100% {
+      transform: rotate(15deg);
+    }
+  }
+
+  @keyframes animBottleShake1 {
+    0% {
+      transform: rotate(15deg);
+    }
+    100% {
+      transform: rotate(-15deg);
+    }
+  }
+
+  .bottle {
+    height: 100vw;
+    max-width: none;
+    position: absolute;
+    top: 25vw;
+    left: -15vw;
+
+    &.rotated-0 {
+      transform: rotate(-15deg);
+    }
+    &.rotated-1 {
+      transform: rotate(15deg);
+    }
+
+    @mixin shakeProps($anim) {
+      animation: $anim alternate .25s;
+      animation-iteration-count: 4;
+    }
+
+    &.shake-0 {
+      /*animation: animBottleShake0 alternate .25s;
+      animation-iteration-count: 4;*/
+      //transform-origin: 50% 50%;
+      @include shakeProps(animBottleShake0)
+    }
+    &.shake-1 {
+      /*animation: animBottleShake0 alternate .25s;
+      animation-iteration-count: 4;*/
+      @include shakeProps(animBottleShake1)
+    }
+
   }
 }
 
