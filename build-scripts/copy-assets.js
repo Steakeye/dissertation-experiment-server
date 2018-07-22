@@ -38,10 +38,13 @@ fsExtra.removeSync(path.join(__dirname, `${targetPath}${jsPathFragment}`));
 
 const createJSLibFile = "createjs.js";
 const createJSSourcePath = path.join(__dirname, `${nodeLibsPath}createjs/builds/1.0.0/${createJSLibFile}`);
+const sizzleJSLibFile = "sizzle.js";
+const sizzleJSSourcePath = path.join(__dirname, `${nodeLibsPath}sizzle/dist/${sizzleJSLibFile}`);
 
 console.log("Attempting to copying js assets to build folder");
 
 fsExtra.copySync(createJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${createJSLibFile}`));
+fsExtra.copySync(sizzleJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${sizzleJSLibFile}`));
 
 console.log("Removing existing img assets in public folder");
 
