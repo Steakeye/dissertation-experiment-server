@@ -10,7 +10,8 @@
     "copy-assets": "node build-scripts/copy-assets.js",
     "copy-files-build": "npm run copy-views && npm run copy-assets",
     "tsc": "tsc",
-    "tsc-watch": "tsc --watch"
+    "tsc-watch": "tsc --watch",
+    "tsc-client": "tsc --config /tsconfig-client.json"
   },
   "dependencies": {
     "bulma": "^0.7.1",
