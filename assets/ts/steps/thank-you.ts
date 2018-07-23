@@ -6,6 +6,7 @@ function animateThankYouStep(): Promise<undefined> {
             const thanksContainer: Element = Sizzle('#thank-you', document.body)[0];
 
             Sizzle('.bottle', thanksContainer)[0].classList.add("shake-1");
+
             setTimeout(() => {
                 thanksContainer.classList.add("hide");
             }, 3000);

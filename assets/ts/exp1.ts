@@ -13,10 +13,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //stepsHandler.loadSteps(allSteps);
 
     const body = Sizzle('body')[0];
+
+    let currentEl: Udefable<Element> = stepsHandler.currentStepEl;
+
     body.classList.add('loaded');
 
     Sizzle('#bg-sunburst .inner')[0].classList.toggle("animated");
-    animateThankYouStep().then(() => {
+
+    const secondStep: Promise<Element> = animateThankYouStep().then((val: undefined) => {
         console.log('we animated then came back to exp1');
-    })
+        return <Promise<Element>>stepsHandler.animateToNextStep();
+    });
+
+    secondStep.then((el: Element) => {
+       console.log("we've got our next el!", el);
+    });
 });

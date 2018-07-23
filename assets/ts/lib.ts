@@ -37,6 +37,10 @@ class StepsLib {
         return this._currentStep;
     }
 
+    public get currentStepEl() : Udefable<Element> {
+        return this._steps ? this._steps[this._currentStep] : undefined;
+    }
+
     private loadSteps(stepsArr: Element[]): void {
         this._steps = stepsArr;
     }
