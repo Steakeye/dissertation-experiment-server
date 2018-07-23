@@ -1,6 +1,5 @@
 import Tween = createjs.Tween;
 
-
 class StepsLib {
 
     constructor() {
@@ -55,18 +54,39 @@ class StepsLib {
             return (...params :any[]) => { el.classList.toggle(hiddenClassName)}
         }
 
-        this.doStyleFade(oldElStyle, 1, 0).call(makeHiddenToggleForEl(old));
-        return this.doStyleFade(nextElStyle, 0, 1).call(makeHiddenToggleForEl(next));
+        this.doStyleFade(oldElStyle, 100, 0).call(makeHiddenToggleForEl(old));
+        makeHiddenToggleForEl(next)();
+        return this.doStyleFade(nextElStyle, 0, 100); //.call(makeHiddenToggleForEl(next));
     }
 
-    private doStyleFade(style: CSSStyleDeclaration, from: number, to: number, time: number = 500, anim = createjs.Ease.backOut): Tween {
+    private doStyleFade(style: CSSStyleDeclaration, from: number, to: number, time: number = 1500, anim = createjs.Ease.backOut): Tween {
         style.opacity = ""+from;
 
-        return Tween.get(style, { override:true }).to({ opacity: to }, time, anim);
+        return Tween.get(StepsLib.createProxtForPercent(style), { override:true }).to({ opacity: to }, time, anim);
     }
 
     private static getStyleObjOfEl(el: Element) {
         return (<HTMLElement>el).style;
+    }
+
+    private static createProxtForPercent<T>(target: T) {
+        const handler: { get(obj: T, prop: string): any,  set(obj: T, prop: string, value: any): any } =
+        {
+            get: function (obj, prop) {
+                return prop in obj ?
+                    (<T>obj)[prop] * 100 :
+                    undefined;
+            },
+            set: function(obj, prop, value) {
+                // The default behavior to store the value
+                obj[prop] = value / 100;
+
+                // Indicate success
+                return true;
+            }
+        };
+
+        return new Proxy(<{}>target, handler);
     }
 
     private _steps? : Element[];

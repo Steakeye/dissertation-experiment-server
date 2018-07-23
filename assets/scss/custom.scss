@@ -2,6 +2,8 @@
 $sunburst-color1: darkorange;
 $sunburst-color2: orange;
 $text-color-primary: black;
+$button-color-primary: #622424;
+$form-el-color-shadow: rgba(0, 0, 0, .5);
 
 $title-margin-bottom: 1em;
 
@@ -69,6 +71,13 @@ h1, h2, h3 {
   @include title-type;
 }
 
+.button, .input {
+  box-shadow: $form-el-color-shadow 0 2pt 2pt;
+}
+
+.button.is-primary {
+  background-color: $button-color-primary;
+}
 
 .sunburst.outer {
   @include full-screen;
@@ -143,7 +152,6 @@ h1, h2, h3 {
     text-shadow: white 0 2pt 2pt;
   }
 
-
   @keyframes animBottleShake0 {
     0% {
       transform: rotate(-15deg);
@@ -189,6 +197,13 @@ h1, h2, h3 {
     }
 
   }
+
+  .formfield {
+    width: 90vw;
+    position: absolute;
+    bottom: 2em;
+  }
+
 }
 
 #ad-steps {
