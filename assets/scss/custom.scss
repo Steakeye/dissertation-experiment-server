@@ -3,6 +3,7 @@ $sunburst-color1: darkorange;
 $sunburst-color2: orange;
 $text-color-primary: black;
 $button-color-primary: #622424;
+$button-color-primary-active: darken($button-color-primary, 20%);
 $form-el-color-shadow: rgba(0, 0, 0, .5);
 
 $title-margin-bottom: 1em;
@@ -77,6 +78,10 @@ h1, h2, h3 {
 
 .button.is-primary {
   background-color: $button-color-primary;
+
+  &:active {
+    background-color: $button-color-primary-active;
+  }
 }
 
 .sunburst.outer {
@@ -170,11 +175,17 @@ h1, h2, h3 {
     }
   }
 
+  @keyframes animBottleScaleUp {
+    100% {
+      transform: scale(1.25);
+    }
+  }
+
   .bottle {
     height: 100vw;
     max-width: none;
     position: absolute;
-    top: 25vw;
+    top: 12.5vw; //25vw;
     left: -15vw;
 
     &.rotated-0 {
@@ -184,24 +195,37 @@ h1, h2, h3 {
       transform: rotate(15deg);
     }
 
-    @mixin shakeProps($anim) {
-      animation: $anim alternate .25s;
-      animation-iteration-count: 4;
+    @mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
+      animation: $anim $direction $duration;
+      animation-iteration-count: $count;
+    }
+
+    @mixin shake-props($anim) {
+      @include anim-props($anim, alternate, 4, .25s);
     }
 
     &.shake-0 {
-      @include shakeProps(animBottleShake0)
+      @include shake-props(animBottleShake0)
     }
     &.shake-1 {
-      @include shakeProps(animBottleShake1)
+      @include shake-props(animBottleShake1)
+      }
+    &.scale-0 {
+      @include anim-props(animBottleScaleUp, alternate, 2)
     }
 
   }
 
-  .formfield {
-    width: 90vw;
-    position: absolute;
-    bottom: 2em;
+  form {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    .formfield {
+      width: 90vw;
+      position: absolute;
+      bottom: 1em;
+    }
   }
 
 }
@@ -252,5 +276,11 @@ h1, h2, h3 {
     .bottle {
       animation: forwards ease-in-out animExitBottleToTop .5s;
     }
+  }
+}
+
+#sign-up {
+  h1 {
+    bottom: 2em;
   }
 }
