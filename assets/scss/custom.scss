@@ -75,7 +75,7 @@ h1, h2, h3 {
 .button, .input {
   box-shadow: $form-el-color-shadow 0 2pt 2pt;
   user-select: none;
-  tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .button.is-primary {
