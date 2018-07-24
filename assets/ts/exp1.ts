@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const sunburstAnimateClassname: string = "animated";
 
     const stepsHandler: StepsLib = new StepsLib();
+    const thankyouController: ThankYou = new ThankYou();
+    const signUpController: SignUp = new SignUp();
 
     const body = Sizzle('body')[0];
 
@@ -20,13 +22,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     Sizzle('#bg-sunburst .inner')[0].classList.toggle("animated");
 
-    const secondStep: Promise<Element> = animateThankYouStep().then((val: undefined) => {
+    const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then((val: undefined) => {
         console.log('we animated then came back to exp1');
         sunBurstInner.classList.remove(sunburstAnimateClassname);
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    const signUpSubmitPromise: Promise<undefined> = createSignUpButtonBinding();
+    const signUpSubmitPromise: Promise<undefined> = signUpController.createSignUpButtonBinding();
 
     signUpSubmitPromise.then(() => {
         stepsHandler.animateToNextStep()

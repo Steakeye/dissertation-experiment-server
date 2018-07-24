@@ -1,20 +1,29 @@
-function createSignUpButtonBinding(): Promise<undefined> {
-    return new Promise<undefined>(function(resolve: () => undefined, reject: (e:Error) => undefined) {
-        console.log("promise running");
+class SignUp {
+    constructor() {
+        this.stepContainer = Sizzle('#sign-up', document.body)[0];
+    }
 
-        try {
-            const signUpContainer: Element = Sizzle('#sign-up', document.body)[0];
+    public bounceBottle() {
+        Sizzle('.bottle', this.stepContainer)[0].classList.add("scale-0");
+    }
 
-            const evtType: string = "click";
+    public createSignUpButtonBinding(): Promise<undefined> {
+        const container: Element = <Element>this.stepContainer;
 
-                const button = Sizzle("button", signUpContainer)[0];
+        return new Promise<undefined>(function (resolve: () => undefined, reject: (e: Error) => undefined) {
+            console.log("promise running");
+
+            try {
+                const evtType: string = "click";
+
+                const button = Sizzle("button", container)[0];
 
                 const cb = (e: Event) => {
                     e.preventDefault();
 
                     button.removeEventListener(evtType, cb);
 
-                    signUpContainer.classList.add("hide");
+                    container.classList.add("hide");
 
                     setTimeout(() => {
                         resolve();
@@ -23,9 +32,12 @@ function createSignUpButtonBinding(): Promise<undefined> {
 
                 button.addEventListener(evtType, cb);
 
-        } catch (e) {
-            reject(e);
-        }
+            } catch (e) {
+                reject(e);
+            }
 
-    });
+        });
+    }
+
+    private stepContainer?: Element;
 }

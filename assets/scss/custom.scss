@@ -228,6 +228,11 @@ h1, h2, h3 {
       width: 90vw;
       position: absolute;
       bottom: 1em;
+
+      .input.is-fullwidth {
+        position: relative;
+        top: -.5em;
+      }
     }
   }
 
@@ -284,6 +289,6 @@ h1, h2, h3 {
 
 #sign-up {
   h1 {
-    bottom: 2em;
+    bottom: 2.5em;
   }
 }
