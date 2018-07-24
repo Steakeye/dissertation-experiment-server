@@ -9,7 +9,7 @@ class StepsLib {
     public animateToNextStep(): Udefable<Promise<Element>> {
         const steps:Element[] = (<Element[]>this.steps);
         const lastStep = steps.length - 1;
-        const nowStep: number = this.currentStep;
+        const nowStep: number = this._currentStep;
 
         let animPromise: Udefable<Promise<Element>>;
 
@@ -21,7 +21,10 @@ class StepsLib {
             const animTween: Tween = this.animateFadeEls(currentEl, nextEl);
 
             animPromise = new Promise<Element>((resolve: (el: Element) => any, reject: () => any) => {
-                animTween.call(resolve, [nextEl]);
+                animTween.call((el: Element) => {
+                    ++this._currentStep;
+                    resolve(el)
+                }, [nextEl]);
             });
         }
 
@@ -92,8 +95,3 @@ class StepsLib {
     private _steps? : Element[];
     private _currentStep : number = 0;
 }
-
-/*
-* allSteps[0].children[0].computedStyleMap().get("opacity")
-* getter setter allSteps[0].children[0].style.opacity
-* */

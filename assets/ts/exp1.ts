@@ -1,5 +1,5 @@
 ///<reference path="defs.d.ts"/>
-///<reference path="lib.ts"/>
+///<reference path="steps-lib.ts"/>
 ///<reference path="steps/thank-you.ts"/>
 ///<reference path="steps/sign-up.ts"/>
 
