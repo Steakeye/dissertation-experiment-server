@@ -5,6 +5,8 @@ $text-color-primary: black;
 $button-color-primary: #622424;
 $button-color-primary-active: darken($button-color-primary, 2.5%);
 $form-el-color-shadow: rgba(0, 0, 0, .5);
+$tilt-left: rotate(-15deg);
+$tilt-right: rotate(15deg);
 
 $title-margin-bottom: 1em;
 
@@ -24,21 +26,6 @@ $title-margin-bottom: 1em;
   $punultimate-idx: str_length($bg) - 2;
 
   @return unquote(str_slice($bg, 0, $punultimate-idx));
-}
-
-@mixin key-frames($animationName) {
-  @-webkit-keyframes #{$animationName} {
-    @content;
-  }
-  @-moz-keyframes #{$animationName} {
-    @content;
-  }
-  @-o-keyframes #{$animationName} {
-    @content;
-  }
-  @keyframes #{$animationName} {
-    @content;
-  }
 }
 
 @mixin copy-type {
@@ -185,10 +172,10 @@ h1, h2, h3 {
 
   @keyframes animBottleShake1 {
     0% {
-      transform: rotate(15deg);
+      transform: $tilt-right;
     }
     100% {
-      transform: rotate(-15deg);
+      transform: $tilt-left;
     }
   }
 
@@ -206,10 +193,10 @@ h1, h2, h3 {
     left: -15vw;
 
     &.rotated-0 {
-      transform: rotate(-15deg);
+      transform: $tilt-left;
     }
     &.rotated-1 {
-      transform: rotate(15deg);
+      transform: $tilt-right;
     }
 
     @mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
@@ -229,6 +216,10 @@ h1, h2, h3 {
       }
     &.scale-0 {
       @include anim-props(animBottleScaleUp, alternate, 2)
+    }
+
+    &.tilt-0 {
+      @include anim-props(anim-tilt-item-left, forwards ease-in-out, 1, .125s);
     }
 
   }
@@ -274,10 +265,11 @@ h1, h2, h3 {
   }
 }
 
-/*@keyframes anim-exit-title-to-bottom {
-  @include anim-side-by-value("bottom", "-1.5em");
-}*/
-@include key-frames (anim-exit-title-to-bottom) {
+@keyframes anim-tilt-item-left {
+  @include anim-side-by-value(transform, $tilt-left);
+}
+
+@keyframes anim-exit-title-to-bottom {
   @include anim-side-by-value(bottom, -1.5em);
 }
 
@@ -301,11 +293,11 @@ h1, h2, h3 {
 
   &.hide {
     h1 {
-      animation: forwards ease-in-out animExitTitleToBottom .25s;
+      animation: forwards ease-in-out anim-exit-title-to-bottom .25s;
     }
 
     .bottle {
-      animation: forwards ease-in-out animExitBottleToTop .5s;
+      animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
     }
   }
 }
@@ -317,15 +309,18 @@ h1, h2, h3 {
 
   &.hide {
     h1 {
-      animation: forwards ease-in-out animExitTitleToBottom .33s;
+      animation: forwards ease-in-out anim-exit-title-to-bottom .33s;
     }
 
-    .bottle {
-      animation: forwards ease-in-out animExitBottleToTop .5s;
-    }
+    /*.bottle {
+      animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+    }*/
 
     #form-sign-up .formfield {
-      animation: forwards ease-in-out animExitFormToBottom .25s;
+      animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
     }
   }
+}
+
+#amazing {
 }

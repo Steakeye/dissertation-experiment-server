@@ -11,26 +11,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const stepsHandler: StepsLib = new StepsLib();
     const thankyouController: ThankYou = new ThankYou();
     const signUpController: SignUp = new SignUp();
+    const amazingController: Amazing = new Amazing();
 
     const body = Sizzle('body')[0];
 
     const sunBurstInner = Sizzle("#bg-sunburst > .inner", body)[0];
 
-    //let currentEl: Udefable<Element> = stepsHandler.currentStepEl;
-
     body.classList.add('loaded');
 
     Sizzle('#bg-sunburst .inner')[0].classList.toggle("animated");
 
-    const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then((val: undefined) => {
+    const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
         console.log('we animated then came back to exp1');
         sunBurstInner.classList.remove(sunburstAnimateClassname);
+        signUpController.bounceBottle();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
     const signUpSubmitPromise: Promise<undefined> = signUpController.createSignUpButtonBinding();
 
-    signUpSubmitPromise.then(() => {
-        stepsHandler.animateToNextStep()
+    const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
+        signUpController.hideStep();
+        return <Promise<Element>>stepsHandler.animateToNextStep();
+    });
+
+    thirdStep.then(() => {
+        amazingController.tiltBottle();
     });
 });

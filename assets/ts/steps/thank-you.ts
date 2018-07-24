@@ -14,10 +14,10 @@ class ThankYou {
 
                 setTimeout(() => {
                     thanksContainer.classList.add("hide");
-                }, 1000);
+                }, 2000);
                 setTimeout(() => {
                     resolve();
-                }, 1500);
+                }, 2500);
             } catch (e) {
                 reject(e);
             }

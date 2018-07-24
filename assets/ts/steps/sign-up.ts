@@ -7,6 +7,10 @@ class SignUp {
         Sizzle('.bottle', this.stepContainer)[0].classList.add("scale-0");
     }
 
+    public hideStep() {
+        (<Element>this.stepContainer).classList.add("hide");
+    }
+
     public createSignUpButtonBinding(): Promise<undefined> {
         const container: Element = <Element>this.stepContainer;
 
