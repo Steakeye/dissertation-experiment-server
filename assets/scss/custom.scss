@@ -26,6 +26,20 @@ $title-margin-bottom: 1em;
   @return unquote(str_slice($bg, 0, $punultimate-idx));
 }
 
+@mixin key-frames($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
 
 @mixin copy-type {
   font-family: 'Montserrat', sans-serif;
@@ -254,16 +268,25 @@ h1, h2, h3 {
   }
 }
 
-@keyframes animExitTitleToBottom {
+@mixin anim-side-by-value($animSide, $amount) {
   100% {
-    bottom: -1.5em;
+      #{$animSide}: #{$amount};
   }
 }
 
-@keyframes animExitBottleToTop {
-  100% {
-    top: -95vw;
-  }
+/*@keyframes anim-exit-title-to-bottom {
+  @include anim-side-by-value("bottom", "-1.5em");
+}*/
+@include key-frames (anim-exit-title-to-bottom) {
+  @include anim-side-by-value(bottom, -1.5em);
+}
+
+@keyframes anim-exit-bottle-to-top {
+  @include anim-side-by-value(top, -95vw);
+}
+
+@keyframes anim-exit-form-to-bottom {
+  @include anim-side-by-value(bottom, -5em);
 }
 
 #thank-you {
@@ -290,5 +313,19 @@ h1, h2, h3 {
 #sign-up {
   h1 {
     bottom: 2.5em;
+  }
+
+  &.hide {
+    h1 {
+      animation: forwards ease-in-out animExitTitleToBottom .33s;
+    }
+
+    .bottle {
+      animation: forwards ease-in-out animExitBottleToTop .5s;
+    }
+
+    #form-sign-up .formfield {
+      animation: forwards ease-in-out animExitFormToBottom .25s;
+    }
   }
 }
