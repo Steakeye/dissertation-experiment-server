@@ -3,10 +3,6 @@
 ///<reference path="steps/thank-you.ts"/>
 ///<reference path="steps/sign-up.ts"/>
 
-
-/*/*
-TODO: get a query selector loaded, use it to navigate to the next steps
-* */
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("DOM fully loaded and parsed");
 
