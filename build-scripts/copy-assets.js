@@ -53,20 +53,36 @@ if (cLOptions.css) {
 
 }
 
+function removeMessage(type) {
+    console.log(`Removing existing ${type} assets in public folder`);
+}
+
+function copyMessage(type) {
+    console.log(`Attempting to copying ${type} assets to build folder`);
+}
+
+function doneMessage(type) {
+    console.log(`${type} done!`);
+}
+
 if (cLOptions.scss) {
     const sassPathFragment = "scss/";
     const customSassPath = `${assetsLibsPath}${sassPathFragment}`;
     const sassSourceDir = path.join(__dirname, customSassPath);
 
-    console.log("Removing existing scss assets in public folder");
+    removeMessage("scss");
 
     fsExtra.removeSync(path.join(__dirname, `${targetPath}${sassPathFragment}`));
 
+    copyMessage("scss");
+
     fsExtra.copySync(sassSourceDir, path.join(__dirname, `${targetPath}${sassPathFragment}`));
+
+    doneMessage("scss")
 }
 
 if (cLOptions.js) {
-    console.log("Removing existing js assets in public folder");
+    removeMessage("js");
 
     fsExtra.removeSync(path.join(__dirname, `${targetPath}${jsPathFragment}`));
 
@@ -75,36 +91,42 @@ if (cLOptions.js) {
     const sizzleJSLibFile = "sizzle.js";
     const sizzleJSSourcePath = path.join(__dirname, `${nodeLibsPath}sizzle/dist/${sizzleJSLibFile}`);
 
-    console.log("Attempting to copying js assets to build folder");
+    copyMessage("js");
 
     fsExtra.copySync(createJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${createJSLibFile}`));
     fsExtra.copySync(sizzleJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${sizzleJSLibFile}`));
+
+    doneMessage("js");
 }
 
 if (cLOptions.img) {
-    console.log("Removing existing img assets in public folder");
+    removeMessage("img");
 
     fsExtra.removeSync(path.join(__dirname, `${targetPath}${imgPathFragment}`));
 
     const imgPath = `${assetsLibsPath}${imgPathFragment}`;
     const imgSourceDir = path.join(__dirname, imgPath);
 
-    console.log("Attempting to copying img assets to build folder");
+    copyMessage("img");
 
     fsExtra.copySync(imgSourceDir, path.join(__dirname, `${targetPath}${imgPathFragment}`));
+
+    doneMessage("img");
 }
 
 if (cLOptions.other) {
-    console.log("Removing existing other assets in public folder");
+    removeMessage("other");
 
     fsExtra.removeSync(path.join(__dirname, `${targetPath}${otherPathFragment}`));
 
     const otherPath = `${assetsLibsPath}${otherPathFragment}`;
     const otherSourceDir = path.join(__dirname, otherPath);
 
-    console.log("Attempting to copying other assets to build folder");
+    copyMessage("other");
 
     fsExtra.copySync(otherSourceDir, path.join(__dirname, `${targetPath}${otherPathFragment}`));
 
-    console.log("Copying assets complete!");
+    copyMessage("other");
 }
+
+console.log("Copying assets complete!");
