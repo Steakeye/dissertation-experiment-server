@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         signUpController.hideStep();
         signUpController.tiltBottle();
         amazingController.tiltBottle();
+        amazingController.bounceTitle();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 

@@ -6,10 +6,15 @@ class BaseStep {
     constructor(containerID: string) {
         this.stepContainer = Sizzle(containerID, document.body)[0];
         this.bottleEl = Sizzle('.bottle', this.stepContainer)[0];
+        this.titleEl = Sizzle('h1', this.stepContainer)[0];
     }
 
     public bounceBottle() {
         this.toggleBottleClass("scale-0", true);
+    }
+
+    public bounceTitle() {
+        this.toggleTitleClass("scale-0", true);
     }
 
     public setBottleRotation(rotation: BottleRotation) {
@@ -40,6 +45,10 @@ class BaseStep {
         (<Element>this.bottleEl).classList.toggle(cssClass, force);
     }
 
+    public toggleTitleClass(cssClass: string, force?: boolean ) {
+        (<Element>this.titleEl).classList.toggle(cssClass, force);
+    }
+
     public hideStep() {
         this.toggleElClass(<Element>this.stepContainer, "hide", true);
     }
@@ -49,6 +58,7 @@ class BaseStep {
     }
 
     protected stepContainer?: Element;
+    protected titleEl?: Element;
     protected bottleEl?: Element;
 }
 

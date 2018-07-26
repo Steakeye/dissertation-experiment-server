@@ -152,16 +152,19 @@ h1, h2, h3 {
 .section .step {
   @include full-screen;
 
-  h1 {
-    font-size: 13.333vw;
-    text-align: center;
-    position: absolute;
-    bottom: $title-margin-bottom;
-    width: 100%;
-    text-shadow: white 0 2pt 2pt;
+
+  @mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
+    animation: $anim $direction $duration;
+    animation-iteration-count: $count;
   }
 
-  @keyframes animBottleShake0 {
+  @keyframes animScaleUp {
+    100% {
+      transform: scale(1.25);
+    }
+  }
+
+  @keyframes animShake0 {
     0% {
       transform: rotate(-15deg);
     }
@@ -170,7 +173,7 @@ h1, h2, h3 {
     }
   }
 
-  @keyframes animBottleShake1 {
+  @keyframes animShake1 {
     0% {
       transform: $tilt-right;
     }
@@ -179,10 +182,17 @@ h1, h2, h3 {
     }
   }
 
-  @keyframes animBottleScaleUp {
-    100% {
-      transform: scale(1.25);
-    }
+  .scale-0 {
+    @include anim-props(animScaleUp, alternate, 2)
+  }
+
+  h1 {
+    font-size: 13.333vw;
+    text-align: center;
+    position: absolute;
+    bottom: $title-margin-bottom;
+    width: 100%;
+    text-shadow: white 0 2pt 2pt;
   }
 
   .bottle {
@@ -199,26 +209,17 @@ h1, h2, h3 {
       transform: $tilt-right;
     }
 
-    @mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
-      animation: $anim $direction $duration;
-      animation-iteration-count: $count;
-    }
-
     @mixin shake-props($anim) {
       @include anim-props($anim, alternate, 4, .25s);
     }
 
     &.shake-0 {
-      @include shake-props(animBottleShake0)
+      @include shake-props(animShake0)
     }
 
     &.shake-1 {
-      @include shake-props(animBottleShake1)
+      @include shake-props(animShake1)
       }
-
-    &.scale-0 {
-      @include anim-props(animBottleScaleUp, alternate, 2)
-    }
 
     &.tilt-0 {
       @include anim-props(anim-tilt-item-left, forwards ease-in-out, 1, .125s);
