@@ -44,6 +44,12 @@ $title-margin-bottom: 1em;
   width: 100%;
 }
 
+@mixin flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 @keyframes spin {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -123,9 +129,8 @@ h1, h2, h3 {
 }
 
 .starburst {
-  align-items: center;
-  display: flex;
-  justify-content: center;
+  @include flex-center;
+
   text-align: center;
 
   ::before,
@@ -152,6 +157,7 @@ h1, h2, h3 {
 .section .step {
   @include full-screen;
 
+  @include flex-center;
 
   @mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
     animation: $anim $direction $duration;
@@ -187,20 +193,20 @@ h1, h2, h3 {
   }
 
   h1 {
-    font-size: 13.333vw;
-    text-align: center;
-    position: absolute;
     bottom: $title-margin-bottom;
-    width: 100%;
+    font-size: 13.333vw;
+    position: absolute;
+    text-align: center;
     text-shadow: white 0 2pt 2pt;
+    width: 100%;
   }
 
   .bottle {
     height: 100vw;
+    left: -15vw;
     max-width: none;
     position: absolute;
     top: 12.5vw; //25vw;
-    left: -15vw;
 
     &.rotated-0 {
       transform: $tilt-left;
@@ -224,17 +230,19 @@ h1, h2, h3 {
     &.tilt-0 {
       @include anim-props(anim-tilt-item-left, forwards ease-in-out, 1, .125s);
     }
+
+    &.tilt-1 {
+      @include anim-props(anim-tilt-item-right, forwards ease-in-out, 1, .125s);
+    }
   }
 
   form {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+    @include flex-center;
 
     .formfield {
-      width: 90vw;
-      position: absolute;
       bottom: 1em;
+      position: absolute;
+      width: 90vw;
 
       .input.is-fullwidth {
         position: relative;
@@ -252,12 +260,12 @@ h1, h2, h3 {
 
 @keyframes animFlipTitle {
   0% {
-    transform: rotateX(90deg);
     bottom: 0;
+    transform: rotateX(90deg);
   }
   100% {
-    transform: rotateX(0deg);
     bottom: $title-margin-bottom;
+    transform: rotateX(0deg);
   }
 }
 
@@ -269,6 +277,10 @@ h1, h2, h3 {
 
 @keyframes anim-tilt-item-left {
   @include anim-side-by-value(transform, $tilt-left);
+}
+
+@keyframes anim-tilt-item-right {
+  @include anim-side-by-value(transform, $tilt-right);
 }
 
 @keyframes anim-exit-title-to-bottom {
@@ -321,6 +333,28 @@ h1, h2, h3 {
     #form-sign-up .formfield {
       animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
     }
+  }
+}
+
+#play-ar {
+  h1 {
+    bottom: 0.125em;
+  }
+
+  .button {
+    bottom: 4em;
+    position: absolute;
+  }
+
+  .bottle{
+    &:first-of-type,
+    &:nth-of-type(2) {
+      transform-origin: 50% 120%;
+    }
+  }
+
+  &.hide {
+
   }
 }
 

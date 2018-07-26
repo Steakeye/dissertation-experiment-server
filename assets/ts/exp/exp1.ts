@@ -6,29 +6,22 @@
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("DOM fully loaded and parsed");
 
-    const sunburstAnimateClassname: string = "animated";
-
     const stepsHandler: StepsLib = new StepsLib();
+    const backgroundController: BGController = new BGController();
     const thankyouController: ThankYou = new ThankYou();
     const signUpController: SignUp = new SignUp();
     const amazingController: Amazing = new Amazing();
 
-    const body = Sizzle('body')[0];
-
-    const sunBurstInner = Sizzle("#bg-sunburst > .inner", body)[0];
-
-    body.classList.add('loaded');
-
-    Sizzle('#bg-sunburst .inner')[0].classList.toggle("animated");
+    backgroundController.animateBG();
 
     const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
         console.log('we animated then came back to exp1');
-        sunBurstInner.classList.remove(sunburstAnimateClassname);
+        backgroundController.animateBG(false);
         signUpController.bounceBottle();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    const signUpSubmitPromise: Promise<undefined> = signUpController.createSignUpButtonBinding();
+    const signUpSubmitPromise: Promise<void> = signUpController.createSignUpButtonBinding();
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
         signUpController.hideStep();

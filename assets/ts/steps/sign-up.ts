@@ -3,11 +3,11 @@ class SignUp extends BaseStep {
         super('#sign-up');
     }
 
-    public createSignUpButtonBinding(): Promise<undefined> {
-        const container: Element = <Element>this.stepContainer;
+    public createSignUpButtonBinding(): Promise<void> {
+        /*const container: Element = <Element>this.stepContainer;
 
         return new Promise<undefined>(function (resolve: () => undefined, reject: (e: Error) => undefined) {
-            console.log("promise running");
+            //console.log("promise running");
 
             try {
                 const evtType: string = "click";
@@ -32,8 +32,16 @@ class SignUp extends BaseStep {
                 reject(e);
             }
 
-        });
-    }
+        });*/
+        const buttonAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: ClickPromiseResolver<void>): void => {
+            container.classList.add("hide");
 
-    //private stepContainer?: Element;
+            setTimeout(() => {
+                resolver();
+            }, 1000);
+
+        };
+
+        return this.createClickElementPromise<void>(<Element>Sizzle("button", this.stepContainer)[0], buttonAction)
+    }
 }

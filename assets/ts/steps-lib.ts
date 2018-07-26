@@ -2,6 +2,9 @@ import Tween = createjs.Tween;
 
 type BottleRotation = "left" | "right" | "none";
 
+type ClickPromiseResolver<R> = (thing?:R) => void;
+type ClickPromiseAction<R> = (el: Element, container: Element, resolver: ClickPromiseResolver<R>) => void;
+
 class BaseStep {
     constructor(containerID: string) {
         this.stepContainer = Sizzle(containerID, document.body)[0];
@@ -10,11 +13,15 @@ class BaseStep {
     }
 
     public bounceBottle() {
-        this.toggleBottleClass("scale-0", true);
+        this.bottleEl && this.toggleBottleClass("scale-0", true);
     }
 
     public bounceTitle() {
-        this.toggleTitleClass("scale-0", true);
+        this.titleEl && this.toggleTitleClass("scale-0", true);
+    }
+
+    public bounceButton() {
+        this.buttonEl && this.toggleButtonClass("scale-0", true);
     }
 
     public setBottleRotation(rotation: BottleRotation) {
@@ -49,6 +56,10 @@ class BaseStep {
         (<Element>this.titleEl).classList.toggle(cssClass, force);
     }
 
+    public toggleButtonClass(cssClass: string, force?: boolean ) {
+        (<Element>this.buttonEl).classList.toggle(cssClass, force);
+    }
+
     public hideStep() {
         this.toggleElClass(<Element>this.stepContainer, "hide", true);
     }
@@ -57,9 +68,53 @@ class BaseStep {
         el.classList.toggle(cssClass, force);
     }
 
+    protected createClickElementPromise<R>(el: Element, action: ClickPromiseAction<R>): Promise<R> {
+        const container: Element = <Element>this.stepContainer;
+
+        return new Promise<R>(function (resolve: ClickPromiseResolver<R>, reject: (e: Error) => void) {
+
+            try {
+                const evtType: string = "click";
+
+                //const button = Sizzle("button", container)[0];
+
+                const cb = (e: Event) => {
+                    e.preventDefault();
+
+                    el.removeEventListener(evtType, cb);
+
+                    action(el, container, resolve);
+                };
+
+                el.addEventListener(evtType, cb);
+
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
     protected stepContainer?: Element;
     protected titleEl?: Element;
     protected bottleEl?: Element;
+    protected buttonEl?: Element;
+}
+
+class BGController {
+    constructor() {
+        const body = document.body;
+
+        body.classList.add('loaded');
+
+        this.sunBurst = Sizzle("#bg-sunburst > .inner", body)[0];
+
+    }
+
+    public animateBG(animate = true) {
+        Sizzle('#bg-sunburst .inner')[0].classList.toggle("animated", animate);
+    }
+
+    private sunBurst?: Element;
 }
 
 class StepsLib {

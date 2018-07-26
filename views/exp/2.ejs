@@ -16,14 +16,14 @@
     </div>
     <div id="ad-steps" class="container">
         <%- include('./includes/steps/thank-you', { isCurrent: true, order: 0 }); %>
-        <%- include('./includes/steps/ar-game', { order: 1 }); %>
-        <%- include('./includes/steps/play-ar', { order: 2 }); %>
+        <%- include('./includes/steps/play-ar', { order: 1 }); %>
+        <%- include('./includes/steps/ar-game', { order: 2 }); %>
         <%- include('./includes/steps/well-done', { order: 3 }); %>
         <%- include('./includes/steps/sign-up', { order: 4 }); %>
         <%- include('./includes/steps/amazing', { order: 5 }); %>
     </div>
     </section>
   </main>
-  <%- include('./includes/footer-scripts'); %>
+  <%- include('./includes/footer-scripts', { customScripts: ['/js/exp/exp2.js', '/js/steps/thank-you.js', '/js/steps/play-ar.js'] }); %>
   </body>
 </html>
