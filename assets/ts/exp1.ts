@@ -32,10 +32,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
         signUpController.hideStep();
+        signUpController.tiltBottle();
+        amazingController.tiltBottle();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    thirdStep.then(() => {
-        amazingController.tiltBottle();
-    });
+    /*thirdStep.then(() => {
+        //amazingController.tiltBottle();
+    });*/
 });
