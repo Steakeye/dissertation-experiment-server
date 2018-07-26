@@ -211,9 +211,11 @@ h1, h2, h3 {
     &.shake-0 {
       @include shake-props(animBottleShake0)
     }
+
     &.shake-1 {
       @include shake-props(animBottleShake1)
       }
+
     &.scale-0 {
       @include anim-props(animBottleScaleUp, alternate, 2)
     }
@@ -221,7 +223,6 @@ h1, h2, h3 {
     &.tilt-0 {
       @include anim-props(anim-tilt-item-left, forwards ease-in-out, 1, .125s);
     }
-
   }
 
   form {

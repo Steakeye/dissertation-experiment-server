@@ -1,5 +1,25 @@
 import Tween = createjs.Tween;
 
+class BaseStep {
+    constructor() {
+        this.stepContainer = Sizzle('#sign-up', document.body)[0];
+    }
+
+    public bounceBottle() {
+        Sizzle('.bottle', this.stepContainer)[0].classList.add("scale-0");
+    }
+
+    public tiltBottle() {
+        Sizzle('.bottle', this.stepContainer)[0].classList.add("tilt-0");
+    }
+
+    public hideStep() {
+        (<Element>this.stepContainer).classList.add("hide");
+    }
+
+    protected stepContainer?: Element;
+}
+
 class StepsLib {
 
     constructor() {

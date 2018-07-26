@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    thirdStep.then(() => {
-        amazingController.bounceBottle();
-    });
+    /*thirdStep.then(() => {
+        //amazingController.tiltBottle();
+    });*/
 });

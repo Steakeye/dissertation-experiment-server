@@ -1,5 +1,6 @@
-class ThankYou {
+class ThankYou extends BaseStep {
     constructor() {
+        super();
         this.stepContainer = Sizzle('#thank-you', document.body)[0];
     }
 
@@ -24,7 +25,4 @@ class ThankYou {
 
         });
     }
-
-    private stepContainer?: Element;
-
 }
