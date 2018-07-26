@@ -1,7 +1,7 @@
-///<reference path="defs.d.ts"/>
-///<reference path="steps-lib.ts"/>
-///<reference path="steps/thank-you.ts"/>
-///<reference path="steps/sign-up.ts"/>
+///<reference path="../defs.d.ts"/>
+///<reference path="../steps-lib.ts"/>
+///<reference path="../steps/thank-you.ts"/>
+///<reference path="../steps/sign-up.ts"/>
 
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("DOM fully loaded and parsed");
@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     thirdStep.then(() => {
+        amazingController.setBottleRotation("left");
+        amazingController.toggleBottleClass("tilt-0", false);
         amazingController.bounceBottle();
     });
 });

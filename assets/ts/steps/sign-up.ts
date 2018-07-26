@@ -1,7 +1,6 @@
 class SignUp extends BaseStep {
     constructor() {
-        super();
-        this.stepContainer = Sizzle('#sign-up', document.body)[0];
+        super('#sign-up');
     }
 
     public createSignUpButtonBinding(): Promise<undefined> {

@@ -1,7 +1,6 @@
 class ThankYou extends BaseStep {
     constructor() {
-        super();
-        this.stepContainer = Sizzle('#thank-you', document.body)[0];
+        super('#thank-you');
     }
 
     public animateThankYouStep(): Promise<undefined> {

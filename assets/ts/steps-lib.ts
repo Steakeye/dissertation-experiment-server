@@ -1,23 +1,55 @@
 import Tween = createjs.Tween;
 
+type BottleRotation = "left" | "right" | "none";
+
 class BaseStep {
-    constructor() {
-        this.stepContainer = Sizzle('#sign-up', document.body)[0];
+    constructor(containerID: string) {
+        this.stepContainer = Sizzle(containerID, document.body)[0];
+        this.bottleEl = Sizzle('.bottle', this.stepContainer)[0];
     }
 
     public bounceBottle() {
-        Sizzle('.bottle', this.stepContainer)[0].classList.add("scale-0");
+        this.toggleBottleClass("scale-0", true);
+    }
+
+    public setBottleRotation(rotation: BottleRotation) {
+        const cssDef:DOMTokenList = (<Element>this.bottleEl).classList;
+
+        switch (rotation) {
+            case "left": {
+                cssDef.remove("rotated-1");
+                cssDef.add("rotated-0");
+                break;
+            }
+            case "right": {
+                cssDef.remove("rotated-0");
+                cssDef.add("rotated-1");
+                break;
+            }
+            default : {
+                cssDef.remove("rotated-0", "rotated-1");
+            }
+        }
     }
 
     public tiltBottle() {
-        Sizzle('.bottle', this.stepContainer)[0].classList.add("tilt-0");
+        this.toggleBottleClass("tilt-0", true);
+    }
+
+    public toggleBottleClass(cssClass: string, force?: boolean ) {
+        (<Element>this.bottleEl).classList.toggle(cssClass, force);
     }
 
     public hideStep() {
-        (<Element>this.stepContainer).classList.add("hide");
+        this.toggleElClass(<Element>this.stepContainer, "hide", true);
+    }
+
+    public toggleElClass(el: Element, cssClass: string, force?: boolean ) {
+        el.classList.toggle(cssClass, force);
     }
 
     protected stepContainer?: Element;
+    protected bottleEl?: Element;
 }
 
 class StepsLib {
