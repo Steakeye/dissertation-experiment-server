@@ -21,12 +21,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
         //backgroundController.animateBG(false);
+        playARController.bounceButton();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
     secondStep.then(() => {
         playARController.splayBottles();
         playARController.bounceBottle();
+    });
+
+    playARController.createPlayButtonBinding().then(() => {
+        alert("Play Buttony pressed!");
+        //return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
     //const signUpSubmitPromise: Promise<undefined> = signUpController.createSignUpButtonBinding();

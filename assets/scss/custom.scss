@@ -258,7 +258,7 @@ h1, h2, h3 {
 }
 
 
-@keyframes animFlipTitle {
+@keyframes anim-flip-title {
   0% {
     bottom: 0;
     transform: rotateX(90deg);
@@ -295,9 +295,15 @@ h1, h2, h3 {
   @include anim-side-by-value(bottom, -5em);
 }
 
+@mixin hide-h1($time) {
+  h1 {
+    animation: forwards anim-exit-title-to-bottom ease-in-out $time;
+  }
+}
+
 #thank-you {
   h1 {
-    animation: running animFlipTitle ease-in-out .5s;
+    animation: running anim-flip-title ease-in-out .5s;
   }
 
   &.pre-anim {
@@ -306,9 +312,7 @@ h1, h2, h3 {
   }
 
   &.hide {
-    h1 {
-      animation: forwards ease-in-out anim-exit-title-to-bottom .25s;
-    }
+    @include hide-h1(.25s);
 
     .bottle {
       animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
@@ -322,9 +326,7 @@ h1, h2, h3 {
   }
 
   &.hide {
-    h1 {
-      animation: forwards ease-in-out anim-exit-title-to-bottom .33s;
-    }
+    @include hide-h1(.33s);
 
     /*.bottle {
       animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
@@ -354,7 +356,11 @@ h1, h2, h3 {
   }
 
   &.hide {
+    @include hide-h1(.125s);
 
+    .button {
+      animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
+    }
   }
 }
 

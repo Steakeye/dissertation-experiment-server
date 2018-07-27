@@ -14,10 +14,10 @@ class ThankYou extends BaseStep {
 
                 setTimeout(() => {
                     thanksContainer.classList.add("hide");
-                }, 2000);
+                }, 1250);
                 setTimeout(() => {
                     resolve();
-                }, 2500);
+                }, 1750);
             } catch (e) {
                 reject(e);
             }
