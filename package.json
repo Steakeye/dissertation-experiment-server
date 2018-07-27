@@ -15,7 +15,9 @@
     "build-all": "npm run tsc && npm run copy-files-build && npm run tsc-client"
   },
   "dependencies": {
+    "@types/compression": "0.0.36",
     "bulma": "^0.7.1",
+    "compression": "^1.7.3",
     "cookie-parser": "~1.4.3",
     "createjs": "^1.0.1",
     "debug": "~2.6.9",
