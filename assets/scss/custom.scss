@@ -322,7 +322,10 @@ h1, h2, h3 {
     animation-play-state: paused;
     transform: rotateX(90deg);
   }
+}
 
+#thank-you,
+#well-done {
   &.hide {
     @include hide-h1(.25s);
 
@@ -377,6 +380,12 @@ h1, h2, h3 {
     .button {
       animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
     }
+  }
+}
+
+#ar-game {
+  h1 {
+    position: initial;
   }
 }
 

@@ -4,7 +4,7 @@ class SignUp extends BaseStep {
     }
 
     public createSignUpButtonBinding(): Promise<void> {
-        const buttonAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: ClickPromiseResolver<void>): void => {
+        const buttonAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: PromiseResolver<void>): void => {
             container.classList.add("hide");
 
             setTimeout(() => {

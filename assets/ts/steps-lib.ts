@@ -2,10 +2,31 @@ import Tween = createjs.Tween;
 
 type BottleRotation = "left" | "right" | "none";
 
-type ClickPromiseResolver<R> = (thing?:R) => void;
-type ClickPromiseAction<R> = (el: Element, container: Element, resolver: ClickPromiseResolver<R>) => void;
+type PromiseResolver<R> = (thing?:R) => void;
+type PromiseAction<R> = (resolver: PromiseResolver<R>) => void;
+//type PromiseResolver<R> = (thing?:R) => void;
+type ClickPromiseAction<R> = (el: Element, container: Element, resolver: PromiseResolver<R>) => void;
 
 class BaseStep {
+    public static createPromise<R>(action: PromiseAction<R>): Promise<R> {
+        return new Promise<R>(function (resolve: PromiseResolver<R>, reject: (e: Error) => void) {
+
+            try {
+                action(resolve)
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
+    public static createDelayPromise<R>(action: PromiseAction<R>, delayMS: number): Promise<R> {
+        return this.createPromise((resolve: PromiseResolver<R>) => {
+            setTimeout(() => {
+                action(resolve);
+            }, delayMS);
+        });
+    }
+
     constructor(containerID: string) {
         this.stepContainer = Sizzle(containerID, document.body)[0];
         this.bottleEl = Sizzle('.bottle', this.stepContainer)[0];
@@ -71,7 +92,7 @@ class BaseStep {
     protected createClickElementPromise<R>(el: Element, action: ClickPromiseAction<R>): Promise<R> {
         const container: Element = <Element>this.stepContainer;
 
-        return new Promise<R>(function (resolve: ClickPromiseResolver<R>, reject: (e: Error) => void) {
+        return new Promise<R>(function (resolve: PromiseResolver<R>, reject: (e: Error) => void) {
 
             try {
                 const evtType: string = "click";

@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const playARController: PlayAR = new PlayAR();
     const arGameController: ARGame = new ARGame();
     const wellDoneController: WellDone = new WellDone();
-    //const signUpController: SignUp = new SignUp();
-    //const amazingController: Amazing = new Amazing();
+    const signUpController: SignUp = new SignUp();
+    const amazingController: Amazing = new Amazing();
 
     backgroundController.animateBG();
 
@@ -36,30 +36,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return <Promise<Element>>stepsHandler.animateToNextStep(2000);
     });
 
-    const fourthStep: Promise<Element> = thirdStep.then(() => {
+    const fourthStep: Promise<void> = thirdStep.then(() => {
         arGameController.startARGame();
         arGameController.endARGame();
+    });
+
+    const fourthStepPause: Promise<void> = fourthStep.then(() => {
+        return ARGame.createDelayPromise((resolve: PromiseResolver<void>) => {
+            resolve();
+        }, 1000);
+    });
+
+    const fifthStep: Promise<Element> = fourthStepPause.then(() => {
+        backgroundController.animateBG(true);
+        return stepsHandler.animateToNextStep();
+    });
+
+    fifthStep.then(() => {
+        return wellDoneController.animateWellDoneStep();
+    }).then(() => {
+        return stepsHandler.animateToNextStep();
+    }).then(() => {
+        backgroundController.animateBG(false);
+    });
+
+    const signUpSubmitPromise: Promise<void> = signUpController.createSignUpButtonBinding();
+
+    const sixthStep: Promise<Element> = signUpSubmitPromise.then(() => {
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    fourthStep.then(() => {
-        console.log("this should be well done step");
-        wellDoneController.animateWellDoneStep().then(() => {
-            playARController.bounceButton();
-            return <Promise<Element>>stepsHandler.animateToNextStep();
-        });
-    })
-
-    //const signUpSubmitPromise: Promise<undefined> = signUpController.createSignUpButtonBinding();
-
-    /*const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
-        //signUpController.hideStep();
-        //signUpController.tiltBottle();
-        //amazingController.tiltBottle();
-        return <Promise<Element>>stepsHandler.animateToNextStep();
-    });*/
-
-    /*thirdStep.then(() => {
-        //amazingController.tiltBottle();
-    });*/
+    sixthStep.then(() => {
+        amazingController.tiltBottle();
+    });
 });

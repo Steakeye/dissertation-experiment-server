@@ -27,7 +27,7 @@ class PlayAR extends BaseStep {
     }
 
     public createPlayButtonBinding(): Promise<void> {
-        const buttonAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: ClickPromiseResolver<void>): void => {
+        const buttonAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: PromiseResolver<void>): void => {
             this.splayBottles(false);
             this.unSplayBottles();
 

@@ -7,7 +7,7 @@ class ThankYou extends BaseStep {
         const thanksContainer: Element = <Element>this.stepContainer;
 
         return new Promise<undefined>(function (resolve: () => undefined, reject: (e: Error) => undefined) {
-            console.log("promise running");
+            //console.log("promise running");
 
             try {
                 Sizzle('.bottle', thanksContainer)[0].classList.add("shake-1");
