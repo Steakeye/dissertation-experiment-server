@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     const fifthStep: Promise<Element> = fourthStepPause.then(() => {
+        arGameController.hideStep();
         backgroundController.animateBG(true);
         return stepsHandler.animateToNextStep();
     });
