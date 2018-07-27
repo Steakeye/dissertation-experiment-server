@@ -19,8 +19,11 @@ class PlayAR extends BaseStep {
     public unSplayBottles(splay: boolean = true) {
         const bottles:Element[] = (<Element[]>this.bottleEls);
 
-        this.toggleElClass(bottles[0], "un-tilt-0", splay);
-        this.toggleElClass(bottles[1], "un-tilt-1", splay);
+        const leftBottle: Element = bottles[0];
+        const rightBottle: Element = bottles[1];
+
+        this.toggleElClass(leftBottle, "un-tilt-0", splay);
+        this.toggleElClass(rightBottle, "un-tilt-1", splay);
     }
 
     public createPlayButtonBinding(): Promise<void> {
@@ -31,7 +34,7 @@ class PlayAR extends BaseStep {
             setTimeout(() => {
                 container.classList.add("hide");
                 resolver();
-            }, 125);
+            }, 1000);
 
         };
 

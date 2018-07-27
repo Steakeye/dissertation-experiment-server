@@ -14,13 +14,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const backgroundController: BGController = new BGController();
     const thankyouController: ThankYou = new ThankYou();
     const playARController: PlayAR = new PlayAR();
+    const arGameController: ARGame = new ARGame();
+    const wellDoneController: WellDone = new WellDone();
     //const signUpController: SignUp = new SignUp();
     //const amazingController: Amazing = new Amazing();
 
     backgroundController.animateBG();
 
     const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
-        //backgroundController.animateBG(false);
         playARController.bounceButton();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
@@ -31,8 +32,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     const thirdStep: Promise<Element> = playARController.createPlayButtonBinding().then(() => {
+        backgroundController.animateBG(false);
         return <Promise<Element>>stepsHandler.animateToNextStep(2000);
     });
+
+    const fourthStep: Promise<Element> = thirdStep.then(() => {
+        arGameController.startARGame();
+        arGameController.endARGame();
+        return <Promise<Element>>stepsHandler.animateToNextStep();
+    });
+
+    fourthStep.then(() => {
+        console.log("this should be well done step");
+        wellDoneController.animateWellDoneStep().then(() => {
+            playARController.bounceButton();
+            return <Promise<Element>>stepsHandler.animateToNextStep();
+        });
+    })
 
     //const signUpSubmitPromise: Promise<undefined> = signUpController.createSignUpButtonBinding();
 
