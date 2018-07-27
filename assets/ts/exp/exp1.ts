@@ -24,16 +24,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const signUpSubmitPromise: Promise<void> = signUpController.createSignUpButtonBinding();
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
-        signUpController.hideStep();
-        signUpController.tiltBottle();
-        amazingController.tiltBottle();
-        amazingController.bounceTitle();
+        signUpController.doExitAnimation();
+        amazingController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
     thirdStep.then(() => {
-        amazingController.setBottleRotation("left");
-        amazingController.toggleBottleClass("tilt-0", false);
-        amazingController.bounceBottle();
+        amazingController.doExitAnimation()
     });
 });

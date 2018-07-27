@@ -2,6 +2,7 @@
 ///<reference path="../steps-lib.ts"/>
 ///<reference path="../steps/thank-you.ts"/>
 ///<reference path="../steps/play-ar.ts"/>
+///<reference path="../steps/ar-game.ts"/>
 ///<reference path="../steps/sign-up.ts"/>
 ///<reference path="../steps/amazing.ts"/>
 
@@ -27,8 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     secondStep.then(() => {
-        playARController.splayBottles();
-        playARController.bounceBottle();
+        playARController.doIntroAnimation();
     });
 
     const thirdStep: Promise<Element> = playARController.createPlayButtonBinding().then(() => {
@@ -63,10 +63,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const signUpSubmitPromise: Promise<void> = signUpController.createSignUpButtonBinding();
 
     const sixthStep: Promise<Element> = signUpSubmitPromise.then(() => {
+        signUpController.doExitAnimation();
+        amazingController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
     sixthStep.then(() => {
-        amazingController.tiltBottle();
+        amazingController.doExitAnimation();
     });
 });

@@ -9,6 +9,11 @@ class PlayAR extends BaseStep {
         this.buttonEl = <Element>Sizzle(".button", this.stepContainer)[0];
     }
 
+    public doIntroAnimation() {
+        this.splayBottles();
+        this.bounceBottle();
+    }
+
     public splayBottles(splay: boolean = true) {
         const bottles:Element[] = (<Element[]>this.bottleEls);
 
