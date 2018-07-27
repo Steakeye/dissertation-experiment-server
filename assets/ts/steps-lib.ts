@@ -123,7 +123,7 @@ class StepsLib {
         this.loadSteps(Sizzle("#ad-steps section[data-order]"));
     }
 
-    public animateToNextStep(): Udefable<Promise<Element>> {
+    public animateToNextStep(duration?: number): Udefable<Promise<Element>> {
         const steps:Element[] = (<Element[]>this.steps);
         const lastStep = steps.length - 1;
         const nowStep: number = this._currentStep;
@@ -135,7 +135,7 @@ class StepsLib {
             const currentEl = steps[nowStep];
             const nextEl = steps[nowStep + 1];
 
-            const animTween: Tween = this.animateFadeEls(currentEl, nextEl);
+            const animTween: Tween = this.animateFadeEls(currentEl, nextEl, duration);
 
             animPromise = new Promise<Element>((resolve: (el: Element) => any, reject: () => any) => {
                 animTween.call((el: Element) => {
@@ -164,7 +164,7 @@ class StepsLib {
         this._steps = stepsArr;
     }
 
-    private animateFadeEls(old: Element, next: Element): Tween {
+    private animateFadeEls(old: Element, next: Element, duration?: number): Tween {
         const hiddenClassName: string = "is-hidden";
 
         const oldElStyle: CSSStyleDeclaration = StepsLib.getStyleObjOfEl(old);
@@ -174,12 +174,12 @@ class StepsLib {
             return (...params :any[]) => { el.classList.toggle(hiddenClassName)}
         }
 
-        this.doStyleFade(oldElStyle, 100, 0).call(makeHiddenToggleForEl(old));
+        this.doStyleFade(oldElStyle, 100, 0, duration).call(makeHiddenToggleForEl(old));
         makeHiddenToggleForEl(next)();
-        return this.doStyleFade(nextElStyle, 0, 100); //.call(makeHiddenToggleForEl(next));
+        return this.doStyleFade(nextElStyle, 0, 100, duration); //.call(makeHiddenToggleForEl(next));
     }
 
-    private doStyleFade(style: CSSStyleDeclaration, from: number, to: number, time: number = 1500, anim = createjs.Ease.backOut): Tween {
+    private doStyleFade(style: CSSStyleDeclaration, from: number, to: number, time: number = this.defaultTransitionDuration, anim = createjs.Ease.backOut): Tween {
         style.opacity = ""+from;
 
         return Tween.get(StepsLib.createProxtForPercent(style), { override:true }).to({ opacity: to }, time, anim);
@@ -211,4 +211,6 @@ class StepsLib {
 
     private _steps? : Element[];
     private _currentStep : number = 0;
+
+    private defaultTransitionDuration: number = 1500;
 }

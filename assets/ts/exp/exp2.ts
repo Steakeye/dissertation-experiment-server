@@ -30,9 +30,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         playARController.bounceBottle();
     });
 
-    playARController.createPlayButtonBinding().then(() => {
-        alert("Play Buttony pressed!");
-        //return <Promise<Element>>stepsHandler.animateToNextStep();
+    const thirdStep: Promise<Element> = playARController.createPlayButtonBinding().then(() => {
+        return <Promise<Element>>stepsHandler.animateToNextStep(2000);
     });
 
     //const signUpSubmitPromise: Promise<undefined> = signUpController.createSignUpButtonBinding();

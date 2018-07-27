@@ -234,6 +234,14 @@ h1, h2, h3 {
     &.tilt-1 {
       @include anim-props(anim-tilt-item-right, forwards ease-in-out, 1, .125s);
     }
+
+    &.un-tilt-0 {
+      @include anim-props(anim-tilt-item-left, reverse ease-in-out, 1, .125s);
+    }
+
+    &.un-tilt-1 {
+      @include anim-props(anim-tilt-item-right, reverse ease-in-out, 1, .125s);
+    }
   }
 
   form {
@@ -281,6 +289,10 @@ h1, h2, h3 {
 
 @keyframes anim-tilt-item-right {
   @include anim-side-by-value(transform, $tilt-right);
+}
+
+@keyframes anim-tilt-item-center {
+  @include anim-side-by-value(transform, 0deg);
 }
 
 @keyframes anim-exit-title-to-bottom {
@@ -357,6 +369,10 @@ h1, h2, h3 {
 
   &.hide {
     @include hide-h1(.125s);
+
+    .bottle {
+      animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+    }
 
     .button {
       animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
