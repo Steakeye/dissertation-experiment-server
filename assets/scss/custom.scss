@@ -364,40 +364,117 @@ h1, h2, h3 {
     @include anim-side-by-value(bottom, -5em);
   }
 
+  @keyframes anim-exit-coin-pile-to-top {
+    @include anim-side-by-value(top, -19em);
+  }
+
   @mixin hide-h1($time) {
     h1 {
       animation: forwards anim-exit-title-to-bottom ease-in-out $time;
     }
   }
 
+  $coin-pile-tier-0-top: 0;
+  $coin-pile-tier-1-top: 1em;
+  $coin-pile-tier-2-top: -2.75em;
+  $coin-pile-tier-3-top: -4.5em;
+
   #coin-pile {
+    @keyframes anim-enter-coin-pile-coin-0 {
+      @include anim-side-by-value(top, $coin-pile-tier-0-top)
+    }
+    @keyframes anim-enter-coin-pile-coin-1 {
+      @include anim-side-by-value(top, $coin-pile-tier-0-top)
+    }
+
+    @keyframes anim-enter-coin-pile-coin-2 {
+      @include anim-side-by-value(top, $coin-pile-tier-1-top)
+    }
+
+    @keyframes anim-enter-coin-pile-coin-3 {
+      @include anim-side-by-value(top, $coin-pile-tier-2-top)
+    }
+    @keyframes anim-enter-coin-pile-coin-4 {
+      @include anim-side-by-value(top, $coin-pile-tier-2-top)
+    }
+
+    @keyframes anim-enter-coin-pile-coin-5 {
+      @include anim-side-by-value(top, $coin-pile-tier-3-top)
+    }
+
     height: 28.57vw;
     width: 28.57vw;
 
     #coin-0 {
       left: -3.75em;
+      top: $coin-pile-tier-0-top;
     }
 
     #coin-1 {
       right: -3.75em;
+      top: $coin-pile-tier-0-top;
     }
 
     #coin-2 {
-      top: 1em;
+      top: $coin-pile-tier-1-top;
     }
 
     #coin-3 {
       top: -2em;
-      left: -2.75em;
+      left: $coin-pile-tier-2-top;
     }
 
     #coin-4 {
       top: -2em;
-      right: -2.75em;
+      right: $coin-pile-tier-2-top;
     }
 
     #coin-5 {
-      top: -4.5em;
+      top: $coin-pile-tier-3-top;
+    }
+
+    &.drop {
+
+      $coin-drop-duration: (.3s, .3s, .35s, .275s, .275s, .25s);
+      $coin-last-index: length($coin-drop-duration);
+
+      $i: 0;
+      @for $i from 0 to $coin-last-index {
+        #coin-#{$i} {
+          animation: forwards ease-in-out anim-enter-coin-pile-coin-#{$i} nth($coin-drop-duration, $i+1);
+          animation-delay: $i * 2s;
+        }
+      }
+
+      /*#coin-0 {
+        animation: forwards ease-in-out anim-enter-coin-pile-coin-0 .3s;
+      }
+
+      #coin-1 {
+        animation: forwards ease-in-out anim-enter-coin-pile-coin-1 .3s;
+      }
+
+      #coin-2 {
+        animation: forwards ease-in-out anim-enter-coin-pile-coin-2 .35s;
+      }
+
+      #coin-3 {
+        animation: forwards ease-in-out anim-enter-coin-pile-coin-3 .275s;
+      }
+
+      #coin-4 {
+        animation: forwards ease-in-out anim-enter-coin-pile-coin-4 .275s;
+      }
+
+      #coin-5 {
+        animation: forwards ease-in-out anim-enter-coin-pile-coin-5 .25s;
+      }*/
+
+      /*@for $i from 1 through 6 {
+        .coin:nth-child(#{$i}){
+          animation-delay: $i * 2s;
+        }
+      }*/
     }
   }
 
@@ -504,21 +581,16 @@ h1, h2, h3 {
     #coin-pile {
       top: -4.5em;
 
-      &.drop {
+      &.is-raised {
         .coin {
-          animation: reverse ease-in-out anim-exit-bottle-to-top .5s;
+          top: -19em;
         }
       }
     }
 
     .coin {
       position: absolute;
-
-      @for $i from 1 through 6 {
-        &:nth-child(#{$i}){
-          animation-delay: $i * 0.25s;
-        }
-      }
+      animation: reverse ease-in-out anim-exit-coin-pile-to-top 5s;
     }
 
     .details {
