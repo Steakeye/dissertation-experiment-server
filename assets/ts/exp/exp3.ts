@@ -19,15 +19,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
         console.log('we animated then came back to exp1');
-        backgroundController.animateBG(false);
         getCoinController.spinCoin();
-        backgroundController.raiseBG();
+        backgroundController.raiseBG().then(() => {
+            backgroundController.setBGPosToRaised();
+            backgroundController.raiseBG(false);
+        });
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
     secondStep.then(() => {
         getCoinController.bounceTitle();
+        return GetFaveCoin.createDelayPromise((resolver: PromiseResolver<void>) => {
+            backgroundController.animateBG(false);
+            resolver();
+        }, 6000)
     });
+
+    /*secondStep.then(() => {
+    });*/
 
     const signUpSubmitPromise: Promise<void> = getCoinController.createSignUpButtonBinding();
 

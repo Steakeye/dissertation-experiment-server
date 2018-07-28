@@ -7,7 +7,7 @@ type PromiseAction<R> = (resolver: PromiseResolver<R>) => void;
 //type PromiseResolver<R> = (thing?:R) => void;
 type ClickPromiseAction<R> = (el: Element, container: Element, resolver: PromiseResolver<R>) => void;
 
-class BaseStep {
+class BaseController {
     public static createPromise<R>(action: PromiseAction<R>): Promise<R> {
         return new Promise<R>(function (resolve: PromiseResolver<R>, reject: (e: Error) => void) {
 
@@ -26,8 +26,11 @@ class BaseStep {
             }, delayMS);
         });
     }
+}
 
+class BaseStep extends BaseController {
     constructor(containerID: string) {
+        super();
         this.stepContainer = Sizzle(containerID, document.body)[0];
         this.bottleEl = Sizzle('.bottle', this.stepContainer)[0];
         this.titleEl = Sizzle('h1', this.stepContainer)[0];
@@ -121,8 +124,9 @@ class BaseStep {
     protected buttonEl?: Element;
 }
 
-class BGController {
+class BGController extends BaseController {
     constructor() {
+        super();
         const body = document.body;
 
         body.classList.add('loaded');
@@ -132,12 +136,20 @@ class BGController {
 
     }
 
-    public animateBG(animate = true) {
+    public animateBG(animate: boolean  = true) {
         (<Element>this.sunBurst).classList.toggle("animated", animate);
     }
 
-    public raiseBG(animate = true) {
-        (<Element>this.sunBurstContainer).classList.toggle("raised", animate);
+    public raiseBG(animate: boolean  = true): Promise<void> {
+        (<Element>this.sunBurstContainer).classList.toggle("raise", animate);
+        return BGController.createDelayPromise<void>((resolver: PromiseResolver<void>) => {
+            resolver();
+        }, 750);
+
+    }
+
+    public setBGPosToRaised(raised: boolean = true) {
+        (<Element>this.sunBurstContainer).classList.toggle("is-raised", raised);
     }
 
     private sunBurstContainer?: Element;

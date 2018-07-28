@@ -7,7 +7,7 @@ $button-color-primary-active: darken($button-color-primary, 2.5%);
 $form-el-color-shadow: rgba(0, 0, 0, .5);
 $tilt-left: rotate(-15deg);
 $tilt-right: rotate(15deg);
-
+$raised-bg-top: 34%;
 $title-margin-bottom: 1em;
 
 
@@ -79,10 +79,15 @@ h1, h2, h3 {
   @include title-type;
 }
 
-.button, .input {
+.button,
+.input {
   box-shadow: $form-el-color-shadow 0 2pt 2pt;
-  user-select: none;
   -webkit-tap-highlight-color: transparent;
+  user-select: none;
+
+  &::placeholder {
+    color: #363636;
+  }
 }
 
 .button.is-primary {
@@ -96,10 +101,10 @@ h1, h2, h3 {
 
 .sunburst {
   @include full-screen;
-  
+
   @keyframes raiseSunburst {
     100% {
-      top: 34%;
+      top: $raised-bg-top;
     }
   }
 
@@ -133,10 +138,15 @@ h1, h2, h3 {
     }
   }
 
-  &.raised {
+  &.raise {
     .inner {
-      //top: 34%;
       animation: raiseSunburst forwards ease-in-out 1 .75s ;
+    }
+  }
+
+  &.is-raised {
+    .inner {
+      top: $raised-bg-top;
     }
   }
 }
@@ -297,7 +307,7 @@ h1, h2, h3 {
       text-align: center;
     }
 
-    &.raised {
+    &.raise {
       h1 {
         bottom: 3.5em;
       }
