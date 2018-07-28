@@ -1,6 +1,12 @@
 class GetFaveCoin extends BaseStep {
     constructor() {
         super('#get-fave-coin');
+
+        this.coinEl = Sizzle(".coin", this.stepContainer)[0];
+    }
+
+    public spinCoin() {
+        this.toggleElClass(<Element>this.coinEl, "spin-1");
     }
 
     public createSignUpButtonBinding(): Promise<void> {
@@ -20,4 +26,6 @@ class GetFaveCoin extends BaseStep {
         this.hideStep();
         //this.tiltBottle();
     }
+
+    protected coinEl?: Element;
 }

@@ -127,14 +127,20 @@ class BGController {
 
         body.classList.add('loaded');
 
-        this.sunBurst = Sizzle("#bg-sunburst > .inner", body)[0];
+        this.sunBurstContainer = Sizzle("#bg-sunburst")[0];
+        this.sunBurst = Sizzle("> .inner", this.sunBurstContainer)[0];
 
     }
 
     public animateBG(animate = true) {
-        Sizzle('#bg-sunburst .inner')[0].classList.toggle("animated", animate);
+        (<Element>this.sunBurst).classList.toggle("animated", animate);
     }
 
+    public raiseBG(animate = true) {
+        (<Element>this.sunBurstContainer).classList.toggle("raised", animate);
+    }
+
+    private sunBurstContainer?: Element;
     private sunBurst?: Element;
 }
 

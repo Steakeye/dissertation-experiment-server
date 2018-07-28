@@ -2,6 +2,9 @@
 ///<reference path="../steps-lib.ts"/>
 ///<reference path="../steps/thank-you.ts"/>
 ///<reference path="../steps/sign-up.ts"/>
+///<reference path="../steps/thank-you.ts"/>
+///<reference path="../steps/get-fave-coin.ts"/>
+///<reference path="../steps/amazing.ts"/>
 
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("DOM fully loaded and parsed");
@@ -9,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const stepsHandler: StepsLib = new StepsLib();
     const backgroundController: BGController = new BGController();
     const thankyouController: ThankYou = new ThankYou();
-    const getCoinController: SignUp = new GetFaveCoin();
+    const getCoinController: GetFaveCoin = new GetFaveCoin();
     const amazingController: Amazing = new Amazing();
 
     backgroundController.animateBG();
@@ -17,8 +20,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
         console.log('we animated then came back to exp1');
         backgroundController.animateBG(false);
-        getCoinController.bounceBottle();
+        getCoinController.spinCoin();
+        backgroundController.raiseBG();
         return <Promise<Element>>stepsHandler.animateToNextStep();
+    });
+
+    secondStep.then(() => {
+        getCoinController.bounceTitle();
     });
 
     const signUpSubmitPromise: Promise<void> = getCoinController.createSignUpButtonBinding();

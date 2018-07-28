@@ -96,6 +96,12 @@ h1, h2, h3 {
 
 .sunburst {
   @include full-screen;
+  
+  @keyframes raiseSunburst {
+    100% {
+      top: 34%;
+    }
+  }
 
   .inner {
     animation: spin 45s linear infinite paused;
@@ -129,7 +135,8 @@ h1, h2, h3 {
 
   &.raised {
     .inner {
-      top: 34%;
+      //top: 34%;
+      animation: raiseSunburst forwards ease-in-out 1 .75s ;
     }
   }
 }
@@ -195,8 +202,27 @@ h1, h2, h3 {
       }
     }
 
+    @keyframes animSpin1{
+      0% {
+        transform: rotateY(0);
+      }
+      49% {
+        transform: rotateY(90deg);
+      }
+      50% {
+        transform: rotateY(-90deg);
+      }
+      100% {
+        transform: rotateY(-0);
+      }
+    }
+
     .scale-0 {
       @include anim-props(animScaleUp, alternate, 2)
+    }
+
+    .spin-1 {
+      @include anim-props(animSpin1, normal, 4)
     }
 
     h1 {
@@ -277,7 +303,7 @@ h1, h2, h3 {
       }
 
       .details {
-        bottom:7.5em;
+        bottom: 7.5em;
       }
     }
 }
