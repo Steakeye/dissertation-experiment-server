@@ -501,8 +501,24 @@ h1, h2, h3 {
   }
 
   #have-fave-coin {
+    #coin-pile {
+      top: -4.5em;
+
+      &.drop {
+        .coin {
+          animation: reverse ease-in-out anim-exit-bottle-to-top .5s;
+        }
+      }
+    }
+
     .coin {
       position: absolute;
+
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}){
+          animation-delay: $i * 0.25s;
+        }
+      }
     }
 
     .details {
