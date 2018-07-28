@@ -370,6 +370,37 @@ h1, h2, h3 {
     }
   }
 
+  #coin-pile {
+    height: 28.57vw;
+    width: 28.57vw;
+
+    #coin-0 {
+      left: -3.75em;
+    }
+
+    #coin-1 {
+      right: -3.75em;
+    }
+
+    #coin-2 {
+      top: 1em;
+    }
+
+    #coin-3 {
+      top: -2em;
+      left: -2.75em;
+    }
+
+    #coin-4 {
+      top: -2em;
+      right: -2.75em;
+    }
+
+    #coin-5 {
+      top: -4.5em;
+    }
+  }
+
   #thank-you {
     h1 {
       animation: running anim-flip-title ease-in-out .5s;
@@ -450,6 +481,34 @@ h1, h2, h3 {
     .coin {
       position: absolute;
       top: 19%;
+    }
+
+    &.hide {
+      @include hide-h1(.25s);
+
+      .coin {
+        animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+      }
+
+      .details {
+        animation: forwards ease-in-out anim-exit-form-to-bottom .165s;
+      }
+
+      #form-sign-up .formfield {
+        animation: forwards ease-in-out anim-exit-form-to-bottom .125s;
+      }
+    }
+  }
+
+  #have-fave-coin {
+    .coin {
+      position: absolute;
+    }
+
+    .details {
+      bottom: 4.5em;
+      font-size: 1.2em;
+      padding: 0 .2em;
     }
   }
 

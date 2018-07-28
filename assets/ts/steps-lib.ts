@@ -28,7 +28,7 @@ class BaseController {
     }
 }
 
-class BaseStep extends BaseController {
+abstract class BaseStep extends BaseController {
     constructor(containerID: string) {
         super();
         this.stepContainer = Sizzle(containerID, document.body)[0];
@@ -91,6 +91,10 @@ class BaseStep extends BaseController {
     public toggleElClass(el: Element, cssClass: string, force?: boolean ) {
         el.classList.toggle(cssClass, force);
     }
+
+    public abstract doIntroAnimation(): void | Promise<void>;
+
+    public abstract doExitAnimation(): void | Promise<void>;
 
     protected createClickElementPromise<R>(el: Element, action: ClickPromiseAction<R>): Promise<R> {
         const container: Element = <Element>this.stepContainer;

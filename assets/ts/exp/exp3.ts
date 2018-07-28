@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const backgroundController: BGController = new BGController();
     const thankyouController: ThankYou = new ThankYou();
     const getCoinController: GetFaveCoin = new GetFaveCoin();
+    const haveCoinController: HaveFaveCoin = new HaveFaveCoin();
     const amazingController: Amazing = new Amazing();
 
     backgroundController.animateBG();
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
         getCoinController.doExitAnimation();
-        amazingController.doIntroAnimation();
+        haveCoinController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
