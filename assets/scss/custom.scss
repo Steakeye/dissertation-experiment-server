@@ -94,7 +94,7 @@ h1, h2, h3 {
   }
 }
 
-.sunburst.outer {
+.sunburst {
   @include full-screen;
 
   .inner {
@@ -126,6 +126,12 @@ h1, h2, h3 {
       width: 100%;
     }
   }
+
+  &.raised {
+    .inner {
+      top: 34%;
+    }
+  }
 }
 
 .starburst {
@@ -154,240 +160,263 @@ h1, h2, h3 {
   }
 }
 
-.section .step {
-  @include full-screen;
+.section {
+  .step {
+    @include full-screen;
 
-  @include flex-center;
-
-  @mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
-    animation: $anim $direction $duration;
-    animation-iteration-count: $count;
-  }
-
-  @keyframes animScaleUp {
-    100% {
-      transform: scale(1.25);
-    }
-  }
-
-  @keyframes animShake0 {
-    0% {
-      transform: rotate(-15deg);
-    }
-    100% {
-      transform: rotate(15deg);
-    }
-  }
-
-  @keyframes animShake1 {
-    0% {
-      transform: $tilt-right;
-    }
-    100% {
-      transform: $tilt-left;
-    }
-  }
-
-  .scale-0 {
-    @include anim-props(animScaleUp, alternate, 2)
-  }
-
-  h1 {
-    bottom: $title-margin-bottom;
-    font-size: 13.333vw;
-    position: absolute;
-    text-align: center;
-    text-shadow: white 0 2pt 2pt;
-    width: 100%;
-  }
-
-  .bottle {
-    height: 100vw;
-    left: -15vw;
-    max-width: none;
-    position: absolute;
-    top: 12.5vw; //25vw;
-
-    &.rotated-0 {
-      transform: $tilt-left;
-    }
-    &.rotated-1 {
-      transform: $tilt-right;
-    }
-
-    @mixin shake-props($anim) {
-      @include anim-props($anim, alternate, 4, .25s);
-    }
-
-    &.shake-0 {
-      @include shake-props(animShake0)
-    }
-
-    &.shake-1 {
-      @include shake-props(animShake1)
-      }
-
-    &.tilt-0 {
-      @include anim-props(anim-tilt-item-left, forwards ease-in-out, 1, .125s);
-    }
-
-    &.tilt-1 {
-      @include anim-props(anim-tilt-item-right, forwards ease-in-out, 1, .125s);
-    }
-
-    &.un-tilt-0 {
-      @include anim-props(anim-tilt-item-left, reverse ease-in-out, 1, .125s);
-    }
-
-    &.un-tilt-1 {
-      @include anim-props(anim-tilt-item-right, reverse ease-in-out, 1, .125s);
-    }
-  }
-
-  form {
     @include flex-center;
 
-    .formfield {
-      bottom: 1em;
-      position: absolute;
-      width: 90vw;
+    @mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
+      animation: $anim $direction $duration;
+      animation-iteration-count: $count;
+    }
 
-      .input.is-fullwidth {
-        position: relative;
-        top: -.5em;
+    @keyframes animScaleUp {
+      100% {
+        transform: scale(1.25);
+      }
+    }
+
+    @keyframes animShake0 {
+      0% {
+        transform: rotate(-15deg);
+      }
+      100% {
+        transform: rotate(15deg);
+      }
+    }
+
+    @keyframes animShake1 {
+      0% {
+        transform: $tilt-right;
+      }
+      100% {
+        transform: $tilt-left;
+      }
+    }
+
+    .scale-0 {
+      @include anim-props(animScaleUp, alternate, 2)
+    }
+
+    h1 {
+      bottom: $title-margin-bottom;
+      font-size: 13.333vw;
+      position: absolute;
+      text-align: center;
+      text-shadow: white 0 2pt 2pt;
+      width: 100%;
+    }
+
+    .bottle {
+      height: 100vw;
+      left: -15vw;
+      max-width: none;
+      position: absolute;
+      top: 12.5vw; //25vw;
+
+      &.rotated-0 {
+        transform: $tilt-left;
+      }
+      &.rotated-1 {
+        transform: $tilt-right;
+      }
+
+      @mixin shake-props($anim) {
+        @include anim-props($anim, alternate, 4, .25s);
+      }
+
+      &.shake-0 {
+        @include shake-props(animShake0)
+      }
+
+      &.shake-1 {
+        @include shake-props(animShake1)
+      }
+
+      &.tilt-0 {
+        @include anim-props(anim-tilt-item-left, forwards ease-in-out, 1, .125s);
+      }
+
+      &.tilt-1 {
+        @include anim-props(anim-tilt-item-right, forwards ease-in-out, 1, .125s);
+      }
+
+      &.un-tilt-0 {
+        @include anim-props(anim-tilt-item-left, reverse ease-in-out, 1, .125s);
+      }
+
+      &.un-tilt-1 {
+        @include anim-props(anim-tilt-item-right, reverse ease-in-out, 1, .125s);
+      }
+    }
+
+    form {
+      @include flex-center;
+
+      .formfield {
+        bottom: 1em;
+        position: absolute;
+        width: 90vw;
+
+        .input.is-fullwidth {
+          position: relative;
+          top: -.5em;
+        }
+      }
+    }
+
+    .details {
+      position: absolute;
+      text-align: center;
+    }
+
+    &.raised {
+      h1 {
+        bottom: 3.5em;
+      }
+
+      .details {
+        bottom:7.5em;
+      }
+    }
+}
+
+  #ad-steps {
+    position: initial;
+  }
+
+
+  @keyframes anim-flip-title {
+    0% {
+      bottom: 0;
+      transform: rotateX(90deg);
+    }
+    100% {
+      bottom: $title-margin-bottom;
+      transform: rotateX(0deg);
+    }
+  }
+
+  @mixin anim-side-by-value($animSide, $amount) {
+    100% {
+      #{$animSide}: #{$amount};
+    }
+  }
+
+  @keyframes anim-tilt-item-left {
+    @include anim-side-by-value(transform, $tilt-left);
+  }
+
+  @keyframes anim-tilt-item-right {
+    @include anim-side-by-value(transform, $tilt-right);
+  }
+
+  @keyframes anim-tilt-item-center {
+    @include anim-side-by-value(transform, 0deg);
+  }
+
+  @keyframes anim-exit-title-to-bottom {
+    @include anim-side-by-value(bottom, -1.5em);
+  }
+
+  @keyframes anim-exit-bottle-to-top {
+    @include anim-side-by-value(top, -95vw);
+  }
+
+  @keyframes anim-exit-form-to-bottom {
+    @include anim-side-by-value(bottom, -5em);
+  }
+
+  @mixin hide-h1($time) {
+    h1 {
+      animation: forwards anim-exit-title-to-bottom ease-in-out $time;
+    }
+  }
+
+  #thank-you {
+    h1 {
+      animation: running anim-flip-title ease-in-out .5s;
+    }
+
+    &.pre-anim {
+      animation-play-state: paused;
+      transform: rotateX(90deg);
+    }
+  }
+
+  #thank-you,
+  #well-done {
+    &.hide {
+      @include hide-h1(.25s);
+
+      .bottle {
+        animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
       }
     }
   }
 
-}
-
-#ad-steps {
-  position: initial;
-}
-
-
-@keyframes anim-flip-title {
-  0% {
-    bottom: 0;
-    transform: rotateX(90deg);
-  }
-  100% {
-    bottom: $title-margin-bottom;
-    transform: rotateX(0deg);
-  }
-}
-
-@mixin anim-side-by-value($animSide, $amount) {
-  100% {
-      #{$animSide}: #{$amount};
-  }
-}
-
-@keyframes anim-tilt-item-left {
-  @include anim-side-by-value(transform, $tilt-left);
-}
-
-@keyframes anim-tilt-item-right {
-  @include anim-side-by-value(transform, $tilt-right);
-}
-
-@keyframes anim-tilt-item-center {
-  @include anim-side-by-value(transform, 0deg);
-}
-
-@keyframes anim-exit-title-to-bottom {
-  @include anim-side-by-value(bottom, -1.5em);
-}
-
-@keyframes anim-exit-bottle-to-top {
-  @include anim-side-by-value(top, -95vw);
-}
-
-@keyframes anim-exit-form-to-bottom {
-  @include anim-side-by-value(bottom, -5em);
-}
-
-@mixin hide-h1($time) {
-  h1 {
-    animation: forwards anim-exit-title-to-bottom ease-in-out $time;
-  }
-}
-
-#thank-you {
-  h1 {
-    animation: running anim-flip-title ease-in-out .5s;
-  }
-
-  &.pre-anim {
-    animation-play-state: paused;
-    transform: rotateX(90deg);
-  }
-}
-
-#thank-you,
-#well-done {
-  &.hide {
-    @include hide-h1(.25s);
-
-    .bottle {
-      animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+  #sign-up {
+    h1 {
+      bottom: 2.5em;
     }
-  }
-}
 
-#sign-up {
-  h1 {
-    bottom: 2.5em;
-  }
+    &.hide {
+      @include hide-h1(.33s);
 
-  &.hide {
-    @include hide-h1(.33s);
+      /*.bottle {
+        animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+      }*/
 
-    /*.bottle {
-      animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
-    }*/
-
-    #form-sign-up .formfield {
-      animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
-    }
-  }
-}
-
-#play-ar {
-  h1 {
-    bottom: 0.125em;
-  }
-
-  .button {
-    bottom: 4em;
-    position: absolute;
-  }
-
-  .bottle{
-    &:first-of-type,
-    &:nth-of-type(2) {
-      transform-origin: 50% 120%;
+      #form-sign-up .formfield {
+        animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
+      }
     }
   }
 
-  &.hide {
-    @include hide-h1(.125s);
-
-    .bottle {
-      animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+  #play-ar {
+    h1 {
+      bottom: 0.125em;
     }
 
     .button {
-      animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
+      bottom: 4em;
+      position: absolute;
+    }
+
+    .bottle{
+      &:first-of-type,
+      &:nth-of-type(2) {
+        transform-origin: 50% 120%;
+      }
+    }
+
+    &.hide {
+      @include hide-h1(.125s);
+
+      .bottle {
+        animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+      }
+
+      .button {
+        animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
+      }
     }
   }
-}
 
-#ar-game {
-  h1 {
-    position: initial;
+  #ar-game {
+    h1 {
+      position: initial;
+    }
   }
-}
 
-#amazing {
+  #get-fave-coin {
+    .coin {
+      position: absolute;
+      top: 19%;
+    }
+  }
+
+  #amazing {
+  }
 }

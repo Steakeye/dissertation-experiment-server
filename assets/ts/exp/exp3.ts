@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const stepsHandler: StepsLib = new StepsLib();
     const backgroundController: BGController = new BGController();
     const thankyouController: ThankYou = new ThankYou();
-    const signUpController: SignUp = new SignUp();
+    const getCoinController: SignUp = new GetFaveCoin();
     const amazingController: Amazing = new Amazing();
 
     backgroundController.animateBG();
@@ -17,14 +17,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
         console.log('we animated then came back to exp1');
         backgroundController.animateBG(false);
-        signUpController.bounceBottle();
+        getCoinController.bounceBottle();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    const signUpSubmitPromise: Promise<void> = signUpController.createSignUpButtonBinding();
+    const signUpSubmitPromise: Promise<void> = getCoinController.createSignUpButtonBinding();
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
-        signUpController.doExitAnimation();
+        getCoinController.doExitAnimation();
         amazingController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
