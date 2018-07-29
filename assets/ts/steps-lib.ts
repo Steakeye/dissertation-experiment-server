@@ -100,6 +100,14 @@ abstract class BaseStep extends BaseController {
         el.classList.toggle(cssClass, force);
     }
 
+    public addElClass(el: Element, ...cssClass: string[]) {
+        el.classList.add(...cssClass);
+    }
+
+    public removeElClass(el: Element, ...cssClass: string[]) {
+        el.classList.remove(...cssClass);
+    }
+
     public abstract doIntroAnimation(): void | Promise<void>;
 
     public abstract doExitAnimation(): void | Promise<void>;
@@ -241,7 +249,7 @@ class StepsLib {
     }
 
     private doStyleFade(style: CSSStyleDeclaration, from: number, to: number, time: number = this.defaultTransitionDuration, anim = createjs.Ease.backOut): Tween {
-        style.opacity = ""+from;
+        style.opacity = ""+from/100;
 
         return Tween.get(StepsLib.createProxtForPercent(style), { override:true }).to({ opacity: to }, time, anim);
     }
@@ -251,16 +259,18 @@ class StepsLib {
     }
 
     private static createProxtForPercent<T>(target: T) {
+        const whiteList: string[] = ["tweenjs_count"];
+
         const handler: { get(obj: T, prop: string): any,  set(obj: T, prop: string, value: any): any } =
         {
             get: function (obj, prop) {
                 return prop in obj ?
-                    (<T>obj)[prop] * 100 :
+                    whiteList.indexOf(prop) != -1 ? (<T>obj)[prop]: (<T>obj)[prop] * 100 :
                     undefined;
             },
             set: function(obj, prop, value) {
                 // The default behavior to store the value
-                obj[prop] = value / 100;
+                obj[prop] = whiteList.indexOf(prop) != -1 ? value: value / 100;
 
                 // Indicate success
                 return true;
