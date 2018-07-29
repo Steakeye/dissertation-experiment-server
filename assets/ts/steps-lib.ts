@@ -26,6 +26,14 @@ class BaseController {
             }, delayMS);
         });
     }
+
+    public static createTimewPromise(delayMS: number): Promise<void> {
+        return this.createPromise((resolve: PromiseResolver<void>) => {
+            setTimeout(() => {
+                resolve();
+            }, delayMS);
+        });
+    }
 }
 
 abstract class BaseStep extends BaseController {
@@ -95,6 +103,10 @@ abstract class BaseStep extends BaseController {
     public abstract doIntroAnimation(): void | Promise<void>;
 
     public abstract doExitAnimation(): void | Promise<void>;
+
+    public get stepEl(): Udefable<Element> {
+        return this.stepContainer
+    }
 
     protected createClickElementPromise<R>(el: Element, action: ClickPromiseAction<R>): Promise<R> {
         const container: Element = <Element>this.stepContainer;
@@ -167,28 +179,34 @@ class StepsLib {
     }
 
     public animateToNextStep(duration?: number): Udefable<Promise<Element>> {
-        const steps:Element[] = (<Element[]>this.steps);
-        const lastStep = steps.length - 1;
-        const nowStep: number = this._currentStep;
+        if (!this._transitioning) {
 
-        let animPromise: Udefable<Promise<Element>>;
+            const steps: Element[] = (<Element[]>this.steps);
+            const lastStep = steps.length - 1;
+            const nowStep: number = this._currentStep;
+
+            this._transitioning = true;
+
+            let animPromise: Udefable<Promise<Element>>;
 
 
-        if (nowStep < lastStep) {
-            const currentEl = steps[nowStep];
-            const nextEl = steps[nowStep + 1];
+            if (nowStep < lastStep) {
+                const currentEl = steps[nowStep];
+                const nextEl = steps[nowStep + 1];
 
-            const animTween: Tween = this.animateFadeEls(currentEl, nextEl, duration);
+                const animTween: Tween = this.animateFadeEls(currentEl, nextEl, duration);
 
-            animPromise = new Promise<Element>((resolve: (el: Element) => any, reject: () => any) => {
-                animTween.call((el: Element) => {
-                    ++this._currentStep;
-                    resolve(el)
-                }, [nextEl]);
-            });
+                animPromise = new Promise<Element>((resolve: (el: Element) => any, reject: () => any) => {
+                    animTween.call((el: Element) => {
+                        ++this._currentStep;
+                        this._transitioning = false;
+                        resolve(el)
+                    }, [nextEl]);
+                });
+            }
+
+            return animPromise;
         }
-
-        return animPromise;
     }
 
     public get steps(): Udefable<Element[]> {
@@ -254,6 +272,7 @@ class StepsLib {
 
     private _steps? : Element[];
     private _currentStep : number = 0;
+    private _transitioning: boolean = false;
 
     private defaultTransitionDuration: number = 1500;
 }

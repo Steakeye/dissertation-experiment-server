@@ -32,13 +32,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     secondStep.then(() => {
         getCoinController.bounceTitle();
         return GetFaveCoin.createDelayPromise((resolver: PromiseResolver<void>) => {
-            backgroundController.animateBG(false);
+            if (stepsHandler.currentStepEl == getCoinController.stepEl) {
+                backgroundController.animateBG(false);
+            }
             resolver();
         }, 6000)
     });
-
-    /*secondStep.then(() => {
-    });*/
 
     const signUpSubmitPromise: Promise<void> = getCoinController.createSignUpButtonBinding();
 
@@ -49,7 +48,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    thirdStep.then(() => {
-        //amazingController.doExitAnimation()
+    const haveCoinHandler = (): Udefable<Promise<Element>> => {
+        if (stepsHandler.currentStepEl == getCoinController.stepEl) {
+            backgroundController.animateBG(false);
+            return <Promise<Element>>stepsHandler.animateToNextStep();
+        }
+    };
+
+    const thirdStepPause: Promise<Element> = haveCoinController.getInterstitialPromise().then(() => {
+        /*if (stepsHandler.currentStepEl == getCoinController.stepEl) {
+            backgroundController.animateBG(false);
+            return <Promise<Element>>stepsHandler.animateToNextStep();
+        }*/
+        return haveCoinHandler();
+    });
+
+    const haveCoinClickPromise: Promise<void> = haveCoinController.createClickBinding();
+
+    haveCoinClickPromise.then(() => {
+        return haveCoinHandler();
+    });
+
+    thirdStepPause.then(() => {
+        haveCoinController.doExitAnimation();
+        amazingController.doIntroAnimation();
+        return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 });

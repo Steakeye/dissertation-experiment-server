@@ -13,5 +13,24 @@ class HaveFaveCoin extends BaseStep {
         this.hideStep();
     }
 
+    public getInterstitialPromise(): Promise<void> {
+        return HaveFaveCoin.createTimewPromise(1500);
+    }
+
+    public createClickBinding(): Promise<void> {
+        const clickAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: PromiseResolver<void>): void => {
+            //container.classList.add("hide");
+
+            /*setTimeout(() => {
+                resolver();
+            }, 1000);*/
+            this.doExitAnimation();
+
+            resolver();
+        };
+
+        return this.createClickElementPromise<void>(<Element>this.stepContainer, clickAction)
+    }
+
     protected coinPile?: Element;
 }
