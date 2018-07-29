@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     backgroundController.animateBG();
 
     const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
-        console.log('we animated then came back to exp1');
+        //console.log('we animated then came back to exp1');
         backgroundController.animateBG(false);
         signUpController.bounceBottle();
         return <Promise<Element>>stepsHandler.animateToNextStep();

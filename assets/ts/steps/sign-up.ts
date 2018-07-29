@@ -16,6 +16,10 @@ class SignUp extends BaseStep {
         return this.createClickElementPromise<void>(<Element>Sizzle("button", this.stepContainer)[0], buttonAction)
     }
 
+    public doIntroAnimation() {
+        //TODO!
+    }
+
     public doExitAnimation() {
         this.hideStep();
         this.tiltBottle();

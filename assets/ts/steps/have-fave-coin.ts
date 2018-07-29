@@ -1,13 +1,17 @@
 class HaveFaveCoin extends BaseStep {
     constructor() {
         super('#have-fave-coin');
+
+        this.coinPile = Sizzle("#coin-pile", <Element>this.stepContainer)[0];
     }
 
-    public startARGame() {
-        console.log('Starting AR Game');
+    public doIntroAnimation() {
+        (<Element>this.coinPile).classList.add("is-raised", "drop");
     }
 
-    public endARGame() {
-        console.log('Ending AR Game');
+    public doExitAnimation() {
+        this.hideStep();
     }
+
+    protected coinPile?: Element;
 }

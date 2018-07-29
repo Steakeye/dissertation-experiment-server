@@ -442,39 +442,9 @@ h1, h2, h3 {
       @for $i from 0 to $coin-last-index {
         #coin-#{$i} {
           animation: forwards ease-in-out anim-enter-coin-pile-coin-#{$i} nth($coin-drop-duration, $i+1);
-          animation-delay: $i * 2s;
+          animation-delay: ($coin-last-index - $i) * 1s;
         }
       }
-
-      /*#coin-0 {
-        animation: forwards ease-in-out anim-enter-coin-pile-coin-0 .3s;
-      }
-
-      #coin-1 {
-        animation: forwards ease-in-out anim-enter-coin-pile-coin-1 .3s;
-      }
-
-      #coin-2 {
-        animation: forwards ease-in-out anim-enter-coin-pile-coin-2 .35s;
-      }
-
-      #coin-3 {
-        animation: forwards ease-in-out anim-enter-coin-pile-coin-3 .275s;
-      }
-
-      #coin-4 {
-        animation: forwards ease-in-out anim-enter-coin-pile-coin-4 .275s;
-      }
-
-      #coin-5 {
-        animation: forwards ease-in-out anim-enter-coin-pile-coin-5 .25s;
-      }*/
-
-      /*@for $i from 1 through 6 {
-        .coin:nth-child(#{$i}){
-          animation-delay: $i * 2s;
-        }
-      }*/
     }
   }
 
@@ -588,15 +558,17 @@ h1, h2, h3 {
       }
     }
 
-    .coin {
-      position: absolute;
-      animation: reverse ease-in-out anim-exit-coin-pile-to-top 5s;
-    }
-
     .details {
       bottom: 4.5em;
       font-size: 1.2em;
       padding: 0 .2em;
+    }
+
+    &.hide {
+      .coin {
+        position: absolute;
+        animation: forwards ease-in-out anim-exit-coin-pile-to-top .5s;
+      }
     }
   }
 

@@ -4,6 +4,7 @@
 ///<reference path="../steps/sign-up.ts"/>
 ///<reference path="../steps/thank-you.ts"/>
 ///<reference path="../steps/get-fave-coin.ts"/>
+///<reference path="../steps/have-fave-coin.ts"/>
 ///<reference path="../steps/amazing.ts"/>
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     backgroundController.animateBG();
 
     const secondStep: Promise<Element> = thankyouController.animateThankYouStep().then(() => {
-        console.log('we animated then came back to exp1');
+        //console.log('we animated then came back to exp1');
         getCoinController.spinCoin();
         backgroundController.raiseBG().then(() => {
             backgroundController.setBGPosToRaised();
@@ -44,10 +45,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
         getCoinController.doExitAnimation();
         haveCoinController.doIntroAnimation();
+        backgroundController.animateBG();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
     thirdStep.then(() => {
-        amazingController.doExitAnimation()
+        //amazingController.doExitAnimation()
     });
 });

@@ -24,4 +24,12 @@ class WellDone extends BaseStep {
 
         });
     }
+
+    public doIntroAnimation() {
+        //TODO!
+    }
+
+    public doExitAnimation() {
+        this.hideStep();
+    }
 }

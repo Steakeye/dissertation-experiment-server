@@ -14,6 +14,10 @@ class PlayAR extends BaseStep {
         this.bounceBottle();
     }
 
+    public doExitAnimation() {
+        this.hideStep();
+    }
+
     public splayBottles(splay: boolean = true) {
         const bottles:Element[] = (<Element[]>this.bottleEls);
 
