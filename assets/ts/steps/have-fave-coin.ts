@@ -6,25 +6,21 @@ class HaveFaveCoin extends BaseStep {
     }
 
     public doIntroAnimation() {
-        (<Element>this.coinPile).classList.add("is-raised", "drop");
+        this.addElClass(<Element>this.coinPile, "is-raised", "drop");
     }
 
     public doExitAnimation() {
+        this.removeElClass(<Element>this.coinPile, "is-raised", "drop");
         this.hideStep();
     }
 
     public getInterstitialPromise(): Promise<void> {
-        return HaveFaveCoin.createTimewPromise(1500);
+        return HaveFaveCoin.createTimewPromise(7500);
     }
 
     public createClickBinding(): Promise<void> {
         const clickAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: PromiseResolver<void>): void => {
-            //container.classList.add("hide");
-
-            /*setTimeout(() => {
-                resolver();
-            }, 1000);*/
-            this.doExitAnimation();
+            //this.doExitAnimation();
 
             resolver();
         };

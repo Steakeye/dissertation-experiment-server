@@ -48,30 +48,45 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    const haveCoinHandler = (): Udefable<Promise<Element>> => {
-        if (stepsHandler.currentStepEl == getCoinController.stepEl) {
+    const haveCoinHandler = (): Udefable<Promise<void>> => {
+        if (stepsHandler.currentStepEl == haveCoinController.stepEl) {
             backgroundController.animateBG(false);
-            return <Promise<Element>>stepsHandler.animateToNextStep();
+            haveCoinController.doExitAnimation();
+
+            return HaveFaveCoin.createTimewPromise(500);
         }
     };
 
-    const thirdStepPause: Promise<Element> = haveCoinController.getInterstitialPromise().then(() => {
-        /*if (stepsHandler.currentStepEl == getCoinController.stepEl) {
-            backgroundController.animateBG(false);
-            return <Promise<Element>>stepsHandler.animateToNextStep();
-        }*/
-        return haveCoinHandler();
+    const haveCoinTransitionResolver = (): Udefable<Promise<Element>> => {
+        amazingController.doIntroAnimation();
+
+        return stepsHandler.animateToNextStep();
+    };
+
+    const amazingFinalAnimationResolver = (): void => {
+        amazingController.doExitAnimation();
+    };
+
+    let clickOccured: boolean = false;
+
+    const thirdStepPause: Promise<void> = thirdStep.then(() => {
+        return haveCoinController.getInterstitialPromise();
+    });
+
+    thirdStepPause.then(() => {
+        if (!clickOccured) {
+            haveCoinHandler()
+                .then(haveCoinTransitionResolver)
+                .then(amazingFinalAnimationResolver);
+        }
     });
 
     const haveCoinClickPromise: Promise<void> = haveCoinController.createClickBinding();
 
     haveCoinClickPromise.then(() => {
-        return haveCoinHandler();
-    });
+        clickOccured = true;
 
-    thirdStepPause.then(() => {
-        haveCoinController.doExitAnimation();
-        amazingController.doIntroAnimation();
-        return <Promise<Element>>stepsHandler.animateToNextStep();
-    });
+        return haveCoinHandler();
+    }).then(haveCoinTransitionResolver)
+        .then(amazingFinalAnimationResolver);
 });

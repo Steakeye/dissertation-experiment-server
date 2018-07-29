@@ -568,8 +568,14 @@ h1, h2, h3 {
     }
 
     &.hide {
+      @include hide-h1(.25s);
+
       .coin {
         animation: forwards ease-in-out anim-exit-coin-pile-to-top .5s;
+      }
+
+      .details {
+        animation: forwards ease-in-out anim-exit-form-to-bottom .165s;
       }
     }
   }
