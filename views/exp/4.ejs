@@ -23,6 +23,17 @@
     </div>
     </section>
   </main>
-  <%- include('./includes/footer-scripts'); %>
+    <%- include('./includes/footer-scripts',
+      {
+      customScripts: [
+      '/js/exp/exp4.js',
+      '/js/steps/thank-you.js',
+      '/js/steps/sign-up.js',
+      '/js/steps/share-with-friends.js',
+      '/js/steps/social-media.js',
+      '/js/steps/amazing.js'
+      ]
+      }
+    ); %>
   </body>
 </html>
