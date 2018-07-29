@@ -246,7 +246,6 @@ h1, h2, h3 {
 
     .bottle {
       height: 100vw;
-      left: -15vw;
       max-width: none;
       position: absolute;
       top: 12.5vw; //25vw;
@@ -357,7 +356,7 @@ h1, h2, h3 {
   }
 
   @keyframes anim-exit-bottle-to-top {
-    @include anim-side-by-value(top, -95vw);
+    @include anim-side-by-value(top, -100vw);
   }
 
   @keyframes anim-exit-form-to-bottom {
