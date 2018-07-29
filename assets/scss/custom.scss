@@ -442,7 +442,7 @@ h1, h2, h3 {
       @for $i from 0 to $coin-last-index {
         #coin-#{$i} {
           animation: forwards ease-in-out anim-enter-coin-pile-coin-#{$i} nth($coin-drop-duration, $i+1);
-          animation-delay: ($coin-last-index - $i) * 1s;
+          animation-delay: ($i * .1s) + (($coin-last-index - $i) * $i * .01s);
         }
       }
     }
@@ -558,7 +558,11 @@ h1, h2, h3 {
       }
     }
 
-    .details {
+    .coin {
+      position: absolute;
+    }
+
+      .details {
       bottom: 4.5em;
       font-size: 1.2em;
       padding: 0 .2em;
@@ -566,7 +570,6 @@ h1, h2, h3 {
 
     &.hide {
       .coin {
-        position: absolute;
         animation: forwards ease-in-out anim-exit-coin-pile-to-top .5s;
       }
     }
