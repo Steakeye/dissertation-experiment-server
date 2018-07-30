@@ -20,8 +20,11 @@ class SignUp extends BaseStep {
         //TODO!
     }
 
-    public doExitAnimation() {
+    public doExitAnimation(leaveBottle: boolean = false) {
+        if (leaveBottle) {
+            this.tiltBottle();
+        }
+
         this.hideStep();
-        this.tiltBottle();
     }
 }

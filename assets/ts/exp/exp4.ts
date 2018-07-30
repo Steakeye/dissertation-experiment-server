@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
         signUpController.doExitAnimation();
-        amazingController.doIntroAnimation();
+        backgroundController.raiseBG();
+        shareWithFriendsController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 });

@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const signUpSubmitPromise: Promise<void> = signUpController.createSignUpButtonBinding();
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
-        signUpController.doExitAnimation();
+        signUpController.doExitAnimation(true);
         amazingController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });

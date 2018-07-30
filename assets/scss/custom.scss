@@ -477,9 +477,9 @@ h1, h2, h3 {
     &.hide {
       @include hide-h1(.33s);
 
-      /*.bottle {
+      .bottle:not(.tilt-0) {
         animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
-      }*/
+      }
 
       #form-sign-up .formfield {
         animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
@@ -576,6 +576,28 @@ h1, h2, h3 {
 
       .details {
         animation: forwards ease-in-out anim-exit-form-to-bottom .165s;
+      }
+    }
+  }
+
+  #share-with-friends {
+    h1 {
+      bottom: 2.5em;
+    }
+
+    #social-media-icons {
+      bottom: 2em;
+      position: absolute;
+
+      .icon {
+        position: relative;
+
+        &#facebook {
+          left: -1em;
+        }
+        &#twitter{
+          right: -1em;
+        }
       }
     }
   }

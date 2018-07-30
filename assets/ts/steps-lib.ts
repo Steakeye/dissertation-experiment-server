@@ -1,6 +1,7 @@
 import Tween = createjs.Tween;
 
-type BottleRotation = "left" | "right" | "none";
+type TiltDirection = "left" | "right";
+type BottleRotation = TiltDirection | "none";
 
 type PromiseResolver<R> = (thing?:R) => void;
 type PromiseAction<R> = (resolver: PromiseResolver<R>) => void;
@@ -76,8 +77,23 @@ abstract class BaseStep extends BaseController {
         }
     }
 
-    public tiltBottle() {
-        this.toggleBottleClass("tilt-0", true);
+    public tiltBottle(tilt: TiltDirection = "left") {
+        let tiltVal: Udefable<string>;
+
+        switch (tilt) {
+            case "left": {
+                tiltVal = "tilt-0";
+                break;
+            }
+            case "right": {
+                tiltVal = "tilt-1";
+                break;
+            }
+            default : {
+            }
+        }
+
+        tiltVal && this.toggleBottleClass(tiltVal, true);
     }
 
     public toggleBottleClass(cssClass: string, force?: boolean ) {
