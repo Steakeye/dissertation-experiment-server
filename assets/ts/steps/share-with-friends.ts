@@ -1,11 +1,12 @@
 class ShareWithFriends extends BaseStep {
     constructor() {
-        super('#share-wth-friends');
+        super('#share-with-friends');
+
+        //this.bottleEl = <Element>Sizzle(".bottle", this.stepContainer)[0];
     }
 
     public doIntroAnimation() {
-        this.tiltBottle();
-        //this.shakebottle();
+        this.flashBottle();
     }
 
     public doExitAnimation() {
@@ -13,5 +14,9 @@ class ShareWithFriends extends BaseStep {
         this.toggleBottleClass("tilt-0", false);
         this.bounceBottle();*/
         this.hideStep();
+    }
+
+    protected flashBottle() {
+        this.addElClass(<Element>this.bottleEl, "triple-burst")
     }
 }

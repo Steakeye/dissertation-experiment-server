@@ -33,8 +33,9 @@ $title-margin-bottom: 1em;
 }
 
 @mixin title-type {
-  font-family: 'Fugaz One', cursive;
   color: $text-color-primary;
+  font-family: 'Fugaz One', cursive;
+  line-height: 1.2em;
 }
 
 @mixin full-screen {
@@ -245,10 +246,10 @@ h1, h2, h3 {
     }
 
     .bottle {
-      height: 100vw;
+      height: 90vw;
       max-width: none;
       position: absolute;
-      top: 12.5vw; //25vw;
+      top: 10vw; //2.5vw; //25vw;
 
       &.rotated-0 {
         transform: $tilt-left;
@@ -306,7 +307,7 @@ h1, h2, h3 {
       text-align: center;
     }
 
-    &.raise {
+    &.is-raised {
       h1 {
         bottom: 3.5em;
       }
@@ -349,6 +350,48 @@ h1, h2, h3 {
 
   @keyframes anim-tilt-item-center {
     @include anim-side-by-value(transform, 0deg);
+  }
+
+  @keyframes triple-burst {
+    0% {
+      margin-left: -3.5em;
+      opacity: 0.5;
+      transform: scale(0.75);
+    }
+    16% {
+      opacity: 1;
+    }
+    32.5% {
+      margin-left: -3.5em;
+      opacity: 0;
+      transform: scale(1);
+    }
+    33.5% {
+      margin-left: 3.5em;
+      opacity: .5;
+      transform: scale(0.75);
+    }
+    50% {
+      opacity: 1;
+    }
+    65.5% {
+      margin-left: 3.5em;
+      opacity: 0;
+      transform: scale(1);
+    }
+    66.5% {
+      margin: auto 0;
+      opacity: 0;
+      transform: scale(0.75);
+    }
+    84% {
+      opacity: 0.75;
+      transform: scale(1.25);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   @keyframes anim-exit-title-to-bottom {
@@ -585,23 +628,52 @@ h1, h2, h3 {
       bottom: 2.5em;
     }
 
+    .bottle {
+      height: 75vw;
+
+      /*&.pre-triple-burst {
+        margin-left: -3.5em;
+        opacity: 0.5;
+        transform: scale(0.75);
+      }*/
+
+      &.triple-burst {
+        animation: forwards ease-in-out triple-burst 1.5s;
+      }
+    }
+
     #social-media-icons {
       bottom: 2em;
       position: absolute;
 
       .icon {
+        height: 3.75em;
         position: relative;
+        width: 3.75em;
 
         &#facebook {
-          left: -1em;
+          left: -.75em;
         }
-        &#twitter{
-          right: -1em;
+
+        &#twitter {
+          right: -.75em;
         }
       }
     }
   }
 
   #amazing {
+  }
+}
+
+@media screen and (orientation:landscape) {
+  body.portrait {
+    -webkit-transform: rotate(90deg);
+    width: 100vh;
+    height: 100vw;
+    overflow: hidden;
+    position: absolute;
+    top: -50vh;
+    left: 25vw;
   }
 }
