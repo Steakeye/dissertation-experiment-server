@@ -394,6 +394,15 @@ h1, h2, h3 {
     }
   }
 
+  @keyframes bottom-bubble-rise {
+    0% {
+      bottom: -7em;
+    }
+    100% {
+      bottom: initial;
+    }
+  }
+
   @keyframes anim-exit-title-to-bottom {
     @include anim-side-by-value(bottom, -1.5em);
   }
@@ -631,12 +640,6 @@ h1, h2, h3 {
     .bottle {
       height: 75vw;
 
-      /*&.pre-triple-burst {
-        margin-left: -3.5em;
-        opacity: 0.5;
-        transform: scale(0.75);
-      }*/
-
       &.triple-burst {
         animation: forwards ease-in-out triple-burst 1.5s;
       }
@@ -659,6 +662,16 @@ h1, h2, h3 {
           right: -.75em;
         }
       }
+
+      &.bubble-icons {
+        .icon {
+          animation: forwards ease-in-out bottom-bubble-rise .75s;
+
+          &#twitter {
+            animation-delay: .25s;
+          }
+        }
+      }
     }
   }
 
@@ -667,13 +680,26 @@ h1, h2, h3 {
 }
 
 @media screen and (orientation:landscape) {
-  body.portrait {
+  .section .step.portrait {
     -webkit-transform: rotate(90deg);
     width: 100vh;
     height: 100vw;
     overflow: hidden;
     position: absolute;
-    top: -50vh;
-    left: 25vw;
+    left: 22%;
+    top: -39%;
+
+    h1 {
+      font-size: 13.333vh;
+    }
+
+    .bottle {
+      height: 90vh;
+      top: 10vh
+    }
+
+    form .formfield {
+      width: 90vh;
+    }
   }
 }
