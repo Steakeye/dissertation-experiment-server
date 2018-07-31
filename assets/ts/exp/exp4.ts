@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    const signUpSubmitPromise: Promise<void> = signUpController.createSignUpButtonBinding();
+    const signUpSubmitPromise: Promise<void> = secondStep.then(() => { return signUpController.createSignUpButtonBinding(); });
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
         signUpController.doExitAnimation();
@@ -44,7 +44,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     });
 
-    const socialMediaClickPromise: Promise<void> = shareWithFriendsController.createClickBinding();
+    const socialMediaClickPromise: Promise<void> = thirdStep.then(() => {
+        return shareWithFriendsController.createClickBinding();
+    });
 
     const fourthStep: Promise<Element> = socialMediaClickPromise.then(() => {
         shareWithFriendsController.doExitAnimation();

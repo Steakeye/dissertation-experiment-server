@@ -39,7 +39,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }, 6000)
     });
 
-    const signUpSubmitPromise: Promise<void> = getCoinController.createSignUpButtonBinding();
+    const signUpSubmitPromise: Promise<void> = secondStep.then(() => {
+        return getCoinController.createSignUpButtonBinding();
+    });
 
     const thirdStep: Promise<Element> = signUpSubmitPromise.then(() => {
         getCoinController.doExitAnimation();
@@ -81,7 +83,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     });
 
-    const haveCoinClickPromise: Promise<void> = haveCoinController.createClickBinding();
+    const haveCoinClickPromise: Promise<void> = thirdStep.then(() => {
+        return haveCoinController.createClickBinding();
+    });
 
     haveCoinClickPromise.then(() => {
         clickOccured = true;

@@ -43,6 +43,8 @@ abstract class BaseStep extends BaseController {
         this.stepContainer = Sizzle(containerID, document.body)[0];
         this.bottleEl = Sizzle('.bottle', this.stepContainer)[0];
         this.titleEl = Sizzle('h1', this.stepContainer)[0];
+
+        this.silenceForms();
     }
 
     public bounceBottle() {
@@ -156,6 +158,18 @@ abstract class BaseStep extends BaseController {
                 reject(e);
             }
         });
+    }
+
+    protected silenceForms(): void {
+        const forms: Element[] = Sizzle('form', this.stepContainer);
+        if (forms && forms.length) {
+            forms.forEach((form: Element) => {
+                form.addEventListener("submit", function(e: Event) {
+                    e.preventDefault();
+                    //window.history.back();
+                }); //, true);
+            });
+        }
     }
 
     protected stepContainer?: Element;

@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         playARController.doIntroAnimation();
     });
 
-    const thirdStep: Promise<Element> = playARController.createPlayButtonBinding().then(() => {
+    const thirdStep: Promise<Element> = secondStep.then(() => { return playARController.createPlayButtonBinding(); }).then(() => {
         backgroundController.animateBG(false);
         return <Promise<Element>>stepsHandler.animateToNextStep(2000);
     });
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return stepsHandler.animateToNextStep();
     });
 
-    fifthStep.then(() => {
+    const sixthStep: Promise<void> = fifthStep.then(() => {
         return wellDoneController.animateWellDoneStep();
     }).then(() => {
         return stepsHandler.animateToNextStep();
@@ -61,15 +61,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         backgroundController.animateBG(false);
     });
 
-    const signUpSubmitPromise: Promise<void> = signUpController.createSignUpButtonBinding();
+    const signUpSubmitPromise: Promise<void> = sixthStep.then(() => {
+        return signUpController.createSignUpButtonBinding();
+    });
 
-    const sixthStep: Promise<Element> = signUpSubmitPromise.then(() => {
+    const seventhStep: Promise<Element> = signUpSubmitPromise.then(() => {
         signUpController.doExitAnimation(true);
         amazingController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    sixthStep.then(() => {
+    seventhStep.then(() => {
         amazingController.doExitAnimation();
     });
 });
