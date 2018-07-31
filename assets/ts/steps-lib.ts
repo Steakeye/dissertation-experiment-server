@@ -178,22 +178,38 @@ class BGController extends BaseController {
 
     public animateBG(animate: boolean  = true) {
         (<Element>this.sunBurst).classList.toggle("animated", animate);
+        this._animating = animate;
     }
 
-    public raiseBG(animate: boolean  = true): Promise<void> {
-        (<Element>this.sunBurstContainer).classList.toggle("raise", animate);
+    public raiseBG(raise: boolean  = true): Promise<void> {
+        const classList = (<Element>this.sunBurstContainer).classList;
+        classList.toggle("raise", raise);
         return BGController.createDelayPromise<void>((resolver: PromiseResolver<void>) => {
             resolver();
+            this._raised = raise || classList.contains("is-raised"); //TODO: refactor string values to constant members
         }, 750);
 
     }
 
     public setBGPosToRaised(raised: boolean = true) {
-        (<Element>this.sunBurstContainer).classList.toggle("is-raised", raised);
+        const classList = (<Element>this.sunBurstContainer).classList;
+
+        classList.toggle("is-raised", raised);
+        this._raised = raised || classList.contains("raise");
+    }
+
+    public get animating() {
+        return this._animating;
+    }
+
+    public get raised() {
+        return this._raised;
     }
 
     private sunBurstContainer?: Element;
     private sunBurst?: Element;
+    private _animating: boolean = false;
+    private _raised: boolean = false;
 }
 
 class StepsLib {

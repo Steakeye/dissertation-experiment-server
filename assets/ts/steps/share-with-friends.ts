@@ -2,7 +2,7 @@ class ShareWithFriends extends BaseStep {
     constructor() {
         super('#share-with-friends');
 
-        this.socialMediaIcons = <Element>Sizzle("#social-media-icons", this.stepContainer)[0];
+        this.socialMediaIcons = <Element>Sizzle("#social-media-icons", <Element>this.stepContainer)[0];
     }
 
     public doIntroAnimation() {
@@ -11,9 +11,6 @@ class ShareWithFriends extends BaseStep {
     }
 
     public doExitAnimation() {
-        /*this.setBottleRotation("left");
-        this.toggleBottleClass("tilt-0", false);
-        this.bounceBottle();*/
         this.hideStep();
     }
 
@@ -22,8 +19,23 @@ class ShareWithFriends extends BaseStep {
     }
 
     protected bubbleUpIcons() {
-        this.addElClass(<Element>this.socialMediaIcons, "is-lowered")
+        this.addElClass(<Element>this.socialMediaIcons, "is-lowered");
         this.addElClass(<Element>this.socialMediaIcons, "bubble-icons")
+    }
+
+
+    public getInterstitialPromise(): Promise<void> {
+        return HaveFaveCoin.createTimewPromise(3000);
+    }
+
+    public createClickBinding(): Promise<void> {
+        const clickAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: PromiseResolver<void>): void => {
+            //this.doExitAnimation();
+
+            resolver();
+        };
+
+        return this.createClickElementPromise<void>(<Element>this.socialMediaIcons, clickAction)
     }
 
     protected socialMediaIcons?: Element;

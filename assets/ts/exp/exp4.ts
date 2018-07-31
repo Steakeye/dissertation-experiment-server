@@ -34,4 +34,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
         shareWithFriendsController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
+
+    thirdStep.then(() => {
+        backgroundController.animateBG();
+        return shareWithFriendsController.getInterstitialPromise();
+    }).then(() => {
+        if (stepsHandler.currentStepEl == shareWithFriendsController.stepEl) {
+            backgroundController.animateBG(false);
+        }
+    });
+
+    const socialMediaClickPromise: Promise<void> = shareWithFriendsController.createClickBinding();
+
+    const fourthStep: Promise<Element> = socialMediaClickPromise.then(() => {
+        shareWithFriendsController.doExitAnimation();
+        socialMediaController.doIntroAnimation();
+        return stepsHandler.animateToNextStep(0)
+    });
+
 });
