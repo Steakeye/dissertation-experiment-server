@@ -681,13 +681,27 @@ h1, h2, h3 {
   }
 
   #social-media {
+    $sm-blue: #4883C3;
+
     background: white;
     @include copy-type;
 
     h1 {
-      font-size: 13.333vw/2;
+      background-color: $sm-blue;
+      font-family: inherit;
+      font-size: (13.333vw/2);
       position: fixed;
+      text-align: left;
       top: 0;
+
+      &:before {
+        content: "";
+        height: 1em;
+        width: 1em;
+        border: .5em transparent;
+        background-color: rgba(196, 196, 196, .5);
+      }
+
     }
 
 
