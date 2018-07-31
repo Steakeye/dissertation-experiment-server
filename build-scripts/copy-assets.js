@@ -5,6 +5,7 @@ const optionDefinitions = [
     { name: 'css', alias: 'c', type: Boolean },
     { name: 'js', alias: 'j', type: Boolean },
     { name: 'img', alias: 'i', type: Boolean },
+    { name: 'fonts', alias: 'f', type: Boolean },
     { name: 'other', alias: 'o', type: Boolean },
 ];
 
@@ -22,6 +23,7 @@ if (!keyCount) {
         css: true,
         js: true,
         img: true,
+        fonts: true,
         other: true
     };
 }
@@ -76,7 +78,6 @@ if (cLOptions.css) {
 
 }
 
-
 if (cLOptions.scss) {
     const sassPathFragment = "scss/";
     const customSassPath = `${assetsLibsPath}${sassPathFragment}`;
@@ -124,6 +125,28 @@ if (cLOptions.img) {
     fsExtra.copySync(imgSourceDir, path.join(__dirname, `${targetPath}${imgPathFragment}`));
 
     doneMessage("img");
+}
+
+if (cLOptions.fonts) {
+    const fontPathFragment = "webfonts/";
+    const fontFileName = "fa-solid-900.";
+    const fontFileExtension = ["woff2", "woff", "ttf"];
+    const faFontsRoot = `${nodeLibsPath}@fortawesome/fontawesome-free/${fontPathFragment}`;
+
+    const faSourceDir = path.join(__dirname, faFontsRoot);
+
+    removeMessage("fonts");
+
+    fsExtra.removeSync(path.join(__dirname, `${targetPath}${fontPathFragment}`));
+
+    copyMessage("fonts");
+
+    fontFileExtension.forEach((ext) => {
+        const file = `${fontFileName}${ext}`;
+        fsExtra.copySync(`${faSourceDir}${file}`, path.join(__dirname, `${targetPath}${fontPathFragment}${file}`));
+    });
+
+    doneMessage("fonts")
 }
 
 if (cLOptions.other) {
