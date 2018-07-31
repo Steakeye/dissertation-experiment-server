@@ -1,10 +1,14 @@
 <section id="social-media" data-order="<%= order %>" class="step portrait<%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
     <h1>Share On Your Feed</h1>
-    <form id="form-sign-up" action="#<%= order + 1 %>" method="get">
+    <form id="form-social-media-message" action="#<%= order + 1 %>" method="get">
         <div class="formfield">
             <label for="message" class="is-hidden">Message</label>
             <textarea class="textarea" name="message">Check out Fave drink promos, sign-up at https://www.favedrink.co.uk/promos</textarea>
             <button class="button is-primary social-media">Submit</button>
         </div>
     </form>
-</section>
+    <section id="message-sent" class="container">
+        <i class="fas fa-check"></i>
+        <h1>Message Sent</h1>
+    </section>
+</section>[]
