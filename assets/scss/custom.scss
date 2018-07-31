@@ -395,11 +395,8 @@ h1, h2, h3 {
   }
 
   @keyframes bottom-bubble-rise {
-    0% {
-      bottom: -7em;
-    }
     100% {
-      bottom: initial;
+      transform: translate(0, 0);
     }
   }
 
@@ -646,12 +643,14 @@ h1, h2, h3 {
     }
 
     #social-media-icons {
-      bottom: 2em;
+      bottom: 2.25em;
       position: absolute;
+      width: 8em;
 
       .icon {
+        bottom: 0;
         height: 3.75em;
-        position: relative;
+        position: absolute;
         width: 3.75em;
 
         &#facebook {
@@ -663,12 +662,18 @@ h1, h2, h3 {
         }
       }
 
+      &.is-lowered{
+        .icon {
+          transform: translate(0, 6em);
+        }
+      }
+
       &.bubble-icons {
         .icon {
-          animation: forwards ease-in-out bottom-bubble-rise .75s;
+          animation: forwards ease-in-out bottom-bubble-rise .375s;
 
           &#twitter {
-            animation-delay: .25s;
+            animation-delay: .125s;
           }
         }
       }

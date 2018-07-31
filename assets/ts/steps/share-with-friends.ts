@@ -22,6 +22,7 @@ class ShareWithFriends extends BaseStep {
     }
 
     protected bubbleUpIcons() {
+        this.addElClass(<Element>this.socialMediaIcons, "is-lowered")
         this.addElClass(<Element>this.socialMediaIcons, "bubble-icons")
     }
 
