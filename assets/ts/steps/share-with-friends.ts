@@ -25,13 +25,11 @@ class ShareWithFriends extends BaseStep {
 
 
     public getInterstitialPromise(): Promise<void> {
-        return HaveFaveCoin.createTimewPromise(3000);
+        return ShareWithFriends.createTimewPromise(3000);
     }
 
     public createClickBinding(): Promise<void> {
         const clickAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: PromiseResolver<void>): void => {
-            //this.doExitAnimation();
-
             resolver();
         };
 
