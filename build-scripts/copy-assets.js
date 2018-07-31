@@ -37,21 +37,6 @@ const otherPathFragment = 'other/';
 const nodeLibsPath = "../node_modules/";
 const targetPath = '../public/';
 
-if (cLOptions.css) {
-    const bulmaCss = `${cssPathFragment}bulma.css`;
-    const bulmaCssSourcePath = `${nodeLibsPath}bulma/${bulmaCss}`;
-
-    const bulmaSourceDir = path.join(__dirname, bulmaCssSourcePath);
-
-    console.log("Removing existing css assets in public folder");
-
-    fsExtra.removeSync(path.join(__dirname, `${targetPath}${cssPathFragment}`));
-
-    console.log("Attempting to copying css assets to build folder");
-
-    fsExtra.copySync(bulmaSourceDir, path.join(__dirname, `${targetPath}${bulmaCss}`));
-
-}
 
 function removeMessage(type) {
     console.log(`Removing existing ${type} assets in public folder`);
@@ -64,6 +49,33 @@ function copyMessage(type) {
 function doneMessage(type) {
     console.log(`${type} done!`);
 }
+
+if (cLOptions.css) {
+    const bulmaCss = `${cssPathFragment}bulma.css`;
+    const bulmaCssSourcePath = `${nodeLibsPath}bulma/${bulmaCss}`;
+
+    const bulmaSourceDir = path.join(__dirname, bulmaCssSourcePath);
+
+    removeMessage("css");
+
+    fsExtra.removeSync(path.join(__dirname, `${targetPath}${cssPathFragment}`));
+
+    copyMessage("css");
+
+    fsExtra.copySync(bulmaSourceDir, path.join(__dirname, `${targetPath}${bulmaCss}`));
+
+    const faFile = "all.css";
+    const faCss = `${cssPathFragment}${faFile}`;
+    const faCssSourcePath = `${nodeLibsPath}@fortawesome/fontawesome-free/${faCss}`;
+
+    const faSourceDir = path.join(__dirname, faCssSourcePath);
+
+    fsExtra.copySync(faSourceDir, path.join(__dirname, `${targetPath}${cssPathFragment}fa.${faFile}`));
+
+    doneMessage("css")
+
+}
+
 
 if (cLOptions.scss) {
     const sassPathFragment = "scss/";

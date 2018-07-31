@@ -15,6 +15,7 @@
     "build-all": "npm run tsc && npm run copy-files-build && npm run tsc-client"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "@types/compression": "0.0.36",
     "bulma": "^0.7.1",
     "compression": "^1.7.3",

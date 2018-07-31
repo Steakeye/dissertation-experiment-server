@@ -2,6 +2,7 @@
 ///<reference path="../steps-lib.ts"/>
 ///<reference path="../steps/thank-you.ts"/>
 ///<reference path="../steps/sign-up.ts"/>
+///<reference path="../steps/amazing.ts"/>
 
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("DOM fully loaded and parsed");

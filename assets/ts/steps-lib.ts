@@ -294,7 +294,7 @@ class StepsLib {
         return this.doStyleFade(nextElStyle, 0, 100, duration); //.call(makeHiddenToggleForEl(next));
     }
 
-    private doStyleFade(style: CSSStyleDeclaration, from: number, to: number, time: number = this.defaultTransitionDuration, anim = createjs.Ease.backOut): Tween {
+    private doStyleFade(style: CSSStyleDeclaration, from: number, to: number, time: number = this.defaultTransitionDuration, anim = createjs.Ease.linear): Tween {
         style.opacity = ""+from/100;
 
         return Tween.get(StepsLib.createProxtForPercent(style), { override:true }).to({ opacity: to }, time, anim);
@@ -330,5 +330,5 @@ class StepsLib {
     private _currentStep : number = 0;
     private _transitioning: boolean = false;
 
-    private defaultTransitionDuration: number = 1500;
+    private defaultTransitionDuration: number = 1250;
 }
