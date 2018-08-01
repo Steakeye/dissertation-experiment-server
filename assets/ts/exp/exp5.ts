@@ -3,7 +3,7 @@
 ///<reference path="../steps/thank-you.ts"/>
 ///<reference path="../steps/play-ar.ts"/>
 ///<reference path="../steps/ar-game.ts"/>
-///<reference path="../steps/sign-up.ts"/>
+///<reference path="../steps/have-fave-coin.ts"/>
 ///<reference path="../steps/well-done.ts"/>
 ///<reference path="../steps/amazing.ts"/>
 
