@@ -343,6 +343,12 @@ h1, h2, h3 {
         bottom: 7.5em;
       }
     }
+
+    &.hide {
+      form .formfield {
+        animation: forwards ease-in-out anim-exit-form-to-bottom .125s;
+      }
+    }
 }
 
   #ad-steps {
@@ -551,24 +557,23 @@ h1, h2, h3 {
         animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
       }
 
-      #form-sign-up .formfield {
+      /*#form-sign-up .formfield {
         animation: forwards ease-in-out anim-exit-form-to-bottom .25s;
-      }
+      }*/
     }
   }
 
   #play-ar {
     h1 {
-      //bottom: 0.125em;
-      bottom: 3.625em;
+      bottom: 2.125em;
     }
 
     h2 {
-      bottom: 6em;
+      bottom: 3.5em;
     }
 
     .button {
-      bottom: 4em;
+      bottom: 1.25em;
       position: absolute;
     }
 
@@ -591,7 +596,7 @@ h1, h2, h3 {
 
     &.offer-coin {
       .button {
-        bottom: 2em;
+        bottom: 1em;
       }
     }
 
@@ -605,7 +610,6 @@ h1, h2, h3 {
 
       .coin {
         animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
-        //animation-delay: .25s;
       }
 
       .button {
@@ -637,9 +641,9 @@ h1, h2, h3 {
         animation: forwards ease-in-out anim-exit-form-to-bottom .165s;
       }
 
-      #form-sign-up .formfield {
+      /*#form-sign-up .formfield {
         animation: forwards ease-in-out anim-exit-form-to-bottom .125s;
-      }
+      }*/
     }
   }
 
@@ -660,10 +664,16 @@ h1, h2, h3 {
       position: absolute;
     }
 
-      .details {
+    .details {
       bottom: 4.5em;
       font-size: 1.2em;
       padding: 0 .2em;
+    }
+
+    &.request-email {
+      .details {
+        bottom: 5.75em;
+      }
     }
 
     &.hide {
@@ -808,6 +818,16 @@ h1, h2, h3 {
   }
 
   #amazing {
+
+    &.extra-info {
+      h1 {
+        bottom: 2.5em;
+      }
+
+      .details {
+        bottom: 3.5em;
+      }
+    }
   }
 }
 

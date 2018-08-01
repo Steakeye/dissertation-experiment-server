@@ -57,17 +57,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const sixthStep: Promise<void> = fifthStep.then(() => {
         return wellDoneController.animateWellDoneStep();
     }).then(() => {
+        haveCoinController.doIntroAnimation();
         return stepsHandler.animateToNextStep();
     }).then(() => {
         backgroundController.animateBG(false);
     });
 
     const signUpSubmitPromise: Promise<void> = sixthStep.then(() => {
-        return haveCoinController.createClickBinding();
+        return haveCoinController.createSignUpButtonBinding();
     });
 
     const seventhStep: Promise<Element> = signUpSubmitPromise.then(() => {
         haveCoinController.doExitAnimation();
+        return HaveFaveCoin.createTimewPromise(500);
+    }).then(() => {
         amazingController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
