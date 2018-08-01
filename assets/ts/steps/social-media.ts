@@ -11,12 +11,13 @@ class SocialMedia extends BaseStep {
 
     public doExitAnimation() {
         //this.hideStep();
+        this.addElClass(<Element>this.stepContainer, "fade-out");
     }
 
     public createClickBinding(): Promise<void> {
         const clickAction: ClickPromiseAction<void> = (el: Element, container: Element, resolver: PromiseResolver<void>): void => {
             this.fadeInModal();
-            SocialMedia.createDelayPromise(() => {
+            setTimeout(() => {
                 resolver();
             }, 2000);
         };

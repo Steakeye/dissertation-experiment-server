@@ -57,10 +57,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     const socialMediaMessageClickPromise: Promise<void> = fourthStep.then(() => {
         return socialMediaController.createClickBinding();
-    })
+    });
 
     const fifthStep: Promise<Element> = socialMediaMessageClickPromise.then(() => {
         socialMediaController.doExitAnimation();
+        return SocialMedia.createTimewPromise(1250);
+    }).then(() => {
         amazingController.doIntroAnimation();
         return stepsHandler.animateToNextStep();
     });

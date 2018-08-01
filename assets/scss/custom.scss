@@ -184,16 +184,32 @@ h1, h2, h3 {
   }
 }
 
+@keyframes animFadeIn {
+  @include anim-prop-by-value(opacity, 0, 0);
+}
+
+@keyframes animFadeOut {
+  @include anim-prop-by-value(opacity, 0);
+}
+
+@mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
+  animation: $anim $direction $duration;
+  animation-iteration-count: $count;
+}
+
+.fade-in {
+  @include anim-props(animFadeIn, forwards, 1)
+}
+
+.fade-out {
+  @include anim-props(animFadeOut, forwards, 1)
+}
+
 .section {
   .step {
     @include full-screen;
 
     @include flex-center;
-
-    @mixin anim-props($anim, $direction, $count: 1, $duration: .25s) {
-      animation: $anim $direction $duration;
-      animation-iteration-count: $count;
-    }
 
     @keyframes animScaleUp {
       100% {
@@ -234,20 +250,12 @@ h1, h2, h3 {
       }
     }
 
-    @keyframes animFadeIn {
-      @include anim-prop-by-value(opacity, 0, 0);
-    }
-
     .scale-0 {
       @include anim-props(animScaleUp, alternate, 2)
     }
 
     .spin-1 {
       @include anim-props(animSpin1, normal, 4)
-    }
-
-    .fade-in {
-      @include anim-props(animFadeIn, forwards, 2)
     }
 
     h1 {
@@ -748,9 +756,18 @@ h1, h2, h3 {
       h1 {
         position: initial;
         font-weight: initial;
+        padding-right: .5em;
+        border-radius: 2em;
+        padding-left: 3.33em;
+        text-transform: capitalize;
 
         &:before {
+          background-color: white;
           content: "\f00c";
+          font-family: 'Font Awesome 5 Free';
+          font-weight: 900;
+          padding: .3em .5em;
+          mix-blend-mode: normal;
         }
       }
     }
@@ -760,7 +777,7 @@ h1, h2, h3 {
   }
 }
 
-@media screen and (orientation:landscape) {
+/*@media screen and (orientation:landscape) {
   .section .step.portrait {
     -webkit-transform: rotate(90deg);
     width: 100vh;
@@ -783,4 +800,4 @@ h1, h2, h3 {
       width: 90vh;
     }
   }
-}
+}*/
