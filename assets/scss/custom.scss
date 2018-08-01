@@ -802,8 +802,9 @@ h1, h2, h3 {
         font-weight: initial;
         padding-right: .5em;
         border-radius: 2em;
-        padding-left: 3.33em;
+        //padding-left: 3.33em;
         text-transform: capitalize;
+        font-size: 1.1em;
 
         &:before {
           background-color: white;

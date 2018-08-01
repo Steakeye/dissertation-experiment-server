@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const arGameController: ARGame = new ARGame();
     const wellDoneController: WellDone = new WellDone();
     const signUpController: SignUp = new SignUp();
+    const shareWithFriendsController: ShareWithFriends = new ShareWithFriends();
+    const socialMediaController: SocialMedia = new SocialMedia();
     const amazingController: Amazing = new Amazing();
 
     backgroundController.animateBG();
@@ -65,13 +67,46 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return signUpController.createSignUpButtonBinding();
     });
 
-    /*const seventhStep: Promise<Element> = signUpSubmitPromise.then(() => {
-        signUpController.doExitAnimation(true);
-        amazingController.doIntroAnimation();
+    const seventhStep: Promise<Element> = signUpSubmitPromise.then(() => {
+        signUpController.doExitAnimation();
+        backgroundController.raiseBG();
+        shareWithFriendsController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
     seventhStep.then(() => {
+        backgroundController.animateBG();
+        return shareWithFriendsController.getInterstitialPromise();
+    }).then(() => {
+        if (stepsHandler.currentStepEl == shareWithFriendsController.stepEl) {
+            backgroundController.animateBG(false);
+        }
+    });
+
+    const socialMediaClickPromise: Promise<void> = seventhStep.then(() => {
+        return shareWithFriendsController.createClickBinding();
+    });
+
+    const eigthStep: Promise<Element> = socialMediaClickPromise.then(() => {
+        shareWithFriendsController.doExitAnimation();
+        socialMediaController.doIntroAnimation();
+        return stepsHandler.animateToNextStep(0)
+    });
+
+
+    const socialMediaMessageClickPromise: Promise<void> = eigthStep.then(() => {
+        return socialMediaController.createClickBinding();
+    });
+
+    const ninthStep: Promise<Element> = socialMediaMessageClickPromise.then(() => {
+        socialMediaController.doExitAnimation();
+        return SocialMedia.createTimewPromise(1250);
+    }).then(() => {
+        amazingController.doIntroAnimation();
+        return stepsHandler.animateToNextStep();
+    });
+
+    ninthStep.then(() => {
         amazingController.doExitAnimation();
-    });*/
+    });
 });
