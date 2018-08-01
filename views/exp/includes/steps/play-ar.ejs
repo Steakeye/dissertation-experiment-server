@@ -1,5 +1,8 @@
 <section id="play-ar" data-order="<%= order %>" class="step portrait<%= (typeof offerCoin === 'undefined') || !offerCoin ? '': ' offer-coin' %><%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
     <h1>Fave AR Game</h1>
+    <% if ((typeof offerCoin !== 'undefined') &&  offerCoin) { %>
+    <h2>Play game to get Fave Coin!</h2>
+    <% } %>
     <img class="bottle" src="/img/fave-bottle_cropped.png"title="Your Fave drink!" alt="Image of fave bottle"/>
     <img class="bottle" src="/img/fave-bottle_cropped.png"title="Your Fave drink!" alt="Image of fave bottle"/>
     <img class="bottle" src="/img/fave-bottle_cropped.png"title="Your Fave drink!" alt="Image of fave bottle"/>

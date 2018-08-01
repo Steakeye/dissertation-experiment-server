@@ -267,6 +267,11 @@ h1, h2, h3 {
       width: 100%;
     }
 
+    h2 {
+      font-size: 1.5em;
+      position: absolute;
+    }
+
     .bottle {
       height: 90vw;
       max-width: none;
@@ -432,8 +437,8 @@ h1, h2, h3 {
     @include anim-prop-by-value(top, -19em);
   }
 
-  @mixin hide-h1($time) {
-    h1 {
+  @mixin hide-header($time, $header: h1) {
+    #{$header} {
       animation: forwards anim-exit-title-to-bottom ease-in-out $time;
     }
   }
@@ -526,7 +531,7 @@ h1, h2, h3 {
   #thank-you,
   #well-done {
     &.hide {
-      @include hide-h1(.25s);
+      @include hide-header(.25s);
 
       .bottle {
         animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
@@ -540,7 +545,7 @@ h1, h2, h3 {
     }
 
     &.hide {
-      @include hide-h1(.33s);
+      @include hide-header(.33s);
 
       .bottle:not(.tilt-0) {
         animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
@@ -554,7 +559,12 @@ h1, h2, h3 {
 
   #play-ar {
     h1 {
-      bottom: 0.125em;
+      //bottom: 0.125em;
+      bottom: 3.625em;
+    }
+
+    h2 {
+      bottom: 6em;
     }
 
     .button {
@@ -569,11 +579,33 @@ h1, h2, h3 {
       }
     }
 
+    .coin {
+      position: absolute;
+      //margin-top: -1em;
+      top: 52vw;
+
+      &.scale-0 {
+        animation-delay: .25s;
+      }
+    }
+
+    &.offer-coin {
+      .button {
+        bottom: 2em;
+      }
+    }
+
     &.hide {
-      @include hide-h1(.125s);
+      @include hide-header(.125s);
+      @include hide-header(.1s, h2);
 
       .bottle {
         animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+      }
+
+      .coin {
+        animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
+        //animation-delay: .25s;
       }
 
       .button {
@@ -595,7 +627,7 @@ h1, h2, h3 {
     }
 
     &.hide {
-      @include hide-h1(.25s);
+      @include hide-header(.25s);
 
       .coin {
         animation: forwards ease-in-out anim-exit-bottle-to-top .5s;
@@ -613,7 +645,9 @@ h1, h2, h3 {
 
   #have-fave-coin {
     #coin-pile {
-      top: -4.5em;
+      //top: -4.5em;
+      position: absolute;
+      margin-top: -4.5em;
 
       &.is-raised {
         .coin {
@@ -633,7 +667,7 @@ h1, h2, h3 {
     }
 
     &.hide {
-      @include hide-h1(.25s);
+      @include hide-header(.25s);
 
       .coin {
         animation: forwards ease-in-out anim-exit-coin-pile-to-top .5s;

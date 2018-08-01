@@ -2,7 +2,7 @@
     <h1>You Have Coin!</h1>
     <p class="details"><em>Check your email inbox to get find out how to access your Fave coins!</em></p>
     <% if ((typeof requestEmail !== 'undefined') &&  requestEmail) { %>
-    <%- include('../fragments/sign-up-form'); %>
+    <%- include('../fragments/sign-up-form', { formId: "form-sign-up-coin" }); %>
     <% } %>
     <div id="coin-pile" class="container">
         <img class="coin" id="coin-0" src="/img/fave-coin_small.svg" title="Fave coin!" alt="Image of fave coin"/>

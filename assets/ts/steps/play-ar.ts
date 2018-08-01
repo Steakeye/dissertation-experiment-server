@@ -7,11 +7,14 @@ class PlayAR extends BaseStep {
         this.bottleEl = this.bottleEls[2];
 
         this.buttonEl = <Element>Sizzle(".button", this.stepContainer)[0];
+
+        this.coinEl = Sizzle(".coin", this.stepContainer)[0];
     }
 
     public doIntroAnimation() {
         this.splayBottles();
         this.bounceBottle();
+        this.bounceCoin();
     }
 
     public doExitAnimation() {
@@ -50,5 +53,11 @@ class PlayAR extends BaseStep {
         return this.createClickElementPromise<void>(<Element>this.buttonEl, buttonAction)
     }
 
+
+    public bounceCoin() {
+        this.coinEl && this.addElClass(this.coinEl, "scale-0");
+    }
+
+    protected coinEl?: Element;
     protected bottleEls?: Element[];
 }
