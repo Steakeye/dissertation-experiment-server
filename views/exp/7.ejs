@@ -15,6 +15,18 @@
     </div>
     </section>
   </main>
-  <%- include('./includes/footer-scripts'); %>
+  <%- include('./includes/footer-scripts',
+    {
+      customScripts: [
+      '/js/exp/exp7.js',
+      '/js/steps/thank-you.js',
+      '/js/steps/get-fave-coin.js',
+      '/js/steps/have-fave-coin.js',
+      '/js/steps/share-with-friends.js',
+      '/js/steps/social-media.js',
+      '/js/steps/amazing.js'
+      ]
+    }
+  ); %>
   </body>
 </html>
