@@ -24,6 +24,16 @@
     </div>
     </section>
   </main>
-  <%- include('./includes/footer-scripts'); %>
+  <%- include('./includes/footer-scripts', {
+  customScripts: [
+  '/js/exp/exp2.js',
+  '/js/steps/thank-you.js',
+  '/js/steps/play-ar.js',
+  '/js/steps/ar-game.js',
+  '/js/steps/well-done.js',
+  '/js/steps/have-face-coin.js',
+  '/js/steps/amazing.js'
+  ]
+  }); %>
   </body>
 </html>
