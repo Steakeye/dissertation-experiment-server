@@ -4,16 +4,7 @@
   <body>
   <main>
   <section class="section pad-0">
-    <div id="bg-sunburst" class="sunburst outer">
-      <div class="inner">
-        <div class="gradient-wrap">
-          <div class="gradient"></div>
-        </div>
-        <div class="gradient-wrap">
-          <div class="gradient"></div>
-        </div>
-      </div>
-    </div>
+    <%- include('./includes/sunburst'); %>
     <div id="ad-steps" class="container">
       <%- include('./includes/steps/thank-you', { isCurrent: true, order: 0 }); %>
       <%- include('./includes/steps/get-fave-coin', { order: 1 }); %>

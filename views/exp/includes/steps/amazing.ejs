@@ -1,4 +1,7 @@
-<section id="amazing" data-order="<%= order %>" class="step portrait<%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
+<section id="amazing" data-order="<%= order %>" class="step portrait<%= (typeof extraInfo === 'undefined') || !extraInfo ? '': ' extra-info' %><%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
     <h1>Amazing!</h1>
+    <% if ((typeof extraInfo !== 'undefined') &&  extraInfo) { %>
+    <p class="details">Check your email inbox to get find out how to access your Fave coins!</p>
+    <% } %>
     <img class="bottle" src="/img/fave-bottle_cropped.png"title="Your Fave drink!" alt="Image of fave bottle"/>
 </section>

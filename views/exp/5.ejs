@@ -4,23 +4,14 @@
   <body>
   <main>
   <section class="section pad-0">
-    <div id="bg-sunburst" class="sunburst outer">
-      <div class="inner">
-        <div class="gradient-wrap">
-          <div class="gradient"></div>
-        </div>
-        <div class="gradient-wrap">
-          <div class="gradient"></div>
-        </div>
-      </div>
-    </div>
+    <%- include('./includes/sunburst'); %>
     <div id="ad-steps" class="container">
         <%- include('./includes/steps/thank-you', { isCurrent: true, order: 0 }); %>
         <%- include('./includes/steps/play-ar', { order: 1, offerCoin: true }); %>
         <%- include('./includes/steps/ar-game', { order: 2 }); %>
         <%- include('./includes/steps/well-done', { order: 3 }); %>
         <%- include('./includes/steps/have-fave-coin', { order: 4, requestEmail: true }); %>
-        <%- include('./includes/steps/amazing', { order: 5 }); %>
+        <%- include('./includes/steps/amazing', { order: 5, extraInfo: true }); %>
     </div>
     </section>
   </main>

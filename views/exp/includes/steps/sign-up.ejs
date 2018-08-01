@@ -1,11 +1,5 @@
 <section id="sign-up" data-order="<%= order %>" class="step portrait<%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
     <h1>Sign up!</h1>
     <img class="bottle" src="/img/fave-bottle_cropped.png"title="Your Fave drink!" alt="Image of fave bottle"/>
-    <form id="form-sign-up" action="#<%= order + 1 %>" method="get">
-        <div class="formfield">
-            <label for="email-address" class="is-hidden">Email address</label>
-            <input class="input is-fullwidth" name="email-address" type="email" placeholder="your email address"/>
-            <button class="button is-primary is-fullwidth">Submit</button>
-        </div>
-    </form>
+    <%- include('./includes/fragments/sign-up-form'); %>
 </section>
