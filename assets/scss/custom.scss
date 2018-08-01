@@ -178,6 +178,12 @@ h1, h2, h3 {
   }
 }
 
+@mixin anim-prop-by-value($animSide, $amount, $position: 100) {
+  #{$position}% {
+    #{$animSide}: #{$amount};
+  }
+}
+
 .section {
   .step {
     @include full-screen;
@@ -228,12 +234,20 @@ h1, h2, h3 {
       }
     }
 
+    @keyframes animFadeIn {
+      @include anim-prop-by-value(opacity, 0, 0);
+    }
+
     .scale-0 {
       @include anim-props(animScaleUp, alternate, 2)
     }
 
     .spin-1 {
       @include anim-props(animSpin1, normal, 4)
+    }
+
+    .fade-in {
+      @include anim-props(animFadeIn, forwards, 2)
     }
 
     h1 {
@@ -334,22 +348,16 @@ h1, h2, h3 {
     }
   }
 
-  @mixin anim-side-by-value($animSide, $amount) {
-    100% {
-      #{$animSide}: #{$amount};
-    }
-  }
-
   @keyframes anim-tilt-item-left {
-    @include anim-side-by-value(transform, $tilt-left);
+    @include anim-prop-by-value(transform, $tilt-left);
   }
 
   @keyframes anim-tilt-item-right {
-    @include anim-side-by-value(transform, $tilt-right);
+    @include anim-prop-by-value(transform, $tilt-right);
   }
 
   @keyframes anim-tilt-item-center {
-    @include anim-side-by-value(transform, 0deg);
+    @include anim-prop-by-value(transform, 0deg);
   }
 
   @keyframes triple-burst {
@@ -401,19 +409,19 @@ h1, h2, h3 {
   }
 
   @keyframes anim-exit-title-to-bottom {
-    @include anim-side-by-value(bottom, -1.5em);
+    @include anim-prop-by-value(bottom, -1.5em);
   }
 
   @keyframes anim-exit-bottle-to-top {
-    @include anim-side-by-value(top, -100vw);
+    @include anim-prop-by-value(top, -100vw);
   }
 
   @keyframes anim-exit-form-to-bottom {
-    @include anim-side-by-value(bottom, -5em);
+    @include anim-prop-by-value(bottom, -5em);
   }
 
   @keyframes anim-exit-coin-pile-to-top {
-    @include anim-side-by-value(top, -19em);
+    @include anim-prop-by-value(top, -19em);
   }
 
   @mixin hide-h1($time) {
@@ -429,25 +437,25 @@ h1, h2, h3 {
 
   #coin-pile {
     @keyframes anim-enter-coin-pile-coin-0 {
-      @include anim-side-by-value(top, $coin-pile-tier-0-top)
+      @include anim-prop-by-value(top, $coin-pile-tier-0-top)
     }
     @keyframes anim-enter-coin-pile-coin-1 {
-      @include anim-side-by-value(top, $coin-pile-tier-0-top)
+      @include anim-prop-by-value(top, $coin-pile-tier-0-top)
     }
 
     @keyframes anim-enter-coin-pile-coin-2 {
-      @include anim-side-by-value(top, $coin-pile-tier-1-top)
+      @include anim-prop-by-value(top, $coin-pile-tier-1-top)
     }
 
     @keyframes anim-enter-coin-pile-coin-3 {
-      @include anim-side-by-value(top, $coin-pile-tier-2-top)
+      @include anim-prop-by-value(top, $coin-pile-tier-2-top)
     }
     @keyframes anim-enter-coin-pile-coin-4 {
-      @include anim-side-by-value(top, $coin-pile-tier-2-top)
+      @include anim-prop-by-value(top, $coin-pile-tier-2-top)
     }
 
     @keyframes anim-enter-coin-pile-coin-5 {
-      @include anim-side-by-value(top, $coin-pile-tier-3-top)
+      @include anim-prop-by-value(top, $coin-pile-tier-3-top)
     }
 
     height: 28.57vw;
@@ -731,10 +739,21 @@ h1, h2, h3 {
         background-color: $sm-blue;
         grid-column: 3;
         grid-row: 2;
-        text-transform: capitalize;
+        //text-transform: capitalize;
+        text-transform: uppercase;
       }
     }
 
+    .modal {
+      h1 {
+        position: initial;
+        font-weight: initial;
+
+        &:before {
+          content: "\f00c";
+        }
+      }
+    }
   }
 
   #amazing {

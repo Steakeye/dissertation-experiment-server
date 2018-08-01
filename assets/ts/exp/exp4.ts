@@ -54,4 +54,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return stepsHandler.animateToNextStep(0)
     });
 
+
+    const socialMediaMessageClickPromise: Promise<void> = fourthStep.then(() => {
+        return socialMediaController.createClickBinding();
+    })
+
+    const fifthStep: Promise<Element> = socialMediaMessageClickPromise.then(() => {
+        socialMediaController.doExitAnimation();
+        amazingController.doIntroAnimation();
+        return stepsHandler.animateToNextStep();
+    });
+
+    fifthStep.then(() => {
+        amazingController.doExitAnimation();
+    });
 });
