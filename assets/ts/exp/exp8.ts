@@ -5,12 +5,12 @@
 ///<reference path="../steps/ar-game.ts"/>
 ///<reference path="../steps/have-fave-coin.ts"/>
 ///<reference path="../steps/well-done.ts"/>
+///<reference path="../steps/share-with-friends.ts"/>
+///<reference path="../steps/social-media.ts"/>
 ///<reference path="../steps/amazing.ts"/>
 
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("DOM fully loaded and parsed");
-
-    const sunburstAnimateClassname: string = "animated";
 
     const stepsHandler: StepsLib = new StepsLib();
     const backgroundController: BGController = new BGController();
