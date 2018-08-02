@@ -1,6 +1,6 @@
 <section id="have-fave-coin" data-order="<%= order %>" class="step portrait is-raised<%= (typeof requestEmail === 'undefined') || !requestEmail ? '': ' request-email' %><%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
     <h1>You Have Coin!</h1>
-    <p class="details"><em>Check your email inbox to get find out how to access your Fave coins!</em></p>
+    <p class="details"><em>Enter your email address to get coins exchangeable for prizes and more!</em></p>
     <% if ((typeof requestEmail !== 'undefined') &&  requestEmail) { %>
     <%- include('../fragments/sign-up-form', { formId: "form-sign-up-coin" }); %>
     <% } %>
