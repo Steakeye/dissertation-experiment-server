@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     };
 
     const haveCoinTransitionResolver = (): Udefable<Promise<Element>> => {
-        amazingController.doIntroAnimation();
-
+        backgroundController.raiseBG();
+        shareWithFriendsController.doIntroAnimation();
         return stepsHandler.animateToNextStep();
     };
 

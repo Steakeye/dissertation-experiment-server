@@ -73,11 +73,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
         haveCoinController.doExitAnimation();
         return HaveFaveCoin.createTimewPromise(500);
     }).then(() => {
-        amazingController.doIntroAnimation();
         return <Promise<Element>>stepsHandler.animateToNextStep();
     });
 
-    seventhStep.then(() => {
+    const socialMediaClickPromise: Promise<void> = seventhStep.then(() => {
+        return shareWithFriendsController.createClickBinding();
+    });
+
+    const eighthStep: Promise<Element> = socialMediaClickPromise.then(() => {
+        shareWithFriendsController.doExitAnimation();
+        socialMediaController.doIntroAnimation();
+        return stepsHandler.animateToNextStep(0)
+    });
+
+
+    const socialMediaMessageClickPromise: Promise<void> = eighthStep.then(() => {
+        return socialMediaController.createClickBinding();
+    });
+
+    const ninthStep: Promise<Element> = socialMediaMessageClickPromise.then(() => {
+        socialMediaController.doExitAnimation();
+        return SocialMedia.createTimewPromise(1250);
+    }).then(() => {
+        amazingController.doIntroAnimation();
+        return stepsHandler.animateToNextStep();
+    });
+
+    ninthStep.then(() => {
         amazingController.doExitAnimation();
     });
 });
