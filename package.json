@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
-    "@types/compression": "0.0.36",
+    "aframe": "^0.8.2",
+    "ar.js": "github:jeromeetienne/AR.js",
     "bulma": "^0.7.1",
     "compression": "^1.7.3",
     "cookie-parser": "~1.4.3",
@@ -29,9 +30,12 @@
     "morgan": "~1.9.0",
     "node-sass-middleware": "0.11.0",
     "sizzle": "^2.3.3",
+    "tone": "^0.12.80",
     "window-load": "^1.0.0"
   },
   "devDependencies": {
+    "@types/aframe": "^0.7.2",
+    "@types/compression": "0.0.36",
     "@types/cookie-parser": "^1.4.1",
     "@types/createjs": "0.0.29",
     "@types/express": "^4.16.0",

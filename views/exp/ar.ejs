@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <%- include('./includes/head'); %>
+  <body>
+  <main>
+  <section class="section pad-0">
+    <%- include('./includes/sunburst'); %>
+    <div id="ad-steps" class="container">
+      <%- include('./includes/steps/ar-game', { order: 0 }); %>
+    </div>
+    </section>
+  </main>
+  <%- include('./includes/footer-scripts', {
+  customScripts: [
+  '/js/steps/ar-game.js'
+  ]
+  }); %>  </body>
+</html>
