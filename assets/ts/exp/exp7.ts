@@ -5,6 +5,8 @@
 ///<reference path="../steps/thank-you.ts"/>
 ///<reference path="../steps/get-fave-coin.ts"/>
 ///<reference path="../steps/have-fave-coin.ts"/>
+///<reference path="../steps/share-with-friends.ts"/>
+///<reference path="../steps/social-media.ts"/>
 ///<reference path="../steps/amazing.ts"/>
 
 document.addEventListener("DOMContentLoaded", function(event) {

@@ -9,8 +9,6 @@
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("DOM fully loaded and parsed");
 
-    const sunburstAnimateClassname: string = "animated";
-
     const stepsHandler: StepsLib = new StepsLib();
     const backgroundController: BGController = new BGController();
     const thankyouController: ThankYou = new ThankYou();
