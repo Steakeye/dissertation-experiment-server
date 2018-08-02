@@ -99,6 +99,10 @@ if (cLOptions.js) {
 
     fsExtra.removeSync(path.join(__dirname, `${targetPath}${jsPathFragment}`));
 
+    const jsStaticFolder = path.join(__dirname, `${assetsLibsPath}${jsPathFragment}`);
+
+    fsExtra.copySync(jsStaticFolder, path.join(__dirname, `${targetPath}${jsPathFragment}`));
+
     const createJSLibFile = "createjs.js";
     const createJSSourcePath = path.join(__dirname, `${nodeLibsPath}createjs/builds/1.0.0/${createJSLibFile}`);
     const sizzleJSLibFile = "sizzle.js";
