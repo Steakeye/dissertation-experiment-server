@@ -1,4 +1,11 @@
 <section id="ar-game" data-order="<%= order %>" class="step landscape<%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
-    <h1>Play The Tune!</h1>
-    <!-- a-frame goes here -->
+    <div id="portrait-message" class="container modal modal-background is-hidden">
+        <div class="modal-content">
+            <h1 class="is-small is-white">Please rotate your phone to landcape orientation</h1>
+        </div>
+    </div>
+    <a-scene embedded artoolkit='sourceType: webcam;'>
+        <a-box position='0 0 0.5' material='opacity: 0.5;'></a-box>
+        <a-marker-camera preset='hiro'></a-marker-camera>
+    </a-scene>
 </section>

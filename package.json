@@ -17,7 +17,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
     "aframe": "^0.8.2",
-    "ar.js": "github:jeromeetienne/AR.js",
     "bulma": "^0.7.1",
     "compression": "^1.7.3",
     "cookie-parser": "~1.4.3",
@@ -45,6 +44,7 @@
     "@types/node": "^10.5.2",
     "@types/node-sass-middleware": "0.0.30",
     "@types/sizzle": "^2.3.1",
+    "ar.js": "github:jeromeetienne/AR.js",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "command-line-args": "^5.0.2",

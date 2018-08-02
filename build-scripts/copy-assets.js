@@ -107,11 +107,14 @@ if (cLOptions.js) {
     const createJSSourcePath = path.join(__dirname, `${nodeLibsPath}createjs/builds/1.0.0/${createJSLibFile}`);
     const sizzleJSLibFile = "sizzle.js";
     const sizzleJSSourcePath = path.join(__dirname, `${nodeLibsPath}sizzle/dist/${sizzleJSLibFile}`);
+    const aFrameSLibFile = "aframe.js";
+    const aFrameJSSourcePath = path.join(__dirname, `${nodeLibsPath}aframe/build/${aFrameSLibFile}`);
 
     copyMessage("js");
 
     fsExtra.copySync(createJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${createJSLibFile}`));
     fsExtra.copySync(sizzleJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${sizzleJSLibFile}`));
+    fsExtra.copySync(aFrameJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${aFrameSLibFile}`));
 
     doneMessage("js");
 }
