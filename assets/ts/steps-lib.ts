@@ -212,6 +212,10 @@ class BGController extends BaseController {
         this._raised = raised || classList.contains("raise");
     }
 
+    public hideBG(hide: boolean = true) : void {
+        (<Element>this.sunBurstContainer).classList.toggle("is-hidden", !hide);
+    }
+
     public get animating() {
         return this._animating;
     }

@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const backgroundController: BGController = new BGController();
     const arGameController: ARGame = new ARGame();
 
+    backgroundController.hideBG();
+
     const firstStep: Promise<void> = ARGame.createTimewPromise(1000).then(() => {
         arGameController.startARGame();
         arGameController.endARGame();
