@@ -840,6 +840,16 @@ h1, h2, h3 {
   }
 }
 
+@media screen and (orientation:portrait) {
+  .step.landscape #portrait-message {
+    display: flex!important;
+
+    h1 {
+      color: white;
+      text-shadow: none;
+    }
+  }
+}
 /*@media screen and (orientation:landscape) {
   .section .step.portrait {
     -webkit-transform: rotate(90deg);

@@ -213,7 +213,7 @@ class BGController extends BaseController {
     }
 
     public hideBG(hide: boolean = true) : void {
-        (<Element>this.sunBurstContainer).classList.toggle("is-hidden", !hide);
+        (<Element>this.sunBurstContainer).classList.toggle("is-hidden", hide);
     }
 
     public get animating() {

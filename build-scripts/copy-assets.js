@@ -6,7 +6,7 @@ const optionDefinitions = [
     { name: 'js', alias: 'j', type: Boolean },
     { name: 'img', alias: 'i', type: Boolean },
     { name: 'fonts', alias: 'f', type: Boolean },
-    { name: 'cert', alias: 'z', type: Boolean },
+    //{ name: 'cert', alias: 'z', type: Boolean },
     { name: 'other', alias: 'o', type: Boolean }
 ];
 
@@ -157,7 +157,7 @@ if (cLOptions.fonts) {
     doneMessage("fonts")
 }
 
-if (cLOptions.cert) {
+/*if (cLOptions.cert) {
     removeMessage("cert");
     const certPathFragment = 'cert/';
 
@@ -171,7 +171,7 @@ if (cLOptions.cert) {
     fsExtra.copySync(certSourceDir, path.join(__dirname, `${targetPath}${certPathFragment}`));
 
     copyMessage("cert");
-}
+}*/
 
 if (cLOptions.other) {
     removeMessage("other");

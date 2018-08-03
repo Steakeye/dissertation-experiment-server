@@ -6,15 +6,16 @@
   <section class="section pad-0">
     <%- include('./includes/sunburst'); %>
     <div id="ad-steps" class="container">
-      <%- include('./includes/steps/ar-game', { order: 0 }); %>
+      <%- include('./includes/steps/ar-game', { isCurrent: true, order: 0 }); %>
     </div>
     </section>
   </main>
-  <%- include('./includes/footer-scripts', {
+<%- include('./includes/footer-scripts', {
   customScripts: [
   '/js/aframe.js',
   '/js/aframe-ar.js',
-  '/js/steps/ar-game.js'
+  '/js/steps/ar-game.js',
+  '/js/exp/ar.js'
   ]
   }); %>  </body>
 </html>

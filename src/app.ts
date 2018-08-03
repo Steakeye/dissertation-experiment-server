@@ -1,6 +1,6 @@
 import createError from "http-errors";
-import https from 'https';
-import fs from 'fs';
+//import https from 'https';
+//import fs from 'fs';
 import express from 'express';
 import * as Express from "express-serve-static-core";
 import path from 'path';
@@ -18,11 +18,6 @@ import experimentRouter from './routes/exp';
 const redirectRoute = redirectRouteBuilder(getRedirectVal);
 
 const app: Express.Express = express();
-
-https.createServer({
-    key: fs.readFileSync('./../cert/server.key'),
-    cert: fs.readFileSync('./../cert/server.cert')
-}, app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -62,9 +57,9 @@ app.use(<Express.ErrorRequestHandler>function(err, req, res, next) {
   res.render('error');
 });
 
-https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
-}, app)
+/*https.createServer({
+    key: fs.readFileSync(path.join(__dirname, '../cert/server.key')),
+    cert: fs.readFileSync(path.join(__dirname, '../cert/server.cert'))
+}, app);*/
 
 export = app;
