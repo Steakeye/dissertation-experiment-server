@@ -6,7 +6,8 @@ const optionDefinitions = [
     { name: 'js', alias: 'j', type: Boolean },
     { name: 'img', alias: 'i', type: Boolean },
     { name: 'fonts', alias: 'f', type: Boolean },
-    { name: 'other', alias: 'o', type: Boolean },
+    { name: 'cert', alias: 'z', type: Boolean },
+    { name: 'other', alias: 'o', type: Boolean }
 ];
 
 let cLOptions = commandLineArgs(optionDefinitions);
@@ -154,6 +155,22 @@ if (cLOptions.fonts) {
     });
 
     doneMessage("fonts")
+}
+
+if (cLOptions.cert) {
+    removeMessage("cert");
+    const certPathFragment = 'cert/';
+
+    fsExtra.removeSync(path.join(__dirname, `${targetPath}${certPathFragment }`));
+
+    const certPath = `${assetsLibsPath}${certPathFragment }`;
+    const certSourceDir = path.join(__dirname, certPath);
+
+    copyMessage("cert");
+
+    fsExtra.copySync(certSourceDir, path.join(__dirname, `${targetPath}${certPathFragment}`));
+
+    copyMessage("cert");
 }
 
 if (cLOptions.other) {
