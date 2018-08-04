@@ -10,4 +10,6 @@
     <link rel="stylesheet" href="/css/fa.all.css" />
     <link rel="stylesheet" href="/css/bulma.css" />
     <link rel="stylesheet" href="/scss/custom.css" />
+    <% if ((typeof customScripts !== 'undefined') && customScripts.length) {customScripts.forEach(function(script){ %>  <script defer src="<%= script %>" type="text/javascript"></script>
+    <% }) } %>
 </head>
