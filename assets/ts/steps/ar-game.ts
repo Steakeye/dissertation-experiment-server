@@ -61,6 +61,8 @@ class ARGame extends BaseStep {
     private bindClickCallbacksToBottles() {
         const bottlesArr = this.sceneBottles;
 
+        console.log("bindClickCallbacksToBottles");
+
         if (bottlesArr && bottlesArr.length) {
             //box.addEventListener('click', function (evt) { // ... });
             bottlesArr.forEach((bottle) => {

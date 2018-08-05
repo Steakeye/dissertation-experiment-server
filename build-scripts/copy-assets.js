@@ -110,12 +110,15 @@ if (cLOptions.js) {
     const sizzleJSSourcePath = path.join(__dirname, `${nodeLibsPath}sizzle/dist/${sizzleJSLibFile}`);
     const aFrameSLibFile = "aframe.js";
     const aFrameJSSourcePath = path.join(__dirname, `${nodeLibsPath}aframe/build/${aFrameSLibFile}`);
+    const aFrameMouseCursorLibFile = "aframe-mouse-cursor-component.js";
+    const aFrameMouseCursorSourcePath = path.join(__dirname, `${nodeLibsPath}aframe-mouse-cursor-component/dist/${aFrameMouseCursorLibFile}`);
 
     copyMessage("js");
 
     fsExtra.copySync(createJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${createJSLibFile}`));
     fsExtra.copySync(sizzleJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${sizzleJSLibFile}`));
     fsExtra.copySync(aFrameJSSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${aFrameSLibFile}`));
+    fsExtra.copySync(aFrameMouseCursorSourcePath, path.join(__dirname, `${targetPath}${jsPathFragment}${aFrameMouseCursorLibFile}`));
 
     doneMessage("js");
 }

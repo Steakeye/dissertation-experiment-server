@@ -4,7 +4,8 @@
             <h1 class="is-small is-white">Please rotate your phone to landcape orientation</h1>
         </div>
     </div>
-    <a-scene arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;" vr-mode-ui="enabled: false">
+    <%#a-scene arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;" cursor="rayOrigin: mouse" vr-mode-ui="enabled: false"%>
+    <a-scene arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;" mouse-cursor vr-mode-ui="enabled: false">
         <a-assets>
             <a-asset-item id="bottle-normal-mtl" src="/other/bottle-normal_scaled.mtl"></a-asset-item>
             <a-asset-item id="bottle-normal-obj" src="/other/bottle-normal_scaled.obj"></a-asset-item>
@@ -12,15 +13,14 @@
             <a-asset-item id="bottle-low-obj" src="/other/bottle-low_scaled.obj"></a-asset-item>
             <%#the obj format looks a little better# a-asset-item id="bottle-normal-gltf" src="/other/bottle-normal_scaled.gltf"%>
         </a-assets>
-        <a-marker preset='custom' type='pattern' url='/other/fave-pattern-marker.patt'>
-            <a-obj-model class="bottle" id="bottle-low" src="#bottle-low-obj" mtl="#bottle-normal-mtl" position="-.75 0 1" rotation="-90 0 0"></a-obj-model>
-            <a-obj-model class="bottle" id="bottle-med" src="#bottle-med-obj" mtl="#bottle-normal-mtl" position="0 0 1" rotation="-90 0 0"></a-obj-model>
-            <a-obj-model class="bottle" id="bottle-normal" src="#bottle-normal-obj" mtl="#bottle-normal-mtl" position=".75 0 1" rotation="-90 0 0"></a-obj-model>
-            <a-box position='0 0 0.5' material='opacity: 0.5;'></a-box>
-            <%#the obj format looks a little better# a-gltf-model src="#bottle-normal-gltf" position="0 0 1" rotation="-90 0 0"></a-gltf-model%>
-        </a-marker>
-        <a-entity camera>
+        <a-obj-model class="bottle" id="bottle-low" src="#bottle-low-obj" mtl="#bottle-normal-mtl" position="-.75 0 1" rotation="-90 0 0"></a-obj-model>
+        <a-obj-model class="bottle" id="bottle-med" src="#bottle-med-obj" mtl="#bottle-normal-mtl" position="0 0 1" rotation="-90 0 0"></a-obj-model>
+        <a-obj-model class="bottle" id="bottle-normal" src="#bottle-normal-obj" mtl="#bottle-normal-mtl" position=".75 0 1" rotation="-90 0 0"></a-obj-model>
+        <a-box position='0 0 0.5' material='opacity: 0.5;'></a-box>
+        <%#the obj format looks a little better# a-gltf-model src="#bottle-normal-gltf" position="0 0 1" rotation="-90 0 0"></a-gltf-model%>
+        <%#a-marker-camera preset='custom' type='pattern' url='/other/fave-pattern-marker.patt' mouse-cursor%>
+        <a-marker-camera preset='custom' type='pattern' url='/other/fave-pattern-marker.patt'>
             <%#a-cursor fuse="true" color="yellow"></a-cursor%>
-        </a-entity>
+        </a-marker-camera>
     </a-scene>
 </section>
