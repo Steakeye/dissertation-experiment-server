@@ -272,7 +272,7 @@ h1, h2, h3 {
       position: absolute;
     }
 
-    .bottle {
+    > .bottle {
       height: 90vw;
       max-width: none;
       position: absolute;
@@ -627,6 +627,10 @@ h1, h2, h3 {
       #portrait-message {
         display: block;
       }
+    }
+
+    .a-enter-vr {
+      display: none;
     }
   }
 
