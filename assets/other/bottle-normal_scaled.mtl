@@ -12,7 +12,7 @@ d 0.750000
 illum 2
 
 newmtl bottle_label_mat
-Ns 17.647059
+Ns 19.607843
 Ka 0.786928 0.786928 0.786928
 Kd 0.964706 0.858824 0.537255
 Ks 0.898039 0.898039 0.898039
@@ -24,7 +24,7 @@ map_Kd maps/fave-bottle-label.png
 map_Ka maps/fave-bottle-label.png
 
 newmtl bottle_mat
-Ns 31.372549
+Ns 33.333333
 Ka 0.129412 0.129412 0.129412
 Kd 0.388235 0.000000 0.000000
 Ks 1.000000 1.000000 1.000000
