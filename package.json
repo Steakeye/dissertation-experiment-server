@@ -17,7 +17,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
     "aframe": "^0.8.2",
-    "aframe-mouse-cursor-component": "^0.5.2",
     "bulma": "^0.7.1",
     "compression": "^1.7.3",
     "cookie-parser": "~1.4.3",

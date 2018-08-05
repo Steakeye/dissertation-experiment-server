@@ -1,3 +1,11 @@
+declare module Tone {
+    class Synth {
+        constructor(thing1: any);
+        toMaster(): this;
+        triggerAttackRelease(note: string | number, duration: string | number, time?: string | number, velocity?: number): void;
+    }
+}
+
 class ARGame extends BaseStep {
     constructor() {
         super('#ar-game');
@@ -5,6 +13,8 @@ class ARGame extends BaseStep {
         this.gatherSceneEntities();
 
         this.bindCallbacks();
+
+        this.setupSynth();
 
         this.setupLoadedHandler();
     }
@@ -73,7 +83,34 @@ class ARGame extends BaseStep {
         }
     }
 
+    private setupSynth() {
+        this.synthTone = new Tone.Synth({
+            oscillator : {
+                type : 'triangle8'
+            },
+            envelope : {
+                attack : 2,
+                decay : 1,
+                sustain: 0.4,
+                release: 4
+            }
+        }).toMaster();
+    }
+
+    private playNoteforBottle(bottle: AFrame.Entity): void {
+        const noteVal: string = this.notes[(<AFrame.Entity[]>this.sceneBottles).lastIndexOf(bottle)];
+
+        this.playNote(noteVal);
+    }
+
+    private playNote(note: string) : void {
+        (<Tone.Synth>this.synthTone).triggerAttackRelease(note, "2n")
+    }
+
     protected scene?: AFrame.Scene;
     protected sceneBottles?: AFrame.Entity[];
+    protected synthTone?: Tone.Synth;
     protected entitiesGathered: boolean = false;
+
+    private notes: string[]= ["C4", "E4", "G4"];
 }
