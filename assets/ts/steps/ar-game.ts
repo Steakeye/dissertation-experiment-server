@@ -81,6 +81,7 @@ class ARGame extends BaseStep {
     private bindCallbacks() {
         this.onSceneLoaded = this.onSceneLoaded.bind(this);
         this.onMarkerFound = this.onMarkerFound.bind(this);
+        this.onBottleClicked = this.onBottleClicked.bind(this);
     }
 
     private onSceneLoaded() {
@@ -153,9 +154,7 @@ class ARGame extends BaseStep {
     }
 
     private bindClickCallbacksToBottle(bottle: AFrame.Entity) {
-        bottle.addEventListener('click', function (evt) {
-            console.log("bottle clicked! ", evt);
-        });
+        bottle.addEventListener('click', this.onBottleClicked);
     }
 
     private setupSynth() {
@@ -170,6 +169,14 @@ class ARGame extends BaseStep {
                 release: 4
             }
         }).toMaster();
+    }
+
+    private onBottleClicked(evt: Event) {
+        const bottle = evt.target
+
+        console.log("bottle clicked! ", bottle);
+
+        this.playNoteforBottle(<AFrame.Entity>bottle);
     }
 
     private playNoteforBottle(bottle: AFrame.Entity): void {
