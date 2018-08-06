@@ -6,6 +6,36 @@ declare module Tone {
     }
 }
 
+interface Eventable {
+    addEventListener(name: string, callback: EventListener): void
+    removeEventListener(name: string, callback: EventListener): void
+}
+
+interface MarkerFoundEvent extends Event {
+    data: {
+        type: number;
+    }
+}
+
+interface ARJSContext extends Eventable {
+    initialized: boolean
+    arController: ARJSContrller;
+}
+
+interface ARJSContrller extends Eventable {
+}
+
+interface ARJSSystem extends AFrame.System {
+    _arSession: {
+        arContext: ARJSContext;
+    }
+}
+
+/*
+scene.sceneEl.systems.arjs._arSession.arSource
+scene.sceneEl.systems.arjs._arSession.arContext.arController - addEventlisterner('getMarker', ...) - dispose
+* */
+
 class ARGame extends BaseStep {
     constructor() {
         super('#ar-game');
@@ -44,8 +74,13 @@ class ARGame extends BaseStep {
         }
     }
 
+    private setupMarkerFoundHandler(): void {
+        this.arController && (<ARJSContrller>this.arController).addEventListener(ARGame.EVT_KEY_MARKER, this.onMarkerFound);
+    }
+
     private bindCallbacks() {
         this.onSceneLoaded = this.onSceneLoaded.bind(this);
+        this.onMarkerFound = this.onMarkerFound.bind(this);
     }
 
     private onSceneLoaded() {
@@ -53,7 +88,27 @@ class ARGame extends BaseStep {
 
         this.gatherSceneEntities();
 
-        this.bindClickCallbacksToBottles();
+        this.gatherSceneInternals();
+
+        this.setupMarkerFoundHandler();
+
+        //this.bindClickCallbacksToBottles();
+    }
+
+    private onMarkerFound(evt: MarkerFoundEvent) {
+        const markerType: number = evt.data.type;
+
+        //console.log("onMarkerFound!!");
+
+        if (!this.markerFoundFirstTime && markerType == ARGame.TYPE_PATTERN_MARKER) {
+            console.log("onMarkerFound out pattern!!");
+
+            this.markerFoundFirstTime = true;
+
+            (<ARJSContrller>this.arController).removeEventListener(ARGame.EVT_KEY_MARKER, this.onMarkerFound);
+
+            this.bindClickCallbacksToBottles();
+        }
     }
 
     private gatherSceneEntities() {
@@ -65,6 +120,21 @@ class ARGame extends BaseStep {
 
                 this.entitiesGathered = true;
             }
+        }
+    }
+
+    private gatherSceneInternals() {
+        //initialized
+        const context: ARJSContext = (<ARJSSystem>(<AFrame.Scene>this.scene).systems.arjs)._arSession.arContext;
+
+        if (context.initialized) {
+            this.arController = (<ARJSSystem>(<AFrame.Scene>this.scene).systems.arjs)._arSession.arContext.arController;
+        } else {
+            context.addEventListener("initialized", () => {
+                this.arController = (<ARJSSystem>(<AFrame.Scene>this.scene).systems.arjs)._arSession.arContext.arController;
+
+                this.setupMarkerFoundHandler();
+            });
         }
     }
 
@@ -109,8 +179,13 @@ class ARGame extends BaseStep {
 
     protected scene?: AFrame.Scene;
     protected sceneBottles?: AFrame.Entity[];
+    protected arController?: ARJSContrller;
     protected synthTone?: Tone.Synth;
     protected entitiesGathered: boolean = false;
+    protected markerFoundFirstTime: boolean = false;
+
+    private static readonly EVT_KEY_MARKER: string = "getMarker";
+    private static TYPE_PATTERN_MARKER: number = 0;
 
     private notes: string[]= ["C4", "E4", "G4"];
 }
