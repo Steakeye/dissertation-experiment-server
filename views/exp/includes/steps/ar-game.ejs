@@ -11,9 +11,9 @@
             <a-asset-item id="bottle-med-obj" src="/other/bottle-med_scaled.obj"></a-asset-item>
             <a-asset-item id="bottle-low-obj" src="/other/bottle-low_scaled.obj"></a-asset-item>
         </a-assets>
-        <a-obj-model class="bottle" id="bottle-low" src="#bottle-low-obj" mtl="#bottle-normal-mtl" position="-.75 0 1" rotation="-90 0 0"></a-obj-model>
-        <a-obj-model class="bottle" id="bottle-med" src="#bottle-med-obj" mtl="#bottle-normal-mtl" position="0 0 1" rotation="-90 0 0"></a-obj-model>
-        <a-obj-model class="bottle" id="bottle-normal" src="#bottle-normal-obj" mtl="#bottle-normal-mtl" position=".75 0 1" rotation="-90 0 0"></a-obj-model>
+        <a-obj-model class="bottle" id="bottle-low" src="#bottle-low-obj" mtl="#bottle-normal-mtl" position="-.75 0 1" rotation="-90 0 0" visible="false"></a-obj-model>
+        <a-obj-model class="bottle" id="bottle-med" src="#bottle-med-obj" mtl="#bottle-normal-mtl" position="0 0 1" rotation="-90 0 0" visible="false"></a-obj-model>
+        <a-obj-model class="bottle" id="bottle-normal" src="#bottle-normal-obj" mtl="#bottle-normal-mtl" position=".75 0 1" rotation="-90 0 0" visible="false"></a-obj-model>
         <%#a-box position='0 0 0.5' material='opacity: 0.5;'></a-box%>
         <a-marker-camera preset='custom' type='pattern' url='/other/fave-pattern-marker.patt' cursor="rayOrigin: mouse" >
         </a-marker-camera>
