@@ -85,7 +85,7 @@ class ARGame extends BaseStep {
     }
 
     private onSceneLoaded() {
-        console.log("a-frame scene loaded!");
+        //console.log("a-frame scene loaded!");
 
         this.gatherSceneEntities();
 
@@ -102,7 +102,7 @@ class ARGame extends BaseStep {
         //console.log("onMarkerFound!!");
 
         if (!this.markerFoundFirstTime && markerType == ARGame.TYPE_PATTERN_MARKER) {
-            console.log("onMarkerFound out pattern!!");
+            //console.log("onMarkerFound out pattern!!");
 
             this.markerFoundFirstTime = true;
 
@@ -142,7 +142,7 @@ class ARGame extends BaseStep {
     private readyBotlesForInteraction() {
         const bottlesArr = this.sceneBottles;
 
-        console.log("readyBotlesForInteraction");
+        //console.log("readyBotlesForInteraction");
 
         if (bottlesArr && bottlesArr.length) {
             //box.addEventListener('click', function (evt) { // ... });
@@ -172,11 +172,24 @@ class ARGame extends BaseStep {
     }
 
     private onBottleClicked(evt: Event) {
-        const bottle = evt.target
+        const bottle:AFrame.Entity = <AFrame.Entity>evt.target;
 
-        console.log("bottle clicked! ", bottle);
+        //console.log("bottle clicked! ", bottle);
 
-        this.playNoteforBottle(<AFrame.Entity>bottle);
+        this.scaleBottleThenRestore(bottle);
+        this.playNoteforBottle(bottle);
+    }
+
+    private scaleBottleThenRestore(bottle: AFrame.Entity): void {
+        const scaleKey: string = "scale";
+        const normalScale: string = "1 1 1";
+        const enlargedScale: string = "1.25 1.25 1.25";
+
+        bottle.setAttribute(scaleKey, enlargedScale);
+
+        ARGame.createTimewPromise(2000).then(() => {
+            bottle.setAttribute(scaleKey, normalScale);
+        });
     }
 
     private playNoteforBottle(bottle: AFrame.Entity): void {
