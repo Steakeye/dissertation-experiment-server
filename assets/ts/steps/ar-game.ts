@@ -265,7 +265,7 @@ class ARGame extends BaseStep {
 
         bottle.setAttribute(scaleKey, enlargedScale);
 
-        return ARGame.createTimewPromise(2000).then(() => {
+        return ARGame.createTimewPromise(1000).then(() => {
             bottle.setAttribute(scaleKey, normalScale);
         });
     }
@@ -277,7 +277,7 @@ class ARGame extends BaseStep {
     }
 
     private playNote(note: string) : void {
-        (<Tone.Synth>this.synthTone).triggerAttackRelease(note, "2n")
+        (<Tone.Synth>this.synthTone).triggerAttackRelease(note, "1n")
     }
 
     private playBottleSequence(): Promise<void> {
