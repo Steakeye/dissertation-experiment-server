@@ -4,6 +4,7 @@ type TiltDirection = "left" | "right";
 type BottleRotation = TiltDirection | "none";
 
 type PromiseResolver<R> = (thing?:R) => void;
+type PromiseRejectResolver<R> = (thing?:R) => void;
 type PromiseAction<R> = (resolver: PromiseResolver<R>) => void;
 //type PromiseResolver<R> = (thing?:R) => void;
 type ClickPromiseAction<R> = (el: Element, container: Element, resolver: PromiseResolver<R>) => void;
