@@ -184,7 +184,7 @@ class ARGame extends BaseStep {
         bg.setAttribute("height", 3);
         bg.setAttribute("position","0 -1 0");
 
-        instructionChildren["instruction-text"].setAttribute("value", "Tap bottles to copy the tune!\n(After is has played)");
+        instructionChildren["instruction-text"].setAttribute("value", "Tap bottles to copy the tune!\n(After it has played)");
     }
 
     private readyBottlesForInteraction() {
