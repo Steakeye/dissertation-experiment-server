@@ -93,7 +93,7 @@ class ARGame extends BaseStep {
 
         this.setupMarkerFoundHandler();
 
-        //this.readyBotlesForInteraction();
+        //this.readyBottlesForInteraction();
     }
 
     private onMarkerFound(evt: MarkerFoundEvent) {
@@ -102,13 +102,13 @@ class ARGame extends BaseStep {
         //console.log("onMarkerFound!!");
 
         if (!this.markerFoundFirstTime && markerType == ARGame.TYPE_PATTERN_MARKER) {
-            //console.log("onMarkerFound out pattern!!");
+            console.log("onMarkerFound out pattern!!");
 
             this.markerFoundFirstTime = true;
 
             (<ARJSContrller>this.arController).removeEventListener(ARGame.EVT_KEY_MARKER, this.onMarkerFound);
 
-            this.readyBotlesForInteraction();
+            this.readyBottlesForInteraction();
         }
     }
 
@@ -139,17 +139,17 @@ class ARGame extends BaseStep {
         }
     }
 
-    private readyBotlesForInteraction() {
+    private readyBottlesForInteraction() {
         const bottlesArr = this.sceneBottles;
 
-        //console.log("readyBotlesForInteraction");
+        //console.log("readyBottlesForInteraction");
 
         if (bottlesArr && bottlesArr.length) {
             //box.addEventListener('click', function (evt) { // ... });
             bottlesArr.forEach((bottle) => {
                 this.bindClickCallbacksToBottle(bottle);
                 bottle.setAttribute("visible", true)
-            })
+            });
         }
     }
 
