@@ -160,8 +160,6 @@ class ARGame extends BaseStep {
     private reconfigureInstructions(): void {
         const instrutionsWrapper: AFrame.Entity = (<AFrame.Entity>this.sceneInstructionsWrapper);
         instrutionsWrapper.setAttribute("rotation", "-90 0 0");
-        /*instrutionsWrapper.setAttribute("width", 10)
-        instrutionsWrapper.setAttribute("height", 10)*/
         instrutionsWrapper.setAttribute("position","0 -.5 -1");
 
         const bg: AFrame.Entity = <AFrame.Entity>instrutionsWrapper.children["instruction-bg"];
@@ -226,7 +224,10 @@ class ARGame extends BaseStep {
         });
 
         this.triggerDemoMode(() => {
-            console.log("After the user have invoked the sequence we should be done..!");
+            console.log("After the user has invoked the sequence we should be done..!");
+
+            (<AFrame.Entity>this.sceneInstructionsWrapper).children["instruction-text"].setAttribute("value", ARGame.MSG_SUCCESS);
+
             const successResolver: PromiseResolver<void> = (<PromiseResolver<void>>this.arGameSuccessResolver);
 
             successResolver && successResolver();
@@ -319,6 +320,7 @@ class ARGame extends BaseStep {
 
     private static readonly EVT_KEY_MARKER: string = "getMarker";
     private static TYPE_PATTERN_MARKER: number = 0;
+    private static MSG_SUCCESS: string = "You did it!";
 
     private notes: string[]= ["C4", "E4", "G4"];
 }
