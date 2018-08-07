@@ -110,7 +110,7 @@ class ARGame extends BaseStep {
 
             this.reconfigureInstructions();
             this.readyBottlesForInteraction();
-            //this.triggerDemoMode();
+            this.triggerDemoMode();
         }
     }
 
@@ -173,6 +173,15 @@ class ARGame extends BaseStep {
         }
     }
 
+    private triggerDemoMode(): void {
+        /*ARGame.createDelayPromise(() => {
+            this.playBottleSequence
+        }, 500)*/
+        ARGame.createTimewPromise(500).then(() => {
+            return this.playBottleSequence();
+        });
+    }
+
     private bindClickCallbacksToBottle(bottle: AFrame.Entity) {
         bottle.addEventListener('click', this.onBottleClicked);
     }
@@ -228,13 +237,20 @@ class ARGame extends BaseStep {
         (<Tone.Synth>this.synthTone).triggerAttackRelease(note, "2n")
     }
 
-    private playBottleSequence() {
-        const shuffledBottles: AFrame.Entity[] = <AFrame.Entity[]>this.sceneBottlesShuffled
+    private playBottleSequence(): Promise<void> {
+        const shuffledBottles: AFrame.Entity[] = <AFrame.Entity[]>this.sceneBottlesShuffled;
 
-        let lastPromise;
+        let lastPromise: Promise<void>;
 
-        //shuffledBottles.forEach()
+        shuffledBottles.forEach((bottle: AFrame.Entity) => {
+            if (lastPromise) {
+                lastPromise = lastPromise.then(() => { return this.triggerBottleInteraction(bottle); });
+            } else {
+                lastPromise = this.triggerBottleInteraction(bottle);
+            }
+        });
 
+        return lastPromise;
     }
 
     private shuffledBottleOrder(): AFrame.Entity[] {
