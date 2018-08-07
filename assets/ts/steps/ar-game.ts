@@ -65,6 +65,15 @@ class ARGame extends BaseStep {
         console.log('Ending AR Game');
     }
 
+
+    public createARGameSuccessBinding(): Promise<void> {
+        const successAction: PromiseAction<void> = (resolver: PromiseResolver<void>): void => {
+            this.arGameSuccessResolver = resolver;
+        };
+
+        return ARGame.createPromise<void>(successAction)
+    }
+
     private setupLoadedHandler() {
         const scene: AFrame.Scene = <AFrame.Scene>this.scene;
         if (scene.hasLoaded) {
@@ -110,7 +119,7 @@ class ARGame extends BaseStep {
 
             this.reconfigureInstructions();
             this.readyBottlesForInteraction();
-            this.triggerDemoMode();
+            this.triggerDemoMode(this.triggerInteractionMode.bind(this));
         }
     }
 
@@ -160,26 +169,28 @@ class ARGame extends BaseStep {
     }
 
     private readyBottlesForInteraction() {
-        const bottlesArr = this.sceneBottles;
-
         //console.log("readyBottlesForInteraction");
 
-        if (bottlesArr && bottlesArr.length) {
-            //box.addEventListener('click', function (evt) { // ... });
-            bottlesArr.forEach((bottle) => {
-                //this.bindClickCallbacksToBottle(bottle);
-                bottle.setAttribute("visible", true)
-            });
+        this.iterateOverBottles((bottle) => {
+            bottle.setAttribute("visible", true)
+        });
+    }
+
+    private triggerDemoMode(callback?: () => void): void {
+        const sequencePromise: Promise<void> = ARGame.createTimewPromise(500).then(() => {
+            return this.playBottleSequence();
+        });
+
+        if (callback) {
+            sequencePromise.then(callback);
         }
     }
 
-    private triggerDemoMode(): void {
-        /*ARGame.createDelayPromise(() => {
-            this.playBottleSequence
-        }, 500)*/
-        ARGame.createTimewPromise(500).then(() => {
-            return this.playBottleSequence();
+    private triggerInteractionMode(): void {
+        this.iterateOverBottles((bottle) => {
+            this.bindClickCallbacksToBottle(bottle);
         });
+
     }
 
     private bindClickCallbacksToBottle(bottle: AFrame.Entity) {
@@ -201,13 +212,17 @@ class ARGame extends BaseStep {
     }
 
     private onBottleClicked(evt: Event) {
-        const bottle:AFrame.Entity = <AFrame.Entity>evt.target;
+        /*const bottle:AFrame.Entity = <AFrame.Entity>evt.target;
 
-        //console.log("bottle clicked! ", bottle);
+        //console.log("bottle clicked! ", bottle);*/
 
         //TODO: Just change this to play the sequence again! Fake it!
-        this.triggerBottleInteraction(bottle);
+        //this.triggerBottleInteraction(bottle);
         //this.playNoteforBottle(bottle);
+        this.triggerDemoMode(() => {
+            console.log("After the user have invoked the sequence we should be done..!");
+            (<PromiseResolver<void>>this.arGameSuccessResolver)();
+        });
     }
 
     private triggerBottleInteraction(bottle: AFrame.Entity): Promise<void> {
@@ -270,6 +285,17 @@ class ARGame extends BaseStep {
         return bottlesToShuffle;
     }
 
+    private iterateOverBottles(func: (bottle: AFrame.Entity) => void): void {
+        const bottlesArr = this.sceneBottles;
+
+        //console.log("iterateOverBottles");
+
+        if (bottlesArr && bottlesArr.length) {
+            //box.addEventListener('click', function (evt) { // ... });
+            bottlesArr.forEach(func);
+        }
+    }
+
     protected scene?: AFrame.Scene;
     protected sceneBottles?: AFrame.Entity[];
     protected sceneBottlesShuffled?: AFrame.Entity[];
@@ -278,6 +304,7 @@ class ARGame extends BaseStep {
     protected synthTone?: Tone.Synth;
     protected entitiesGathered: boolean = false;
     protected markerFoundFirstTime: boolean = false;
+    protected arGameSuccessResolver?: PromiseResolver<void>;
 
     private static readonly EVT_KEY_MARKER: string = "getMarker";
     private static TYPE_PATTERN_MARKER: number = 0;
