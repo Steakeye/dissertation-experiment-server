@@ -4,25 +4,45 @@ class WellDone extends BaseStep {
     }
 
     public animateWellDoneStep(): Promise<undefined> {
-        const container: Element = <Element>this.stepContainer;
-
-        return new Promise<undefined>(function (resolve: () => undefined, reject: (e: Error) => undefined) {
+        return new Promise<undefined>((resolve: () => undefined, reject: (e: Error) => void) => {
             //console.log("promise running");
 
-            try {
-                Sizzle('.bottle', container)[0].classList.add("shake-0");
+            function isPortrait(): boolean {
+                return window.innerHeight > window.innerWidth;
+            }
 
-                setTimeout(() => {
-                    container.classList.add("hide");
-                }, 1250);
-                setTimeout(() => {
-                    resolve();
-                }, 1750);
-            } catch (e) {
-                reject(e);
+            if(isPortrait()){
+                this.doWellDoneAnimation(resolve, reject)
+            } else {
+                const resizeEvtHandler: (evt: Event) => void = () => {
+                    if (isPortrait()) {
+                        window.removeEventListener("resize", resizeEvtHandler);
+                        this.doWellDoneAnimation(resolve, reject);
+                    }
+
+                };
+
+                window.addEventListener("resize", resizeEvtHandler);
             }
 
         });
+    }
+
+    private doWellDoneAnimation(resolve: PromiseResolver<undefined>, reject: PromiseRejectResolver<Error>) {
+        const container: Element = <Element>this.stepContainer;
+
+        try {
+            Sizzle('.bottle', container)[0].classList.add("shake-0");
+
+            setTimeout(() => {
+                container.classList.add("hide");
+            }, 1250);
+            setTimeout(() => {
+                resolve();
+            }, 1750);
+        } catch (e) {
+            reject(e);
+        }
     }
 
     public doIntroAnimation() {

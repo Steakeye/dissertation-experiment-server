@@ -1,4 +1,9 @@
 <section id="well-done" data-order="<%= order %>" class="step portrait<%= (typeof isCurrent === 'undefined') || !isCurrent ? ' is-hidden': '' %>">
+    <div id="landscape-message" class="container modal modal-background is-hidden">
+        <div class="modal-content">
+            <h1 class="is-small is-white">Please rotate your phone to portrait orientation</h1>
+        </div>
+    </div>
     <h1>Well Done!</h1>
     <img class="bottle rotated-0" src="/img/fave-bottle_cropped.png"title="Your Fave drink!" alt="Image of fave bottle"/>
 </section>

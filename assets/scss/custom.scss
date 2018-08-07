@@ -854,6 +854,21 @@ h1, h2, h3 {
     }
   }
 }
+@media screen and (orientation:landscape) {
+  .step.portrait #landscape-message {
+    display: flex!important;
+
+    .modal-content {
+      height: 100%;
+    }
+
+    h1 {
+      color: white;
+      text-shadow: none;
+      font-size: 3em;
+    }
+  }
+}
 /*@media screen and (orientation:landscape) {
   .section .step.portrait {
     -webkit-transform: rotate(90deg);
