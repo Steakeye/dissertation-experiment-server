@@ -30,7 +30,10 @@ interface ARJSSystem extends AFrame.System {
     _arSession: {
         arContext: ARJSContext;
         arSource: {
+            copyElementSizeTo: (el?: Element) => void;
             domElement: HTMLVideoElement;
+            onResize: (...args:any[]) => any;
+            ready: boolean;
         }
     }
 }
@@ -318,15 +321,24 @@ class ARGame extends BaseStep {
     private tearDown(): void {
         console.log("this.tearDown()");
 
-        (<AFrame.Scene>this.scene).systems.arjs.pause();
+        const scene: AFrame.Scene = (<AFrame.Scene>this.scene);
+
+        scene.systems.arjs.pause();
+        scene.pause();
+
         (<ARJSController>this.arController).dispose();
         (<Element>this.stepContainer).removeChild(<AFrame.Entity>this.scene);
 
-        const arVidEl: HTMLVideoElement = (<ARJSSystem>this.arJSSystem)._arSession.arSource.domElement;
+        const arSource = (<ARJSSystem>this.arJSSystem)._arSession.arSource;
+        const arVidEl: HTMLVideoElement = arSource.domElement;
+
+        //Back hack... only way to stop errors
+        arSource.ready = false;
+        arSource.onResize = arSource.copyElementSizeTo = () => {};
 
         (<HTMLVideoElement>arVidEl.parentElement).removeChild(arVidEl);
 
-        document.body.style = "";
+        document.body.setAttribute("style","");
     }
 
     protected scene?: AFrame.Scene;
