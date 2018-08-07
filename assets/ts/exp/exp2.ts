@@ -35,18 +35,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     const fourthStep: Promise<void> = thirdStep.then(() => {
+        backgroundController.hideBG();
         arGameController.startARGame();
-        arGameController.endARGame();
+        //return arGameController.createARGameSuccessBinding();
     });
 
     const fourthStepPause: Promise<void> = fourthStep.then(() => {
-        return ARGame.createDelayPromise((resolve: PromiseResolver<void>) => {
-            resolve();
-        }, 1000);
+        return ARGame.createTimewPromise(1000);
     });
 
+    //const fifthStep: Promise<Element> = fourthStep.then(() => {
     const fifthStep: Promise<Element> = fourthStepPause.then(() => {
+        arGameController.endARGame();
         arGameController.hideStep();
+        backgroundController.hideBG(false);
         backgroundController.animateBG(true);
         return stepsHandler.animateToNextStep();
     });

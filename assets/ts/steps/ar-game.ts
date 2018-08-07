@@ -19,15 +19,19 @@ interface MarkerFoundEvent extends Event {
 
 interface ARJSContext extends Eventable {
     initialized: boolean
-    arController: ARJSContrller;
+    arController: ARJSController;
 }
 
-interface ARJSContrller extends Eventable {
+interface ARJSController extends Eventable {
+    dispose(): void;
 }
 
 interface ARJSSystem extends AFrame.System {
     _arSession: {
         arContext: ARJSContext;
+        arSource: {
+            domElement: HTMLVideoElement;
+        }
     }
 }
 
@@ -40,13 +44,8 @@ class ARGame extends BaseStep {
     constructor() {
         super('#ar-game');
 
-        this.gatherSceneEntities();
-
         this.bindCallbacks();
-
         this.setupSynth();
-
-        this.setupLoadedHandler();
     }
 
     public doIntroAnimation() {
@@ -59,10 +58,12 @@ class ARGame extends BaseStep {
 
     public startARGame() {
         console.log('Starting AR Game');
+        this.init();
     }
 
     public endARGame() {
         console.log('Ending AR Game');
+        this.tearDown();
     }
 
 
@@ -75,7 +76,9 @@ class ARGame extends BaseStep {
     }
 
     private init(): void {
-        //TODO
+        this.insertSceneIntoParent();
+        this.gatherSceneEntities();
+        this.setupLoadedHandler();
     }
 
     private setupLoadedHandler() {
@@ -88,7 +91,7 @@ class ARGame extends BaseStep {
     }
 
     private setupMarkerFoundHandler(): void {
-        this.arController && (<ARJSContrller>this.arController).addEventListener(ARGame.EVT_KEY_MARKER, this.onMarkerFound);
+        this.arController && (<ARJSController>this.arController).addEventListener(ARGame.EVT_KEY_MARKER, this.onMarkerFound);
     }
 
     private bindCallbacks() {
@@ -101,12 +104,8 @@ class ARGame extends BaseStep {
         //console.log("a-frame scene loaded!");
 
         this.gatherSceneEntities();
-
         this.gatherSceneInternals();
-
         this.setupMarkerFoundHandler();
-
-        //this.readyBottlesForInteraction();
     }
 
     private onMarkerFound(evt: MarkerFoundEvent) {
@@ -119,12 +118,19 @@ class ARGame extends BaseStep {
 
             this.markerFoundFirstTime = true;
 
-            (<ARJSContrller>this.arController).removeEventListener(ARGame.EVT_KEY_MARKER, this.onMarkerFound);
+            (<ARJSController>this.arController).removeEventListener(ARGame.EVT_KEY_MARKER, this.onMarkerFound);
 
             this.reconfigureInstructions();
             this.readyBottlesForInteraction();
             this.triggerDemoMode(this.triggerInteractionMode.bind(this));
         }
+    }
+
+    private insertSceneIntoParent() {
+        const templateEl: HTMLTemplateElement = <HTMLTemplateElement>Sizzle(ARGame.ID_TEMPLATE_SCENE, this.stepContainer)[0];
+        const scene = document.importNode(templateEl.content, true);
+
+        (<Element>this.stepContainer).appendChild(scene);
     }
 
     private gatherSceneEntities() {
@@ -144,15 +150,20 @@ class ARGame extends BaseStep {
 
     private gatherSceneInternals() {
         //initialized
-        const context: ARJSContext = (<ARJSSystem>(<AFrame.Scene>this.scene).systems.arjs)._arSession.arContext;
+        this.arJSSystem = <ARJSSystem>(<AFrame.Scene>this.scene).systems.arjs;
+
+        const context: ARJSContext = this.arJSSystem._arSession.arContext;
+
+        const gatherInternals = () => {
+            this.arController = (<ARJSSystem>this.arJSSystem)._arSession.arContext.arController;
+            this.setupMarkerFoundHandler();
+        };
 
         if (context.initialized) {
-            this.arController = (<ARJSSystem>(<AFrame.Scene>this.scene).systems.arjs)._arSession.arContext.arController;
+            gatherInternals();
         } else {
             context.addEventListener("initialized", () => {
-                this.arController = (<ARJSSystem>(<AFrame.Scene>this.scene).systems.arjs)._arSession.arContext.arController;
-
-                this.setupMarkerFoundHandler();
+                gatherInternals();
             });
         }
     }
@@ -305,14 +316,25 @@ class ARGame extends BaseStep {
     }
 
     private tearDown(): void {
-        //TODO:
+        console.log("this.tearDown()");
+
+        (<AFrame.Scene>this.scene).systems.arjs.pause();
+        (<ARJSController>this.arController).dispose();
+        (<Element>this.stepContainer).removeChild(<AFrame.Entity>this.scene);
+
+        const arVidEl: HTMLVideoElement = (<ARJSSystem>this.arJSSystem)._arSession.arSource.domElement;
+
+        (<HTMLVideoElement>arVidEl.parentElement).removeChild(arVidEl);
+
+        document.body.style = "";
     }
 
     protected scene?: AFrame.Scene;
     protected sceneBottles?: AFrame.Entity[];
     protected sceneBottlesShuffled?: AFrame.Entity[];
     protected sceneInstructionsWrapper?: AFrame.Entity;
-    protected arController?: ARJSContrller;
+    protected arJSSystem?: ARJSSystem;
+    protected arController?: ARJSController;
     protected synthTone?: Tone.Synth;
     protected entitiesGathered: boolean = false;
     protected markerFoundFirstTime: boolean = false;
@@ -321,6 +343,7 @@ class ARGame extends BaseStep {
     private static readonly EVT_KEY_MARKER: string = "getMarker";
     private static TYPE_PATTERN_MARKER: number = 0;
     private static MSG_SUCCESS: string = "You did it!";
+    private static ID_TEMPLATE_SCENE: string = "#ar-scene";
 
     private notes: string[]= ["C4", "E4", "G4"];
 }
