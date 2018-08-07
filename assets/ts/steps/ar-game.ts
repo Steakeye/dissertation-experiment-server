@@ -108,7 +108,9 @@ class ARGame extends BaseStep {
 
             (<ARJSContrller>this.arController).removeEventListener(ARGame.EVT_KEY_MARKER, this.onMarkerFound);
 
+            this.reconfigureInstructions();
             this.readyBottlesForInteraction();
+            //this.triggerDemoMode();
         }
     }
 
@@ -118,6 +120,7 @@ class ARGame extends BaseStep {
 
             if (this.scene) {
                 this.sceneBottles = <AFrame.Entity[]>Sizzle(".bottle", this.scene);
+                this.sceneInstructionsWrapper = <AFrame.Entity>Sizzle("#instruction-container", this.scene)[0];
 
                 this.entitiesGathered = true;
             }
@@ -139,6 +142,15 @@ class ARGame extends BaseStep {
         }
     }
 
+    private reconfigureInstructions(): void {
+        const instrutionsWrapper: AFrame.Entity = (<AFrame.Entity>this.sceneInstructionsWrapper);
+        instrutionsWrapper.setAttribute("rotation", "-90 0 0");
+        /*instrutionsWrapper.setAttribute("width", 10)
+        instrutionsWrapper.setAttribute("height", 10)*/
+        instrutionsWrapper.setAttribute("position","0 0 -1");
+        (<AFrame.Entity>instrutionsWrapper.children["instruction-bg"]).setAttribute("opacity", .33)
+    }
+
     private readyBottlesForInteraction() {
         const bottlesArr = this.sceneBottles;
 
@@ -147,7 +159,7 @@ class ARGame extends BaseStep {
         if (bottlesArr && bottlesArr.length) {
             //box.addEventListener('click', function (evt) { // ... });
             bottlesArr.forEach((bottle) => {
-                this.bindClickCallbacksToBottle(bottle);
+                //this.bindClickCallbacksToBottle(bottle);
                 bottle.setAttribute("visible", true)
             });
         }
@@ -204,6 +216,7 @@ class ARGame extends BaseStep {
 
     protected scene?: AFrame.Scene;
     protected sceneBottles?: AFrame.Entity[];
+    protected sceneInstructionsWrapper?: AFrame.Entity;
     protected arController?: ARJSContrller;
     protected synthTone?: Tone.Synth;
     protected entitiesGathered: boolean = false;
