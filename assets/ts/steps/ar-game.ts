@@ -331,7 +331,7 @@ class ARGame extends BaseStep {
         scene.systems.arjs.pause();
         scene.pause();
 
-        (<ARJSController>this.arController).dispose();
+        this.arController && (<ARJSController>this.arController).dispose();
         (<Element>this.stepContainer).removeChild(<AFrame.Entity>this.scene);
 
         const arSource = (<ARJSSystem>this.arJSSystem)._arSession.arSource;
