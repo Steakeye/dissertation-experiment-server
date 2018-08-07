@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <%- include('./includes/head'); %>
+  <%- include('./includes/head', {
+  customScripts: [
+  '/js/aframe.js',
+  '/js/aframe-ar.js'] }); %>
   <body>
   <main>
   <section class="section pad-0">
@@ -19,6 +22,7 @@
   </main>
   <%- include('./includes/footer-scripts', {
   customScripts: [
+  '/js/Tone.js',
   '/js/exp/exp8.js',
   '/js/steps/thank-you.js',
   '/js/steps/play-ar.js',
