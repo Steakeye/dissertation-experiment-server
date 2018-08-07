@@ -120,6 +120,8 @@ class ARGame extends BaseStep {
 
             if (this.scene) {
                 this.sceneBottles = <AFrame.Entity[]>Sizzle(".bottle", this.scene);
+                this.sceneBottlesShuffled = this.shuffledBottleOrder();
+
                 this.sceneInstructionsWrapper = <AFrame.Entity>Sizzle("#instruction-container", this.scene)[0];
 
                 this.entitiesGathered = true;
@@ -147,8 +149,14 @@ class ARGame extends BaseStep {
         instrutionsWrapper.setAttribute("rotation", "-90 0 0");
         /*instrutionsWrapper.setAttribute("width", 10)
         instrutionsWrapper.setAttribute("height", 10)*/
-        instrutionsWrapper.setAttribute("position","0 0 -1");
-        (<AFrame.Entity>instrutionsWrapper.children["instruction-bg"]).setAttribute("opacity", .33)
+        instrutionsWrapper.setAttribute("position","0 -.5 -1");
+
+        const bg: AFrame.Entity = <AFrame.Entity>instrutionsWrapper.children["instruction-bg"];
+
+        bg.setAttribute("opacity", .33);
+        bg.setAttribute("width", 3);
+        bg.setAttribute("height", 3);
+        bg.setAttribute("position","0 -1 0");
     }
 
     private readyBottlesForInteraction() {
@@ -188,18 +196,24 @@ class ARGame extends BaseStep {
 
         //console.log("bottle clicked! ", bottle);
 
-        this.scaleBottleThenRestore(bottle);
-        this.playNoteforBottle(bottle);
+        //TODO: Just change this to play the sequence again! Fake it!
+        this.triggerBottleInteraction(bottle);
+        //this.playNoteforBottle(bottle);
     }
 
-    private scaleBottleThenRestore(bottle: AFrame.Entity): void {
+    private triggerBottleInteraction(bottle: AFrame.Entity): Promise<void> {
+        this.playNoteforBottle(bottle);
+        return this.scaleBottleThenRestore(bottle);
+    }
+
+    private scaleBottleThenRestore(bottle: AFrame.Entity): Promise<void> {
         const scaleKey: string = "scale";
         const normalScale: string = "1 1 1";
         const enlargedScale: string = "1.25 1.25 1.25";
 
         bottle.setAttribute(scaleKey, enlargedScale);
 
-        ARGame.createTimewPromise(2000).then(() => {
+        return ARGame.createTimewPromise(2000).then(() => {
             bottle.setAttribute(scaleKey, normalScale);
         });
     }
@@ -214,8 +228,35 @@ class ARGame extends BaseStep {
         (<Tone.Synth>this.synthTone).triggerAttackRelease(note, "2n")
     }
 
+    private playBottleSequence() {
+        const shuffledBottles: AFrame.Entity[] = <AFrame.Entity[]>this.sceneBottlesShuffled
+
+        let lastPromise;
+
+        //shuffledBottles.forEach()
+
+    }
+
+    private shuffledBottleOrder(): AFrame.Entity[] {
+        function shuffleArr(a) {
+            let idx = a.length;
+
+            while(--idx) {
+                const replacementValIdx = Math.floor(Math.random() * (idx + 1));
+                [a[idx], a[replacementValIdx]] = [a[replacementValIdx], a[idx]];
+            }
+        }
+
+        const bottlesToShuffle = (<AFrame.Entity[]>this.sceneBottles).slice();
+
+        shuffleArr(bottlesToShuffle);
+
+        return bottlesToShuffle;
+    }
+
     protected scene?: AFrame.Scene;
     protected sceneBottles?: AFrame.Entity[];
+    protected sceneBottlesShuffled?: AFrame.Entity[];
     protected sceneInstructionsWrapper?: AFrame.Entity;
     protected arController?: ARJSContrller;
     protected synthTone?: Tone.Synth;
