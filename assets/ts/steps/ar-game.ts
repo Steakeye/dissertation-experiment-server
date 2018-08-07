@@ -176,12 +176,15 @@ class ARGame extends BaseStep {
         instrutionsWrapper.setAttribute("rotation", "-90 0 0");
         instrutionsWrapper.setAttribute("position","0 -.5 -1");
 
-        const bg: AFrame.Entity = <AFrame.Entity>instrutionsWrapper.children["instruction-bg"];
+        const instructionChildren: HTMLCollection = instrutionsWrapper.children;
+        const bg: AFrame.Entity = <AFrame.Entity>instructionChildren["instruction-bg"];
 
         bg.setAttribute("opacity", .33);
         bg.setAttribute("width", 5);
         bg.setAttribute("height", 3);
         bg.setAttribute("position","0 -1 0");
+
+        instructionChildren["instruction-text"].setAttribute("value", "Tap bottles to copy the tune!\n(After is has played)");
     }
 
     private readyBottlesForInteraction() {
@@ -242,9 +245,11 @@ class ARGame extends BaseStep {
 
             (<AFrame.Entity>this.sceneInstructionsWrapper).children["instruction-text"].setAttribute("value", ARGame.MSG_SUCCESS);
 
-            const successResolver: PromiseResolver<void> = (<PromiseResolver<void>>this.arGameSuccessResolver);
+            ARGame.createTimewPromise(2000).then(() =>{
+                const successResolver: PromiseResolver<void> = (<PromiseResolver<void>>this.arGameSuccessResolver);
 
-            successResolver && successResolver();
+                successResolver && successResolver();
+            });
         });
     }
 
