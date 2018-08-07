@@ -37,15 +37,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const fourthStep: Promise<void> = thirdStep.then(() => {
         backgroundController.hideBG();
         arGameController.startARGame();
-        //return arGameController.createARGameSuccessBinding();
+        return arGameController.createARGameSuccessBinding();
     });
 
-    const fourthStepPause: Promise<void> = fourthStep.then(() => {
-        return ARGame.createTimewPromise(1000);
-    });
-
-    //const fifthStep: Promise<Element> = fourthStep.then(() => {
-    const fifthStep: Promise<Element> = fourthStepPause.then(() => {
+    const fifthStep: Promise<Element> = fourthStep.then(() => {
         arGameController.endARGame();
         arGameController.hideStep();
         backgroundController.hideBG(false);
