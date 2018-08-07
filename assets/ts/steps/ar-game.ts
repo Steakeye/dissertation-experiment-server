@@ -165,7 +165,7 @@ class ARGame extends BaseStep {
         const bg: AFrame.Entity = <AFrame.Entity>instrutionsWrapper.children["instruction-bg"];
 
         bg.setAttribute("opacity", .33);
-        bg.setAttribute("width", 3);
+        bg.setAttribute("width", 5);
         bg.setAttribute("height", 3);
         bg.setAttribute("position","0 -1 0");
     }
@@ -211,13 +211,13 @@ class ARGame extends BaseStep {
     }
 
     private onBottleClicked(evt: Event) {
-        /*const bottle:AFrame.Entity = <AFrame.Entity>evt.target;
+        //const bottle:AFrame.Entity = <AFrame.Entity>evt.target;
 
         //console.log("bottle clicked! ", bottle);*/
+        //alert("bottle clicked! " + bottle.id);
 
         //TODO: Just change this to play the sequence again! Fake it!
         //this.triggerBottleInteraction(bottle);
-        //this.playNoteforBottle(bottle);
 
         this.iterateOverBottles((bottle: AFrame.Entity) => {
             bottle.removeEventListener('click', this.onBottleClicked)
