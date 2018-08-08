@@ -31,6 +31,7 @@
     "node-sass-middleware": "0.11.0",
     "sizzle": "^2.3.3",
     "tone": "^0.12.80",
+    "typescript": "^2.8.1",
     "window-load": "^1.0.0"
   },
   "devDependencies": {
