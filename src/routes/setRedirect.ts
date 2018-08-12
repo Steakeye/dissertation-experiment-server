@@ -1,16 +1,27 @@
 import express from 'express';
 import * as Express from "express-serve-static-core";
-import {IncomingMessage} from "http";
 
 const router = express.Router();
 
 let redirectVal: number | null = null;
+let userVal: string | null = null;
 
 function handleUpdateVal(req : Express.Request, res : Express.Response, valUnWrapper: (req : Express.Request) => number | null, allowNull: boolean = false) {
     const updateVal = valUnWrapper(req);
 
     if (updateVal || allowNull) {
-        res.send(`Set redirect to ${updateVal}`);
+        const user: string = <string>req.headers.user;
+        let userMsg: string = '';
+
+        if (user) {
+            userVal = user;
+            userMsg = ` - user set to: ${user}`;
+        } else if (allowNull) {
+            userVal = null;
+            userMsg = ` - user has been unset`;
+        }
+
+        res.send(`Set redirect to ${updateVal}${userMsg}`);
         redirectVal = updateVal;
     } else {
         res.send(`Set redirect to not passed valid value. Redirect value currently ${redirectVal}`);
@@ -46,6 +57,10 @@ router.delete('/', function(req, res, next) {
 
 export function getRedirectVal() {
     return redirectVal;
+}
+
+export function getUserVal() {
+    return userVal;
 }
 
 export default router;
