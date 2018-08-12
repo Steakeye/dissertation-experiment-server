@@ -1,5 +1,4 @@
 import express from 'express';
-import * as Express from "express-serve-static-core";
 
 function redirectRouter(redirectValueGetter : () => number | null) {
     const router = express.Router();

@@ -11,11 +11,12 @@ import sassMiddleware from 'node-sass-middleware';
 
 import indexRouter from './routes/index';
 import setRedirectRoute from './routes/setRedirect';
-import {getRedirectVal} from "./routes/setRedirect";
+import {getRedirectVal, getUserVal} from "./routes/setRedirect";
 import redirectRouteBuilder from './routes/redirect';
-import experimentRouter from './routes/exp';
+import experimentRouteBuilder from './routes/exp';
 
 const redirectRoute = redirectRouteBuilder(getRedirectVal);
+const experimentRouter = experimentRouteBuilder(getUserVal);
 
 const app: Express.Express = express();
 
